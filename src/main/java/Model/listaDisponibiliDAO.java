@@ -1,40 +1,98 @@
 package Model;
 
-import Controller.QueryManger;
-
-import java.util.ArrayList;
+import java.sql.*;
 
 public class listaDisponibiliDAO {
-    private ArrayList<vinile> disponibili;
-    private QueryManger qr;
-    private static final String DB_URL="jdbc:mysql://localhost:3306/TSPW?serverTimezone=UTC";
-    private static final String USER="java";
-    private static final String PAS="1234";
+     public listaVinili getAll(){
+         System.out.println(" inizio lista vinili da db");
+         boolean flag=false;
+         listaVinili retun= new listaVinili();
+         try (Connection con = ConPool.getConnection()) {
+             PreparedStatement ps =
+                     con.prepareStatement("SELECT * FROM vinilidisp");
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                 System.out.println(" prova 12 ");
+                 vinile v=new vinile();
+                 v.setPK(rs.getInt(1));
+                 v.setTitolo(rs.getString(2));
+                 v.setPrezzo(rs.getDouble(3));
+                 Integer quantita=rs.getInt(4);
+                 v.setUrl(rs.getString(5));
+                 v.setArtista(rs.getString(6));
+                 v.setTags(tagsDAO.getTagByIdVinil(v.getPK()));
+                 retun.add(v,quantita);
+                 flag=true;
+             }
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+         if(flag==false) {
+             System.out.println("haha 1212");
+             return null;
+         }
+         else{
+             return retun;
+         }
 
-    private void aggiorna(){
-        this.disponibili.removeAll(this.disponibili);
-        String[][] list= qr.makeQueryWhitNameColum("select * from vinilidisp");
-        System.out.println("list.lenght  "+list.length);
-        for(int i=0;i<list.length;i++) {
-            System.out.println("list["+i+"].lenght  "+list[i].length);
-            for (int j = 0; j < list[i].length; j++)
-                System.out.println("priva " + list[i][j] + " i:" + i + ", j:" + j);
-        }
-        for(int i=1;i<list.length;i++){
-            this.disponibili.add(new vinile(Integer.parseInt(list[i][0]),list[i][1],Double.parseDouble(list[i][2]),Integer.parseInt(list[i][3]),list[i][4],list[i][5]));
+     }
+
+     public void changeQuantiti(int quantita,int id_vinile){
+         //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
+         try (Connection con = ConPool.getConnection()) {
+             PreparedStatement ps = con.prepareStatement(
+                     "UPDATE vinilidisp set Quantita  =Quantita - ? where ID=?");
+             ps.setInt(1, quantita);
+             ps.setInt(2, id_vinile);
+             if (ps.executeUpdate() < 1) {
+                 throw new RuntimeException("2 Update error.");
+             }
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+
+     }
+
+    public void insertVinil(vinile v, Integer quantita) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "insert into vinilidisp (Titolo,Prezzo,Quantita,Url,Artista) value (?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, v.getTitolo());
+            ps.setDouble(2, v.getPrezzo());
+            ps.setInt(3,quantita);
+            ps.setString(4,v.getUrl());
+            ps.setString(5,v.getArtista());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            v.setPK(id);
+            if(v.getTags()!=null)
+                for(int i=0;i<v.getTags().size();i++)
+                    tagsDAO.insertTagForVinil(v.getPK(),v.getTags().get(i).getId_tag());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public listaDisponibiliDAO(){
-        disponibili=new ArrayList<>();
-        qr= new QueryManger(DB_URL,USER,PAS);
-        aggiorna();
-    }
+    public void changeById(vinile v,int quantita){
+        //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE vinilidisp set Quantita = ? , Prezzo = ? where ID=?");
+            ps.setInt(1, quantita);
+            ps.setDouble(2,v.getPrezzo());
+            ps.setInt(3, v.getPK());
+            if (ps.executeUpdate() < 1) {
+                throw new RuntimeException("2 Update error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-    public ArrayList<vinile> getDisponibili() {
-        aggiorna();
-        return disponibili
-                ;
     }
 }
 

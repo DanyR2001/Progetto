@@ -3,7 +3,7 @@ package Model;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class ordine {
     private ArrayList<prodotto> list;
@@ -22,9 +22,10 @@ public class ordine {
 
     static boolean isPresent(ArrayList<prodotto> l,prodotto pr){
         boolean flag=false;
-        for(prodotto p: l)
-            if(p.equals(pr))
-                flag=true;
+        if(l!=null)
+            for(prodotto p: l)
+                if(p.equals(pr))
+                    flag=true;
         return flag;
     }
 
@@ -64,40 +65,96 @@ public class ordine {
         this.codice = codice;
     }
 
-    public void join(ordine p){
+    public void join(ordine p,listaVinili service){
         ArrayList<prodotto> op=p.getCarrello();
+        if(codice==null&&p.getCodice()!=null)
+            codice=p.getCodice();
         int i=0,j=0;
-        for(i=0;i<this.list.size();i++)
-            for(j=0;j<op.size();j++)
-                if(this.list.get(i).getArticolo().equals(op.get(j).getArticolo())) {
-                    this.list.get(i).fusion(op.get(j));
+        if(list!=null&&p.getCarrello()!=null) {
+            System.out.println("join");
+            for (i = 0; i < this.list.size(); i++) {
+                System.out.println("join 1");
+                prodotto prodottoLoc = list.get(i);
+                if (op != null)
+                    System.out.println("join 2");
+                if(service.isAvable(list.get(i).getArticolo())) {
+                    System.out.println("join 3");
+                    for (j = 0; j < op.size(); j++) {
+                        System.out.println("join 4");
+                        prodotto prodottoVar = op.get(j);
+                            if (prodottoLoc.getArticolo().equals(prodottoVar.getArticolo())) {
+                                System.out.println("join 5");
+                                System.out.println("loc q " + prodottoLoc.getQuantita() + " var q " + prodottoVar.getQuantita());
+                                if (prodottoLoc.getQuantita() + prodottoVar.getQuantita() > service.getQuantitaVin(prodottoLoc.getArticolo())) {
+                                    System.out.println("join 6");
+                                    prodottoLoc.setQuantita(service.getQuantitaVin(prodottoLoc.getArticolo()));
+                                } else {
+                                    System.out.println("join 7");
+                                    prodottoLoc.fusion(prodottoVar);
+                                }
+                            }
+                        }
+                    }
+                else{
+                    System.out.println("join 8");
+                    list.remove(i);
+                    }
+            }
+            if (p.getCarrello() != null) {
+                System.out.println("join 9");
+                for (prodotto pr : p.getCarrello()) {
+                    System.out.println("join 10");
+                    if (!isPresent(list, pr)) {
+                        System.out.println("join 11");
+                        if(service.isAvable(pr.getArticolo()))
+                            list.add(pr);
+                    }
                 }
-        for(prodotto pr: p.getCarrello())
-            if(!isPresent(list,pr))
-                list.add(pr);
-        refreshCost();
+                refreshCost();
+            }
+        }
+        if(list==null&&p.getCarrello()!=null){
+            System.out.println("join 12");
+            list=p.getCarrello();
+            refreshCost();
+        }
     }
 
-    public void addProdotto(prodotto p){
+    public void addProdotto(prodotto p,listaVinili service){
         boolean flag=false;
-        for(prodotto tmp:list)
-            if(tmp.getArticolo().equals(p.getArticolo())) {
-                tmp.fusion(p);
-                flag=true;
+        if(list != null) {
+            for (prodotto tmp : list){
+                if (tmp.getArticolo().equals(p.getArticolo())) {
+                    if (tmp.getQuantita() + p.getQuantita() > service.getQuantitaVin(tmp.getArticolo()))
+                        tmp.setQuantita(service.getQuantitaVin(tmp.getArticolo()));
+                    else {
+                        tmp.fusion(p);
+                    }
+                    flag = true;
+                }
             }
-        if(!flag) {
+            if (!flag) {
+                list.add(p);
+            }
+            refreshCost();
+        }
+        else{
+            list=new ArrayList<>();
+            if(p.getQuantita()>service.getQuantitaVin(p.getArticolo()))
+                p.setQuantita(service.getQuantitaVin(p.getArticolo()));
             list.add(p);
         }
-        refreshCost();
     }
 
-    public prodotto getItem(prodotto v){
+    public prodotto getItem(vinile v){
         for(prodotto p: list)
-            if(p.getArticolo().equals(v.getArticolo())){
+            if(p.getArticolo().equals(v)){
                 return p;
             }
         return null;
     }
+
+
 
     public ArrayList<prodotto> getCarrello(){
         return list;

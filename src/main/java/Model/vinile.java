@@ -1,22 +1,28 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class vinile {
     private int PK;
     private String Titolo;
     private double prezzo;
-    private int quantita;
+    //private int quantita;
     private String url;
     private String artista;
+    private ArrayList<tag> Tags;
 
-    public vinile(int PK, String titolo, double prezzo, int quantita, String url, String artista) {
+
+
+    public vinile(int PK, String titolo, double prezzo, String url, String artista) {
         this.PK = PK;
         Titolo = titolo;
         this.prezzo = prezzo;
-        this.quantita = quantita;
         this.url = url;
         this.artista = artista;
+    }
+
+    public vinile(){
     }
 
     public int getPK() {
@@ -43,14 +49,6 @@ public class vinile {
         this.prezzo = prezzo;
     }
 
-    public int getQuantita() {
-        return quantita;
-    }
-
-    public void setQuantita(int quantita) {
-        this.quantita = quantita;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -74,7 +72,12 @@ public class vinile {
         return PK == vinile.PK && Titolo.equals(vinile.Titolo) && url.equals(vinile.url) && artista.equals(vinile.artista);
     }
 
-    public void removeNumItem(int quatita) {
-        this.quantita-=quatita;
+    public ArrayList<tag> getTags() {
+        return Tags;
     }
+
+    public void setTags(ArrayList<tag> tags) {
+        Tags = tags;
+    }
+
 }

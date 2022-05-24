@@ -1,14 +1,11 @@
 package Model;
 
-import jakarta.servlet.http.HttpSession;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ordineDAO {
 
-    private static ArrayList<prodotto> listElementCarrello(ordine o,HttpSession snn){
+    /*private static ArrayList<prodotto> listElementCarrello(ordine o,HttpSession snn){
         System.out.println(" inizio lista da db");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -94,7 +91,7 @@ public class ordineDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     public static void deleteAllPorductByOrder(int codice_ordine){
         try (Connection con = ConPool.getConnection()) {
@@ -128,69 +125,8 @@ public class ordineDAO {
         }
     }
 
-    public static ArrayList<vinile> uploadOrdine(utente u, ordine temp,HttpSession snn) {
-        ordine old=doRetrieveByUser(u,snn);
-        if(old.getCarrello()!=null)
-        for(prodotto p:old.getCarrello())
-            System.out.println(" titolo "+p.getArticolo().getTitolo()+" quantita "+p.getQuantita());
-        if(old!=null) {
-            System.out.println("size "+temp.getNumItem());
-            if(old.getCarrello()!=null) {
-                System.out.println("ciao pero ");
-                if (old.getCarrello().size() > 0) {
-                    System.out.println("x cod ordine temp" + temp.getCodice() + " cod ordine old " + old.getCodice());
-                    if(temp.getCodice()==null) {
-                        System.out.println("ciaoooo5678");
-                        deleteAllPorductByOrder(old.getCodice());
-                    }
-                    else if(temp.getCodice()==old.getCodice()) {
-                        System.out.println("ciaoooo1234");
-                        deleteAllPorductByOrder(temp.getCodice());
-                    }
-                    else
-                        System.out.println("other problem");
-
-                }
-            }
-        }
-        try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(
-                    "UPDATE ordine set prezzo = ? where codice=?");
-            ps.setDouble(1, temp.getPrezzo());
-            ps.setInt(2, temp.getCodice());
-            if (ps.executeUpdate() < 1) {
-                throw new RuntimeException("Update error.");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        ArrayList<vinile> ret=new ArrayList<>();
-        for(prodotto p: temp.getCarrello()) {
-            insertProductByOrder(p, temp.getCodice());
-        }
-        if(old!=null&&old.getCarrello()!=null)
-            if(old.getCarrello().size()>0)
-                for(int i=0;i<old.getCarrello().size();i++){
-                    boolean flag= true;
-                    vinile v=old.getCarrello().get(i).getArticolo();
-                    for(int j=0;j<temp.getCarrello().size();j++){
-                        if(v.equals(temp.getCarrello().get(j).getArticolo()))
-                            flag=false;
-                    }
-                    if(flag)
-                        ret.add(v);
-                }
-        if(ret.size()>0)
-            return ret;
-        else
-            return null;
-    }
-
-    public static void uploadOrdineStop(utente u, ordine temp,HttpSession snn) {
-        ordine old=getCarrelloFromDb(u,snn);
-        if(old.getCarrello()!=null)
-            for(prodotto p:old.getCarrello())
-                System.out.println("2 titolo "+p.getArticolo().getTitolo()+" quantita "+p.getQuantita());
+    public static ArrayList<vinile> uploadOrdine(utente u, ordine temp,listaVinili service) {
+        ordine old=getCarrelloFromDb(u,service);
         if(old!=null) {
             System.out.println("2 size "+temp.getNumItem());
             if(old.getCarrello()!=null) {
@@ -222,6 +158,23 @@ public class ordineDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        for(prodotto p: temp.getCarrello()) {
+            insertProductByOrder(p, temp.getCodice());
+        }
+        ArrayList<vinile> ret=new ArrayList<>();
+        int i=0,j=0;
+        if(old.getCarrello()!=null)
+            for(i=0;i<old.getCarrello().size();i++) {
+                boolean flag=true;
+                for (j = 0; j < temp.getCarrello().size(); j++)
+                    if(old.getCarrello().get(i).getArticolo().equals(temp.getCarrello().get(j).getArticolo()))
+                        flag=false;
+                if(flag)
+                    ret.add(old.getCarrello().get(i).getArticolo());
+            }
+        if(ret.size()>0)
+            return ret;
+        return null;
 
     }
 
@@ -246,8 +199,8 @@ public class ordineDAO {
         }
     }
 
-
-    public static ArrayList<prodotto> listaTupleDB(ordine o,HttpSession snn){
+//ok
+    public static ArrayList<prodotto> listaTupleDB(ordine o,listaVinili service){
         System.out.println("2 inizio lista da db");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -255,7 +208,6 @@ public class ordineDAO {
             ps.setInt(1,o.getCodice());
             System.out.println("2 ha2 "+o.getCodice());
             ResultSet rs = ps.executeQuery();
-            listaVinili service= (listaVinili) snn.getAttribute("lista");
             boolean flag=false;
             ArrayList<prodotto> listaDB=new ArrayList<>();
             System.out.println("2 ha3 ");
@@ -278,8 +230,8 @@ public class ordineDAO {
         }
     }
 
-
-    public static ordine getCarrelloFromDb(utente u,HttpSession snn){
+//ok
+    public static ordine getCarrelloFromDb(utente u,listaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso FROM ordine WHERE id_user=? and evaso=false");
@@ -292,8 +244,30 @@ public class ordineDAO {
             tmp.setPrezzo(rs.getDouble(2));
             tmp.setEvaso(rs.getBoolean(3));
             System.out.println("2 code "+tmp.getCodice());
-            tmp.setList(listaTupleDB(tmp,snn));
+            tmp.setList(listaTupleDB(tmp,service));
             return tmp;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void completeOrdine(ordine carrello){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE ordine set evaso = ?, dataev = ? where codice=?");
+            carrello.setEvaso(true);
+            ps.setBoolean(1, carrello.isEvaso());
+            long millis=System.currentTimeMillis();
+            carrello.setDataEvasione(new Date(millis));
+            ps.setDate(2, carrello.getDataEvasione());
+            ps.setInt(3,carrello.getCodice());
+            listaDisponibiliDAO service=new listaDisponibiliDAO();
+            if(carrello.getCarrello()!=null)
+                for(prodotto p: carrello.getCarrello())
+                    service.changeQuantiti(p.getQuantita(),p.getArticolo().getPK());
+            if (ps.executeUpdate() < 1) {
+                throw new RuntimeException("2 Update error.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

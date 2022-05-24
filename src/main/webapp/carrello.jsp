@@ -1,8 +1,5 @@
-<%@ page import="Model.ordine" %>
-<%@ page import="Model.prodotto" %>
-<%@ page import="Model.listaVinili" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.vinile" %><%--
+<%@ page import="Model.*" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 06/05/22
@@ -19,8 +16,14 @@
 <%
     HttpSession snn=request.getSession();
     ordine carrello= (ordine) snn.getAttribute("carrello");
-    listaVinili service=(listaVinili) snn.getAttribute("lista");
+    utente user= (utente) snn.getAttribute("utente");
+    listaVinili service=(listaVinili) snn.getAttribute("libreria");
     ArrayList<vinile> listaRimossi= (ArrayList<vinile>) snn.getAttribute("removedVinil");
+    if(user!=null)
+        if(user.isAdmin_bool()){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
+            dispatcher.forward(request, response);
+        }
    if(listaRimossi!=null){
        out.print("<fieldset>");
        for(vinile v :listaRimossi)
@@ -33,10 +36,18 @@
 %>
     <form action="UpdateCarrello">
         <input type="hidden" name="index" value="<%out.print(i);%>">
-        <%System.out.println("ciao "+p.getQuantita()+" cazzo "+service.numDispVinil(p.getArticolo()));%>
-    <tr><td><%out.print("<h2>"+p.getArticolo().getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita' min='0' max='"+(p.getQuantita()+service.numDispVinil(p.getArticolo()))+"' value='"+p.getQuantita()+"'>");%></td><td><%out.print(p.getPrezzo());%></td><td><input type="submit" value="applica modifiche"></td></tr>
+        <%System.out.println("ciao "+p.getQuantita()+" cazzo ");%>
+    <tr><td><%out.print("<h2>"+p.getArticolo().getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita' min='0' max='"+(service.getQuantitaVin(p.getArticolo()))+"' value='"+p.getQuantita()+"'>");%></td><td><%out.print(p.getPrezzo());%></td><td><input type="submit" value="applica modifiche"></td></tr>
     </form>
     <%}%>
 </table>
+<%
+if(carrello.getCarrello().size()>0){
+    out.print("<form action='CompleteOrder'>");
+    out.print("<input type='submit' value='Completa ordine'>");
+    out.print("</form>");
+    }
+
+%>
 </body>
 </html>

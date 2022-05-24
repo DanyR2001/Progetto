@@ -15,21 +15,20 @@ public class UpdateCarrello extends HttpServlet {
         int index= Integer.parseInt( request.getParameter("index"));
         int quantita= Integer.parseInt( request.getParameter("quantita"));
         HttpSession snn=request.getSession();
-        listaVinili service= (listaVinili) snn.getAttribute("lista");
+        listaVinili service= (listaVinili) snn.getAttribute("libreria");
         ordine carrello= (ordine) snn.getAttribute("carrello");
         vinile v=carrello.getCarrello().get(index).getArticolo();
         int actual=carrello.getCarrello().get(index).getQuantita();
-        int remain=service.numDispVinil(v);
-        int total=remain+actual;
-        int newremain=total-quantita;
-        System.out.println(" item "+v.getTitolo()+" act order "+actual+" remin list "+remain+" total "+total+" quanita form "+quantita+" nuovi riamente"+newremain );
+        int remain=service.getQuantitaVin(v)-actual;
+        int total=service.getQuantitaVin(v);
+        System.out.println(" item "+v.getTitolo()+" act order "+actual+" remin list "+remain+" total "+total+" quanita form "+quantita+" nuovi riamente" );
         carrello.getCarrello().get(index).setQuantita(quantita);
         carrello.refreshCost();
-        service.setDisponibili(v,newremain);
         carrello.check();
+        System.out.println("--(UC codice)--"+carrello.getCodice());
         utente u= (utente) snn.getAttribute("utente");
         if(u!=null){
-            ArrayList<vinile> lista=ordineDAO.uploadOrdine(u,carrello,snn);
+            ArrayList<vinile> lista=ordineDAO.uploadOrdine(u,carrello,service);
             System.out.println(" qunr carrelo "+carrello.getPrezzo());
             snn.setAttribute("removedVinil",lista);
         }

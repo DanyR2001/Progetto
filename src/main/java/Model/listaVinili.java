@@ -7,25 +7,23 @@ public class listaVinili {
     ArrayList<Integer> size;
 
     public listaVinili(){
-        listaDisponibiliDAO service=new listaDisponibiliDAO();
-        list=service.getDisponibili();
-        size=new ArrayList<Integer>();
-        for(vinile v: list)
-            size.add(v.getQuantita());
+        list = new ArrayList<>();
+        size= new ArrayList<>();
     }
 
-    public void aggiorna(vinile v, int quatita){
+    /*public void aggiorna(vinile v, int quatita){
         for(vinile v1: list)
             if(v1.equals(v))
                 if(v1.getQuantita()>=quatita)
                     v1.removeNumItem(quatita);
-    }
+    }*/
 
-    public void setDisponibili(vinile v,int quntita){
+    /*public void setDisponibili(vinile v,int quntita){
         for(vinile v1: list)
             if(v1.equals(v))
                 v1.setQuantita(quntita);
-    }
+    }*/
+
     public vinile findVinilieFromId(int id){
         if(list.size()>0)
             for(vinile v: list)
@@ -40,38 +38,78 @@ public class listaVinili {
         return null;
     }
 
-    public ArrayList<vinile> getAvableVinil(){
-        ArrayList<vinile> disp=null;
+    public listaVinili getAvableVinil(){
+        listaVinili ret=null;
         if(list.size()>0){
-            disp=new ArrayList<>();
-            for(vinile v: list)
-                if(v.getQuantita()>0)
-                    disp.add(v);
+            ret=new listaVinili();
+            for(int i=0;i<list.size();i++)
+                if(size.get(i)>0) {
+                    ret.add(list.get(i),size.get(i));
+                }
         }
-        return disp;
+        return ret;
+    }
+
+    public void add(vinile v,Integer disponibilita){
+        list.add(v);
+        size.add(disponibilita);
     }
 
     public boolean isAvable(vinile v){
         if(list.size()>0)
-            for(vinile a: list)
-                if(v.equals(a))
-                    if(a.getQuantita()>0)
+            for (int i=0;i<list.size();i++) {
+                System.out.println("ciao 2");
+                if (list.get(i).equals(v)) {
+                    System.out.println("ciao 1");
+                    if (size.get(i) > 0) {
+                        System.out.println("ciao");
                         return true;
-                    else
-                        return false;
+                    }
+                }
+            }
         return false;
     }
 
-    public int numDispVinil(vinile v){
+    public Integer getQuantitaVin(vinile v){
+        if(list.size()>0)
+            for (int i=0;i<list.size();i++)
+                if(list.get(i).equals(v))
+                    return size.get(i);
+        return -1;
+    }
+
+    public void setQuantitaVin(vinile v,Integer quantita){
+        if(list.size()>0)
+            for (int i=0;i<list.size();i++)
+                if(list.get(i).equals(v)){
+                    size.remove(i);
+                    size.add(i,quantita);
+                }
+    }
+
+    /*public int numDispVinil(vinile v){
         int size=0;
         if(list.size()>0)
             for(vinile a: list)
                 if(v.equals(a))
                     size=a.getQuantita();
         return size;
+    }*/
+    public vinile get(int index){
+        return list.get(index);
     }
-
+    public int size(){
+        return list.size();
+    }
     public Integer getMaxDisp(int index){
         return size.get(index);
     }
+
+    public Integer getMaxDispId(int id){
+        for(int i=0;i<list.size();i++)
+            if(list.get(i).getPK() == id)
+                return size.get(i);
+        return 0;
+    }
+
 }

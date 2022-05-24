@@ -1,9 +1,6 @@
 package Model;
 
-import Controller.QueryManger;
-
 import java.sql.*;
-import java.util.ArrayList;
 
 public class utentiDAO {
 

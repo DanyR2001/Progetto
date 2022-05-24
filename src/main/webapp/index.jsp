@@ -8,6 +8,11 @@
         HttpSession snn=request.getSession();
         ordine carrello= (ordine) session.getAttribute("carrello");
         utente u = (utente) snn.getAttribute("utente");
+        if(u!=null)
+            if(u.isAdmin_bool()){
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
+                dispatcher.forward(request, response);
+            }
 %>
 <head>
 
@@ -41,7 +46,13 @@
             <a href="#" class="element">Link 3</a>
         </div>
     </li>
-    <li><a href="carrello.jsp" class="spec"><%out.print(carrello.getNumItem());%> elementi nel carrello</a></li>
+    <li><a href="carrello.jsp" class="spec"><%
+        if(carrello.getCarrello()!=null)
+            out.print(carrello.getNumItem());
+        else
+            out.print(0);
+    %> elementi nel carrello</a></li>
+
     <%
         if(u!=null) {
             System.out.println(" utente " + u.getNome());
@@ -55,14 +66,22 @@
 <div >
     <ul class="hs full">
         <%
-            ArrayList<vinile> list= ((listaVinili) snn.getAttribute("lista")).getAvableVinil();
+            listaVinili list1= ((listaVinili) snn.getAttribute("libreria"));
+            listaVinili list=list1.getAvableVinil();
             for(int i=0;i<list.size();i++) {
-                System.out.println("disponibilità "+list.get(i).getQuantita());
-                out.print("<li class=\"item\"><img src=\"" + list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                prodotto temp=carrello.getItem(list.get(i));
+                if(temp!=null) {
+                    if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
+                        out.print("<li class=\"item\"><img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                    }
+                }
+                else{
+                    System.out.println("disponibilità " + list.getMaxDisp(i));
+                        out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                    }
             }
         %>
-        <li class="item">test</li>
-        <li class="item">test</li>
+
     </ul>
 </div>
 <br/>

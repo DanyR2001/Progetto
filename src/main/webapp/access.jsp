@@ -1,4 +1,4 @@
-<%--
+<%@ page import="javax.swing.text.StyledEditorKit" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 06/05/22
@@ -13,6 +13,15 @@
           href="./css/styles.css"
           type="text/css"/>
 </head>
+
+<%
+Boolean flag= (Boolean) session.getAttribute("login");
+if(flag!=null)
+    if(flag==false) {
+        out.print("<h1>Devi aver fatto l'acceso per copletare l'ordine, accedi o registrati.</h1>");
+        session.setAttribute("login",null);
+    }
+%>
 <!--  ciao -->
 <body>
 <form action="LoginServlet" method="post">

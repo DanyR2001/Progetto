@@ -14,17 +14,16 @@ public class AddItem extends HttpServlet {
         int id= Integer.parseInt(request.getParameter("id"));
         int quantita=Integer.parseInt(request.getParameter("quantita"));
         HttpSession snn=request.getSession();
-        listaVinili servise= (listaVinili) snn.getAttribute("lista");
+        listaVinili servise= (listaVinili) snn.getAttribute("libreria");
         ordine carrello= (ordine) snn.getAttribute("carrello");
         vinile act=servise.findVinilieFromId(id);
         prodotto p=new prodotto();
         p.setArticolo(act);
         p.setQuantita(quantita);
-        servise.aggiorna(act,quantita);
-        carrello.addProdotto(p);
+        carrello.addProdotto(p,servise);
         utente u= (utente) snn.getAttribute("utente");
         if(u!=null){
-            ordineDAO.uploadOrdine(u,carrello,snn);
+            ordineDAO.uploadOrdine(u,carrello,servise);
         }
         snn.setAttribute("carrello",carrello);
         snn.setAttribute("refresh",true);
