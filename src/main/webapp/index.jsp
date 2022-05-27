@@ -58,6 +58,7 @@
             System.out.println(" utente " + u.getNome());
             out.print("<li> <a href='Logout'>Logout</a></li>\n");
             out.print("<li> <a>Bentornato " + u.getNome() + " continua con gli acquisti:</a></li>\n");
+            out.print("<li> <a href='AreaPersonale'>Area Personale</a></li>\n");
         }
     %>
 </ul>
@@ -72,12 +73,13 @@
                 prodotto temp=carrello.getItem(list.get(i));
                 if(temp!=null) {
                     if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
-                        out.print("<li class=\"item\"><img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                        out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
                     }
                 }
                 else{
                     System.out.println("disponibilità " + list.getMaxDisp(i));
-                        out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                    out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
+                    //out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
                     }
             }
         %>
