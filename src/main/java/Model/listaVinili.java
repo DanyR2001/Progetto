@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class listaVinili {
     ArrayList<vinile> list;
@@ -87,6 +88,8 @@ public class listaVinili {
                 }
     }
 
+
+
     /*public int numDispVinil(vinile v){
         int size=0;
         if(list.size()>0)
@@ -111,5 +114,39 @@ public class listaVinili {
                 return size.get(i);
         return 0;
     }
+
+    public List<vinile> getTitleContein(String name){
+        List<vinile> ret=new ArrayList<>();
+        for(int i=0;i<list.size()&&name.length()>0;i++){
+            vinile v=list.get(i);
+            if(v.getTitolo().toLowerCase().contains(name.toLowerCase())){
+                if(isAvable(v))
+                    ret.add(v);
+            }
+        }
+        if(ret.size()==0)
+            return null;
+        return ret;
+    }
+
+    public List<vinile> getListFromTag(String[] tags){
+        List<vinile> ret=new ArrayList();
+        for(vinile v: list) {
+            boolean flag=false;
+            for (int i=0;i<tags.length&&flag==false;i++) {
+                if(v.getTags()!=null)
+                    for (tag x : v.getTags())
+                        if (x.getNome().equals(tags[i]))
+                            flag = true;
+            }
+            if(flag&&isAvable(v))
+                ret.add(v);
+        }
+        if(ret.size()>0)
+            return ret;
+        return null;
+    }
+
+
 
 }

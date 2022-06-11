@@ -36,13 +36,17 @@
 <form action="AddItem">
     <table>
         <tr><td><img src="<% out.print(application.getContextPath()+ v.getUrl() );%>"></td><td><% out.print(v.getTitolo());%></td></tr>
-        <tr><td>Quantità:   <input type="number" name="quantita" min="1" value="1" max="<% 
-        if (eq!=null)
-            out.print(service.getMaxDispId(v.getPK())-eq.getQuantita());
-        else{
-            out.print(service.getMaxDispId(v.getPK()));
+        <tr><td>Quantità:<%
+        if (eq!=null){
+            if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0)
+                out.print(" ESAURITO");
+            else
+                out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+(service.getMaxDispId(v.getPK())-eq.getQuantita())+"\">");
         }
-        %>" >
+        else{
+            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
+        }
+        %>
             </td><td>Prezzo: <% out.print(v.getPrezzo());%></td></tr>
         <tr><td>Artista: <% out.print(v.getArtista());%></td><td><input type="submit" value="aggiungi al carrello"></td></tr>
         <%

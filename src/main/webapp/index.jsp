@@ -15,21 +15,41 @@
             }
 %>
 <head>
-
     <title>JSP - Hello World</title>
     <link rel="stylesheet"
           href="./css/style.css"
           type="text/css"/>
+    <script src="./resurce/jquery-3.6.0.js"></script>
     <script>
-
-       /* var root = document.documentElement;
-        const lists = document.querySelectorAll('.hs');
-
-        lists.forEach(el => {
-            const listItems = el.querySelectorAll('li');
-            const n = el.children.length;
-            el.style.setProperty('--total', n);
-        });*/
+        $(document).ready(function(){
+            $("#search-box").keyup(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "SuggestName",
+                    data:'keyword='+$(this).val(),
+                    beforeSend: function(){
+                        $("#search-box").css("background","#FFF no-repeat 165px");
+                    },
+                    success: function(data){
+                        $("#suggesstion-box").show();
+                        $("#suggesstion-box").html(data);
+                        $("#search-box").css("background","#FFF");
+                    }
+                });
+            });
+        });
+        //To select country name
+        function selectSuggest(val) {
+            $("#search-box").val(val);
+            $("#suggesstion-box").hide();
+            var id=document.getElementById(val).getAttribute("value");
+            window.location.href = "./item.jsp?id="+id;
+        }
+        function serch(){
+            var val=document.getElementById("search-box").value;
+            if (event.keyCode == 13)
+                window.location.href = "./Search?String="+val;
+        }
     </script>
 </head>
 <body>
@@ -46,6 +66,7 @@
             <a href="#" class="element">Link 3</a>
         </div>
     </li>
+    <li><a href="Search?String=" class="spec">Ricerca</a></li>
     <li><a href="carrello.jsp" class="spec"><%
         if(carrello.getCarrello()!=null)
             out.print(carrello.getNumItem());
@@ -61,6 +82,12 @@
             out.print("<li> <a href='AreaPersonale'>Area Personale</a></li>\n");
         }
     %>
+    <li>
+        <div class="Search">
+            <input type="text" id="search-box" placeholder="Nome vinile" onkeypress="serch();" />
+            <div id="suggesstion-box"></div>
+        </div>
+    </li>
 </ul>
 <h1><%= "Hello World!" %>
 </h1>
