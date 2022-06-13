@@ -7,7 +7,7 @@ public class utentiDAO {
     public static void doSave(utente u) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO Users (nome, cognome,mail,dat,passwordhash,admin_bool)VALUES (?,?,?,?,?,?)",
+                    "INSERT INTO Users (nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico)VALUES (?,?,?,?,?,?,?,?;?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
@@ -15,6 +15,9 @@ public class utentiDAO {
             ps.setDate(4, u.getDataNascita());
             ps.setString(5, u.getPasswordhash());
             ps.setBoolean(6, u.isAdmin_bool());
+            ps.setString(7,u.getVia());
+            ps.setInt(8,u.getCap());
+            ps.setInt(9,u.getCivico());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
@@ -31,13 +34,13 @@ public class utentiDAO {
     public static utente doRetrieveByUsernamePassword(String mail,String passw){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome,mail,dat,passwordhash,admin_bool FROM Users WHERE mail=? AND passwordhash=SHA1(?)");
+                    con.prepareStatement("SELECT id, nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico FROM Users WHERE mail=? AND passwordhash=SHA1(?)");
             ps.setString(1,mail);
             ps.setString(2,passw);
             ResultSet rs = ps.executeQuery();
             if(!rs.next())
                 return null;
-            return new utente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getString(6),rs.getBoolean(7));
+            return new utente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getString(6),rs.getBoolean(7),rs.getString(8),rs.getInt(9),rs.getInt(10));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

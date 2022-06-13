@@ -12,7 +12,7 @@ public class oldOrderDAO {
     public static oldOrder doRetriveById(utente u, listaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, prezzo, evaso, dataev FROM ordine WHERE id_user=? and evaso=true");
+                    con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico FROM ordine WHERE id_user=? and evaso=true");
             ps.setInt(1,u.getID());
             ResultSet rs = ps.executeQuery();
             oldOrder ret=new oldOrder();
@@ -22,6 +22,9 @@ public class oldOrderDAO {
                 tmp.setPrezzo(rs.getDouble(2));
                 tmp.setEvaso(rs.getBoolean(3));
                 tmp.setDataEvasione(rs.getDate(4));
+                tmp.setVia(rs.getString(5));
+                tmp.setCap(rs.getInt(6));
+                tmp.setCivico(rs.getInt(7));
                 System.out.println("2 code " + tmp.getCodice());
                 tmp.setList(listaTupleDB(tmp, service));
                 ret.getList().add(tmp);

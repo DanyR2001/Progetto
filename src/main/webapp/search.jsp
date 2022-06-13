@@ -13,6 +13,12 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <body>
 <%
@@ -20,7 +26,7 @@
     List<vinile> result= (List<vinile>) session.getAttribute("listaResult");
     List<tag> lista= (List<tag>) session.getAttribute("tags");
 %>
-<table style="border: solid black">
+<table>
     <tr><th>Ricerca</th><th>Tag:</th></tr>
     <tr>
         <td>

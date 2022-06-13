@@ -254,13 +254,16 @@ public class ordineDAO {
     public static void completeOrdine(ordine carrello){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE ordine set evaso = ?, dataev = ? where codice=?");
+                    "UPDATE ordine set evaso = ?, dataev = ? , via=?,cap=?,civico=? where codice=?");
             carrello.setEvaso(true);
             ps.setBoolean(1, carrello.isEvaso());
             long millis=System.currentTimeMillis();
             carrello.setDataEvasione(new Date(millis));
             ps.setDate(2, carrello.getDataEvasione());
-            ps.setInt(3,carrello.getCodice());
+            ps.setString(3,carrello.getVia());
+            ps.setInt(4,carrello.getCap());
+            ps.setInt(5,carrello.getCivico());
+            ps.setInt(6,carrello.getCodice());
             listaDisponibiliDAO service=new listaDisponibiliDAO();
             if(carrello.getCarrello()!=null)
                 for(prodotto p: carrello.getCarrello())

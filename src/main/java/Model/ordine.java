@@ -11,6 +11,9 @@ public class ordine {
     private double prezzo;
     private Date dataEvasione;
     private Integer codice;
+    private String via;
+    private Integer cap;
+    private Integer civico;
 
     public ordine() {
         this.list = new ArrayList<>();
@@ -194,6 +197,30 @@ public class ordine {
         for(prodotto p: list)
             x+=p.toString();
         return x;
+    }
+
+    public String getVia() {
+        return via;
+    }
+
+    public void setVia(String via) {
+        this.via = via;
+    }
+
+    public Integer getCap() {
+        return cap;
+    }
+
+    public void setCap(Integer cap) {
+        this.cap = cap;
+    }
+
+    public Integer getCivico() {
+        return civico;
+    }
+
+    public void setCivico(Integer civico) {
+        this.civico = civico;
     }
 }
 

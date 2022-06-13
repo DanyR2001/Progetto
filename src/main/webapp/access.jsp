@@ -44,11 +44,14 @@ if(flag!=null)
     -->
     <table class="tab">
         <tr><th>Compila i campi:</th><th></th></tr>
-        <tr><td>Nome:</td><td><input type="text" name="nome"></td></tr>
-        <tr><td>Cognome:</td><td><input type="text" name="cognome"></td></tr>
-        <tr><td>Data di nasciata:</td><td><input type="date" name="date"></td></tr>
-        <tr><td>Email:</td><td><input type="email" name="email"></td></tr>
-        <tr><td>Password:</td><td><input type="password" name="pass"></td></tr>
+        <tr><td>Nome:</td><td><input type="text" name="nome" required></td></tr>
+        <tr><td>Cognome:</td><td><input type="text" name="cognome" required></td></tr>
+        <tr><td>Data di nasciata:</td><td><input type="date" name="date" required></td></tr>
+        <tr><td>Email:</td><td><input type="email" name="email" required></td></tr>
+        <tr><td>Password:</td><td><input type="password" name="pass" required></td></tr>
+        <tr><td>Via:</td><td><input type="text" name="via" required></td></tr>
+        <tr><td>Civico:</td><td><input type="number" name="civico" required></td></tr>
+        <tr><td>Cap:</td><td><input type="number" name="cap" required></td></tr>
         <tr><td colspan="2" ><input type="submit"  class="button"></td></tr>
     </table>
 </form>

@@ -25,6 +25,12 @@ public class RegistrazioneServlet extends HttpServlet {
         String email=request.getParameter("email");
         utente.setMail(email);
         utente.setAdmin_bool(false);
+        String via=request.getParameter("via");
+        utente.setVia(via);
+        Integer cap=Integer.parseInt(request.getParameter("cap"));
+        utente.setCap(cap);
+        Integer civico=Integer.parseInt(request.getParameter("civico"));
+        utente.setCap(civico);
         utentiDAO.doSave(utente);
         request.getSession().setAttribute("utente", utente);
         response.sendRedirect(".");

@@ -9,8 +9,8 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "CompleteOrder", value = "/CompleteOrder")
-public class CompleteOrder extends HttpServlet {
+@WebServlet(name = "RedirectOrder", value = "/RedirectOrder")
+public class RedirectOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
@@ -33,18 +33,7 @@ public class CompleteOrder extends HttpServlet {
             else if(carrello.getCarrello().size()>0) {
                 System.out.println("complete 2.2");
                 //allora si conclude l'ordine
-                String via=request.getParameter("via");
-                Integer cap=Integer.parseInt(request.getParameter("cap"));
-                Integer civico=Integer.parseInt(request.getParameter("civico"));
-                carrello.setCivico(civico);
-                carrello.setVia(via);
-                carrello.setCap(cap);
-                ordineDAO.completeOrdine(carrello);
-                //devo scalare la quantita dei presi dai vinili
-                carrello=null;
-                session.removeAttribute("carrello");
-                //session.setAttribute("carrello",carrello);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("InitServlet");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ConfirmOrder.jsp");
                 dispatcher.forward(request, response);
             }
         }

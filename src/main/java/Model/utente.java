@@ -14,10 +14,13 @@ public class utente {
     private String Passwordhash;
     private Date DataNascita;
     private boolean admin_bool;
+    private String Via;
+    private int Cap;
+    private int Civico;
 
     public utente(){};
 
-    public utente(int id, String name,String cognome, String email, Date dataNascita,String passwordhash, boolean admin_bool) {
+    public utente(int id, String name,String cognome, String email, Date dataNascita,String passwordhash, boolean admin_bool,String via,int cap,int civico) {
         ID = id;
         Nome = name;
         Cognome=cognome;
@@ -25,6 +28,9 @@ public class utente {
         DataNascita= dataNascita;
         this.Passwordhash=passwordhash;
         this.admin_bool = admin_bool;
+        Via=via;
+        Cap=cap;
+        Civico=civico;
     }
 
     public int getID() {
@@ -90,5 +96,27 @@ public class utente {
             throw new RuntimeException(e);
         }
     }
+    public String getVia() {
+        return Via;
+    }
 
+    public void setVia(String via) {
+        Via = via;
+    }
+
+    public int getCap() {
+        return Cap;
+    }
+
+    public void setCap(int cap) {
+        Cap = cap;
+    }
+
+    public int getCivico() {
+        return Civico;
+    }
+
+    public void setCivico(int civico) {
+        Civico = civico;
+    }
 }

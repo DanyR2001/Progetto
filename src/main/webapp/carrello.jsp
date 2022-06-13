@@ -10,6 +10,12 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <body>
 <table>
@@ -43,7 +49,7 @@
 </table>
 <%
 if(carrello.getCarrello().size()>0){
-    out.print("<form action='CompleteOrder'>");
+    out.print("<form action='RedirectOrder'>");
     out.print("<input type='submit' value='Completa ordine'>");
     out.print("</form>");
     }

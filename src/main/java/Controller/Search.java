@@ -39,11 +39,13 @@ public class Search extends HttpServlet {
             List resp = null;
             if(radio.equals("Testo")){
                 String testo=request.getParameter("search");
-                if(testo.length()>1)
-                    resp = libreria.getTitleContein(cont);
-                else
-                    resp = libreria.getAvableVinil().getAllVinil();
-                snn.setAttribute("String",testo);
+                if(testo!=null) {
+                    if (testo.length() > 1)
+                        resp = libreria.getTitleContein(testo);
+                    else
+                        resp = libreria.getAvableVinil().getAllVinil();
+                    snn.setAttribute("String", testo);
+                }
             }
             else if(radio.equals("Tag")){
                 String[] selected = request.getParameterValues("cheackbox");
