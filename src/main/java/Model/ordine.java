@@ -1,7 +1,5 @@
 package Model;
 
-import jakarta.servlet.http.HttpSession;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -30,14 +28,6 @@ public class ordine {
             for(prodotto p: l)
                 if(p.equals(pr))
                     flag=true;
-        return flag;
-    }
-
-    public boolean inPresentSameArticle(prodotto pr){
-        boolean flag=false;
-        for(prodotto p: this.list)
-            if(pr.esattamenteLoStesso(p))
-                flag=true;
         return flag;
     }
 
@@ -73,14 +63,13 @@ public class ordine {
         ArrayList<prodotto> op=p.getCarrello();
         if(codice==null&&p.getCodice()!=null)
             codice=p.getCodice();
-        int i=0,j=0;
-        if(list!=null&&p.getCarrello()!=null) {
+        int i,j;
+        if(list!=null&&op!=null) {
             System.out.println("join");
             for (i = 0; i < this.list.size(); i++) {
                 System.out.println("join 1");
                 prodotto prodottoLoc = list.get(i);
-                if (op != null)
-                    System.out.println("join 2");
+                System.out.println("join 2");
                 if(service.isAvable(list.get(i).getArticolo())) {
                     System.out.println("join 3");
                     for (j = 0; j < op.size(); j++) {
