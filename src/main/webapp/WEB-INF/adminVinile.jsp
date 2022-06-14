@@ -13,8 +13,7 @@
 
 </head>
 <body>
-<a href="AddVinile" >Aggiungi un nuovo vinile</a>
-<a href="Logout">log out</a>
+<a href="RedirectTo?src=Vinile" >Aggiungi un nuovo vinile</a>
 <%
 listaVinili lib= (listaVinili) session.getAttribute("libreria");
 if(lib!=null)

@@ -1,9 +1,6 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class tagsDAO {
@@ -67,6 +64,55 @@ public class tagsDAO {
             }
             else if(ret.size()<1)
                 return null;
+            return ret;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void removeTagByID(Integer id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("delete FROM tags where id_tag=?");
+            ps.setInt(1,id);
+            int rs = ps.executeUpdate();
+            if(rs>=1)
+                System.out.println("bene");
+            else
+                System.out.println("no bene");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("delete FROM vinil_tag where id_tag=?");
+            ps.setInt(1,id);
+            int rs = ps.executeUpdate();
+            if(rs>=1)
+                System.out.println("bene");
+            else
+                System.out.println("no bene");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static tag insertTag(String name){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO tags (nome) VALUES (?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            tag ret=new tag();
+            ret.setId_tag(id);
+            ret.setNome(name);
             return ret;
         } catch (SQLException e) {
             throw new RuntimeException(e);

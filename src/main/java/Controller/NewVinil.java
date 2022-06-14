@@ -37,7 +37,7 @@ public class NewVinil extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String uploadPath = getServletContext().getRealPath("")  + UPLOAD_DIRECTORY;
-
+        System.out.println("1");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists())
             uploadDir.mkdir();
@@ -45,6 +45,7 @@ public class NewVinil extends HttpServlet {
         String Titol=Titolo.replace(" ","_");
         try {
             String fileName = "";
+            System.out.println("11");
             for (Part part : request.getParts()) {
                 System.out.println("£" + part);
                 fileName = getFileName(part);
@@ -57,6 +58,7 @@ public class NewVinil extends HttpServlet {
                 System.out.println("£" + fileName);
                 part.write(uploadPath + File.separator + fileName);
             }
+            System.out.println("111");
             request.setAttribute("message", "File " + fileName + " has uploaded successfully!");
             Integer Quantita=Integer.parseInt(request.getParameter("Quantita"));
             Double Prezzo=Double.parseDouble(request.getParameter("Prezzo"));
@@ -71,6 +73,7 @@ public class NewVinil extends HttpServlet {
                         vinil.add(list.get(i));
                     }
                 }
+            System.out.println("1111");
             listaDisponibiliDAO service=new listaDisponibiliDAO();
             vinile v=new vinile();
             v.setUrl(File.separator+UPLOAD_DIRECTORY+File.separator+Titol);
@@ -82,9 +85,13 @@ public class NewVinil extends HttpServlet {
 
         } catch (FileNotFoundException fne) {
             request.setAttribute("message", "There was an error: " + fne.getMessage());
+            System.out.println("errore");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-        dispatcher.forward(request, response);
+        System.out.println("11111");
+        response.sendRedirect("./Admin?src=adminVinile");
+        /*
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
+        dispatcher.forward(request, response);*/
     }
 
 }

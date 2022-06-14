@@ -28,7 +28,7 @@ public class UploadItem extends HttpServlet {
                 lib.setQuantitaVin(v,Quantita);
                 service.changeById(v,Quantita);
                 System.out.println("aiuto");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
                 dispatcher.forward(request, response);
             }
             else{
