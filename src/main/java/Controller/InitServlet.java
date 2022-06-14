@@ -121,6 +121,9 @@ public class InitServlet extends HttpServlet {
                         //Funziona
                     } else {
                         System.out.println("--(7.2)--");
+                        carrello.toPrint();
+                        System.out.println("--DB--");
+                        carrelloDb.toPrint();
                         carrello.join(carrelloDb, libreria);
                         ordineDAO.uploadOrdine(user, carrello, libreria);
                         //funziona

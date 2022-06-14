@@ -2,6 +2,7 @@ package Model;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -109,8 +110,11 @@ public class ordine {
                     System.out.println("join 10");
                     if (!isPresent(list, pr)) {
                         System.out.println("join 11");
-                        if(service.isAvable(pr.getArticolo()))
+                        if(service.isAvable(pr.getArticolo())) {
+                            if (pr.getQuantita() > service.getQuantitaVin(pr.getArticolo()))
+                                pr.setQuantita(service.getQuantitaVin(pr.getArticolo()));
                             list.add(pr);
+                        }
                     }
                 }
                 refreshCost();
@@ -169,7 +173,8 @@ public class ordine {
 
 
     public double getPrezzo() {
-        return prezzo;
+        DecimalFormat dr=new DecimalFormat("0.00");
+        return Double.parseDouble(dr.format(prezzo).replace(",","."));
     }
 
     public void setPrezzo(double prezzo) {
@@ -221,6 +226,14 @@ public class ordine {
 
     public void setCivico(Integer civico) {
         this.civico = civico;
+    }
+
+    public void toPrint(){
+        if(list!=null){
+            for(prodotto p :list) {
+                System.out.println(" " + p.getArticolo().getTitolo() + " " + p.getQuantita());
+            }
+        }
     }
 }
 

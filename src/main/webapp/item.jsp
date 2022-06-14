@@ -44,7 +44,10 @@
                 out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+(service.getMaxDispId(v.getPK())-eq.getQuantita())+"\">");
         }
         else{
-            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
+            if(service.getMaxDispId(v.getPK())!=0)
+                out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
+            else
+                out.print(" ESAURITO");
         }
         %>
             </td><td>Prezzo: <% out.print(v.getPrezzo());%></td></tr>

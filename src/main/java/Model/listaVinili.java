@@ -66,6 +66,8 @@ public class listaVinili {
                         System.out.println("ciao");
                         return true;
                     }
+                    else
+                        return false;
                 }
             }
         return false;

@@ -12,7 +12,11 @@
 <head>
     <title>Title</title>
   <style>
-    table, th, td {
+    table, th, tr {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .riga{
       border: 1px solid black;
       border-collapse: collapse;
     }
@@ -31,7 +35,8 @@
         out.print("<table >");
         out.print("<tr><th>Quantita</th><th>Prezzo</th><th>Titolo</th><tr>");
         for(prodotto p: x.getCarrello())
-          out.print("<tr><td>"+p.getQuantita()+"</td><td>"+p.getPrezzo()+"</td><td>"+p.getArticolo().getTitolo()+"</td>"+"</tr>");
+          out.print("<tr><td class='riga'>"+p.getArticolo().getTitolo()+"</td><td class='riga'>"+p.getQuantita()+"</td><td class='riga'>"+p.getPrezzo()+"</td>"+"</tr>");
+        out.print("<tr><td colspan='2'><h2>Totale:</h2></td><td>"+x.getPrezzo()+"</td></tr>");
         out.print("</table>");
         out.print("</fieldset>");
        }
