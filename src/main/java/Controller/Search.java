@@ -21,7 +21,7 @@ public class Search extends HttpServlet {
         if(cont!=null){
             if(libreria!=null) {
                 List vin;
-                if(cont.length()>1)
+                if(cont.length()>=1)
                     vin = libreria.getTitleContein(cont);
                 else
                     vin = libreria.getAvableVinil().getAllVinil();
@@ -40,7 +40,7 @@ public class Search extends HttpServlet {
             if(radio.equals("Testo")){
                 String testo=request.getParameter("search");
                 if(testo!=null) {
-                    if (testo.length() > 1)
+                    if (testo.length() >= 1)
                         resp = libreria.getTitleContein(testo);
                     else
                         resp = libreria.getAvableVinil().getAllVinil();
