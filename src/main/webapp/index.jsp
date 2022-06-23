@@ -19,7 +19,7 @@
     <link rel="stylesheet"
           href="./css/style.css"
           type="text/css"/>
-    <script src="./resurce/jquery-3.6.0.js"></script>
+    <script src="./lib/jquery-3.6.0.js"></script>
     <script>
         $(document).ready(function(){
             $("#search-box").keyup(function(){

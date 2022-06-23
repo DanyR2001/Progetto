@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.Locale;
 
 public class utente {
     private int ID;
@@ -22,13 +23,13 @@ public class utente {
 
     public utente(int id, String name,String cognome, String email, Date dataNascita,String passwordhash, boolean admin_bool,String via,int cap,int civico) {
         ID = id;
-        Nome = name;
-        Cognome=cognome;
-        Mail = email;
+        Nome = name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
+        Cognome=cognome.substring(0,1).toUpperCase()+cognome.substring(1,cognome.length()).toLowerCase();
+        Mail = email.toLowerCase();
         DataNascita= dataNascita;
         this.Passwordhash=passwordhash;
         this.admin_bool = admin_bool;
-        Via=via;
+        Via=via.substring(0,1).toUpperCase()+via.substring(1,via.length()).toLowerCase();
         Cap=cap;
         Civico=civico;
     }
@@ -45,8 +46,8 @@ public class utente {
         return Nome;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
+    public void setNome(String name) {
+        Nome = name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
     }
 
     public String getCognome() {
@@ -54,7 +55,7 @@ public class utente {
     }
 
     public void setCognome(String cognome) {
-        Cognome = cognome;
+        Cognome = cognome.substring(0,1).toUpperCase()+cognome.substring(1,cognome.length()).toLowerCase();
     }
 
     public String getMail() {
@@ -62,7 +63,7 @@ public class utente {
     }
 
     public void setMail(String mail) {
-        Mail = mail;
+        Mail = mail.toLowerCase();
     }
 
     public String getPasswordhash() {
@@ -101,7 +102,7 @@ public class utente {
     }
 
     public void setVia(String via) {
-        Via = via;
+        Via = via.substring(0,1).toUpperCase()+via.substring(1,via.length()).toLowerCase();
     }
 
     public int getCap() {
