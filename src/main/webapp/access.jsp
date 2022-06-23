@@ -36,6 +36,7 @@ if(flag!=null)
 <form action="RegistrazioneServlet" method="post">
     <H2>Registrazione:</H2>
     <!--
+    prova
     nome varchar(30) not null,
 	cognome varchar(30) not null,
 	mail varchar(30) not null,
