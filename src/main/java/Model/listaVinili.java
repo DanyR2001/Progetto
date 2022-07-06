@@ -136,8 +136,8 @@ public class listaVinili {
         for(vinile v: list) {
             boolean flag=false;
             for (int i=0;i<tags.length&&flag==false;i++) {
+                flag = true;
                 if(v.getTags()!=null) {
-                    flag = true;
                     for (int j = 0; j < v.getTags().size(); j++) {
                         tag x = v.getTags().get(j);
                         if (x.getNome().equals(tags[i]))

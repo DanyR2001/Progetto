@@ -15,12 +15,18 @@
 </head>
 
 <%
-Boolean flag= (Boolean) session.getAttribute("login");
+Boolean flag= (Boolean) session.getAttribute("noLogOrder");
 if(flag!=null)
     if(flag==false) {
         out.print("<h1>Devi aver fatto l'acceso per copletare l'ordine, accedi o registrati.</h1>");
-        session.setAttribute("login",null);
+        session.setAttribute("noLogOrder",null);
     }
+    Boolean flag1= (Boolean) session.getAttribute("noLogArea");
+    if(flag1!=null)
+        if(flag1==false) {
+            out.print("<h1>Devi aver fatto l'acceso per poter accedere all'area personale, accedi o registrati.</h1>");
+            session.setAttribute("noLogArea",null);
+        }
 %>
 <!--  ciao -->
 <body>

@@ -26,6 +26,9 @@ public class AreaPersonale extends HttpServlet {
             }
             else{
                 System.out.println("ciao");
+                snn.setAttribute("noLogArea",false);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
+                dispatcher.forward(request, response);
             }
         }
     }

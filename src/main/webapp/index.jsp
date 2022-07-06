@@ -79,9 +79,9 @@
             System.out.println(" utente " + u.getNome());
             out.print("<li> <a href='Logout'>Logout</a></li>\n");
             out.print("<li> <a>Bentornato " + u.getNome() + " continua con gli acquisti:</a></li>\n");
-            out.print("<li> <a href='AreaPersonale'>Area Personale</a></li>\n");
         }
     %>
+    <li> <a href='AreaPersonale'>Area Personale</a></li>
     <li>
         <div class="Search">
             <input type="text" id="search-box" placeholder="Nome vinile" onkeypress="serch();" />

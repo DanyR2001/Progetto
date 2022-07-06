@@ -18,7 +18,7 @@ public class RedirectOrder extends HttpServlet {
         ordine carrello=(ordine) session.getAttribute("carrello");
         if(user==null){
             System.out.println("complete 1");
-            session.setAttribute("login",false);
+            session.setAttribute("noLogOrder",false);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
             dispatcher.forward(request, response);
         }
