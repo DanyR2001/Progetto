@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.utente;
+import Model.Utente;
 import Model.utentiDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -14,7 +14,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username=request.getParameter("mail");
         String password=request.getParameter("pass");
-        utente x=new utentiDAO().doRetrieveByUsernamePassword(username,password);
+        Utente x=new utentiDAO().doRetrieveByUsernamePassword(username,password);
         if (x==null)
             System.out.println("prco");
         request.getSession().setAttribute("utente", x);

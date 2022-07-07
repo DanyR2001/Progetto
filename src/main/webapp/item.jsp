@@ -15,11 +15,11 @@
     <%
         int Id =Integer.parseInt(request.getParameter("id"));
         HttpSession snn=request.getSession();
-        listaVinili service= (listaVinili) snn.getAttribute("libreria");
-        vinile v=service.findVinilieFromId(Id);
-        ordine carrello= (ordine) snn.getAttribute("carrello");
-        prodotto eq = null;
-        utente u = (utente) snn.getAttribute("utente");
+        ListaVinili service= (ListaVinili) snn.getAttribute("libreria");
+        Vinile v=service.findViniliFromId(Id);
+        Ordine carrello= (Ordine) snn.getAttribute("carrello");
+        Prodotto eq = null;
+        Utente u = (Utente) snn.getAttribute("utente");
         if(u!=null)
             if(u.isAdmin_bool()){
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");

@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.tag;
+import Model.Tag;
 import Model.tagsDAO;
-import Model.utente;
+import Model.Utente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,15 +15,15 @@ public class RemoveTag extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession snn=request.getSession(false);
-        utente u = (utente) snn.getAttribute("utente");
-        ArrayList<tag> tags= (ArrayList<tag>) snn.getAttribute("tags");
+        Utente u = (Utente) snn.getAttribute("utente");
+        ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
         if(snn != null && u != null && tags != null)   {
             if(u.isAdmin_bool()){
                 Integer id=Integer.parseInt(request.getParameter("ID_tag"));
                 if(id!=null){
-                    tag fin=null;
+                    Tag fin=null;
                     tagsDAO.removeTagByID(id);
-                    for(tag t: tags)
+                    for(Tag t: tags)
                         if(t.getId_tag()==id)
                             fin=t;
                     if(fin!=null)

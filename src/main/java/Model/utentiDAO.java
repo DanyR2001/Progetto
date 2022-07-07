@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class utentiDAO {
 
-    public static void doSave(utente u) {
+    public static void doSave(Utente u) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO Users (nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico)VALUES (?,?,?,?,?,?,?,?;?)",
@@ -31,7 +31,7 @@ public class utentiDAO {
             throw new RuntimeException(e);
         }
     }
-    public static utente doRetrieveByUsernamePassword(String mail,String passw){
+    public static Utente doRetrieveByUsernamePassword(String mail, String passw){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT id, nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico FROM Users WHERE mail=? AND passwordhash=SHA1(?)");
@@ -40,7 +40,7 @@ public class utentiDAO {
             ResultSet rs = ps.executeQuery();
             if(!rs.next())
                 return null;
-            return new utente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getString(6),rs.getBoolean(7),rs.getString(8),rs.getInt(9),rs.getInt(10));
+            return new Utente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getString(6),rs.getBoolean(7),rs.getString(8),rs.getInt(9),rs.getInt(10));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

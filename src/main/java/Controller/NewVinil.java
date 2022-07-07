@@ -1,8 +1,8 @@
 package Controller;
 
 import Model.listaDisponibiliDAO;
-import Model.tag;
-import Model.vinile;
+import Model.Tag;
+import Model.Vinile;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -50,12 +50,12 @@ public class NewVinil extends HttpServlet {
         image.write(uploadPath + File.separator + fileName);
         System.out.println("111");
         request.setAttribute("message", "File " + fileName + " has uploaded successfully!");
-        Integer Quantita=Integer.parseInt(request.getParameter("Quantita"));
+        Integer Quantita = Integer.parseInt(request.getParameter("Quantita"));
         Double Prezzo=Double.parseDouble(request.getParameter("Prezzo"));
         String Artista=request.getParameter("Artista");
         HttpSession snn=request.getSession();
-        ArrayList<tag> list= (ArrayList<tag>) snn.getAttribute("Tags");
-        ArrayList<tag> vinil=new ArrayList<>();
+        ArrayList<Tag> list= (ArrayList<Tag>) snn.getAttribute("Tags");
+        ArrayList<Tag> vinil =new ArrayList<>();
         if(list!=null)
             for(int i=0;i<list.size();i++){
                 if(request.getParameter(list.get(i).getNome())!=null){
@@ -65,7 +65,7 @@ public class NewVinil extends HttpServlet {
             }
         System.out.println("1111");
         listaDisponibiliDAO service=new listaDisponibiliDAO();
-        vinile v=new vinile();
+        Vinile v=new Vinile();
         v.setUrl(File.separator+UPLOAD_DIRECTORY+File.separator+Titol);
         v.setPrezzo(Prezzo);
         v.setTitolo(Titolo);
@@ -75,8 +75,9 @@ public class NewVinil extends HttpServlet {
         System.out.println("11111");
         response.sendRedirect("./Admin?src=adminVinile");
         /*
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
-        dispatcher.forward(request, response);*/
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
+            dispatcher.forward(request, response);
+        */
     }
 
 }

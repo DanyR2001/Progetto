@@ -2,8 +2,8 @@ package Controller;
 
 import Model.oldOrder;
 import Model.oldOrderDAO;
-import Model.listaVinili;
-import Model.utente;
+import Model.ListaVinili;
+import Model.Utente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -16,8 +16,8 @@ public class AreaPersonale extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession snn=request.getSession();
         if(!snn.isNew()){
-            utente u= (utente) snn.getAttribute("utente");
-            listaVinili lib= (listaVinili) snn.getAttribute("libreria");
+            Utente u= (Utente) snn.getAttribute("utente");
+            ListaVinili lib= (ListaVinili) snn.getAttribute("libreria");
             if(u!=null&&lib!=null){
                 oldOrder old= oldOrderDAO.doRetriveById(u,lib);
                 snn.setAttribute("OldOrdini",old);

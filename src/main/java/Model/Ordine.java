@@ -4,8 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
-public class ordine {
-    private ArrayList<prodotto> list;
+public class Ordine {
+    private ArrayList<Prodotto> list;
     private boolean evaso;
     private double prezzo;
     private Date dataEvasione;
@@ -14,7 +14,7 @@ public class ordine {
     private Integer cap;
     private Integer civico;
 
-    public ordine() {
+    public Ordine() {
         this.list = new ArrayList<>();
         prezzo=0;
         this.evaso = false;
@@ -22,16 +22,16 @@ public class ordine {
         this.codice=null;
     }
 
-    static boolean isPresent(ArrayList<prodotto> l,prodotto pr){
+    static boolean isPresent(ArrayList<Prodotto> l, Prodotto pr){
         boolean flag=false;
         if(l!=null)
-            for(prodotto p: l)
+            for(Prodotto p: l)
                 if(p.equals(pr))
                     flag=true;
         return flag;
     }
 
-    public void setList(ArrayList<prodotto> list) {
+    public void setList(ArrayList<Prodotto> list) {
         this.list = list;
     }
 
@@ -59,8 +59,8 @@ public class ordine {
         this.codice = codice;
     }
 
-    public void join(ordine p,listaVinili service){
-        ArrayList<prodotto> op=p.getCarrello();
+    public void join(Ordine p, ListaVinili service){
+        ArrayList<Prodotto> op=p.getCarrello();
         if(codice==null&&p.getCodice()!=null)
             codice=p.getCodice();
         int i,j;
@@ -68,13 +68,13 @@ public class ordine {
             System.out.println("join");
             for (i = 0; i < this.list.size(); i++) {
                 System.out.println("join 1");
-                prodotto prodottoLoc = list.get(i);
+                Prodotto prodottoLoc = list.get(i);
                 System.out.println("join 2");
                 if(service.isAvable(list.get(i).getArticolo())) {
                     System.out.println("join 3");
                     for (j = 0; j < op.size(); j++) {
                         System.out.println("join 4");
-                        prodotto prodottoVar = op.get(j);
+                        Prodotto prodottoVar = op.get(j);
                             if (prodottoLoc.getArticolo().equals(prodottoVar.getArticolo())) {
                                 System.out.println("join 5");
                                 System.out.println("loc q " + prodottoLoc.getQuantita() + " var q " + prodottoVar.getQuantita());
@@ -95,7 +95,7 @@ public class ordine {
             }
             if (p.getCarrello() != null) {
                 System.out.println("join 9");
-                for (prodotto pr : p.getCarrello()) {
+                for (Prodotto pr : p.getCarrello()) {
                     System.out.println("join 10");
                     if (!isPresent(list, pr)) {
                         System.out.println("join 11");
@@ -116,10 +116,10 @@ public class ordine {
         }
     }
 
-    public void addProdotto(prodotto p,listaVinili service){
+    public void addProdotto(Prodotto p, ListaVinili service){
         boolean flag=false;
         if(list != null) {
-            for (prodotto tmp : list){
+            for (Prodotto tmp : list){
                 if (tmp.getArticolo().equals(p.getArticolo())) {
                     if (tmp.getQuantita() + p.getQuantita() > service.getQuantitaVin(tmp.getArticolo()))
                         tmp.setQuantita(service.getQuantitaVin(tmp.getArticolo()));
@@ -142,8 +142,8 @@ public class ordine {
         }
     }
 
-    public prodotto getItem(vinile v){
-        for(prodotto p: list)
+    public Prodotto getItem(Vinile v){
+        for(Prodotto p: list)
             if(p.getArticolo().equals(v)){
                 return p;
             }
@@ -152,7 +152,7 @@ public class ordine {
 
 
 
-    public ArrayList<prodotto> getCarrello(){
+    public ArrayList<Prodotto> getCarrello(){
         return list;
     }
 
@@ -172,14 +172,14 @@ public class ordine {
 
     public void refreshCost(){
         double prezzo=0;
-        for(prodotto p: list)
+        for(Prodotto p: list)
             prezzo+=p.getPrezzo();
         this.prezzo=prezzo;
     }
 
     public void check(){
         for(int i=0;i<list.size();i++) {
-            prodotto p = list.get(i);
+            Prodotto p = list.get(i);
             if (p.getQuantita() <= 0)
                 list.remove(i);
         }
@@ -188,7 +188,7 @@ public class ordine {
     public String toString(){
         String x="";
         x+=" evaso:"+evaso+" prezzo:"+prezzo+" data:"+dataEvasione+" codice:"+codice+" ";
-        for(prodotto p: list)
+        for(Prodotto p: list)
             x+=p.toString();
         return x;
     }
@@ -219,7 +219,7 @@ public class ordine {
 
     public void toPrint(){
         if(list!=null){
-            for(prodotto p :list) {
+            for(Prodotto p :list) {
                 System.out.println(" " + p.getArticolo().getTitolo() + " " + p.getQuantita());
             }
         }

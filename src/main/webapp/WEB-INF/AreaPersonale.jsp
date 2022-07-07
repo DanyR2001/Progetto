@@ -1,6 +1,6 @@
 <%@ page import="Model.oldOrder" %>
-<%@ page import="Model.ordine" %>
-<%@ page import="Model.prodotto" %><%--
+<%@ page import="Model.Ordine" %>
+<%@ page import="Model.Prodotto" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 27/05/22
@@ -26,7 +26,7 @@
   <%
     oldOrder list= (oldOrder) session.getAttribute("OldOrdini");
     if(list!=null){
-      for(ordine x :list.getList()){
+      for(Ordine x :list.getList()){
         out.print("<fieldset>");
         out.print("<h3>Codice ordine:"+x.getCodice()+" <br>Prezzo:"+x.getPrezzo()+" <br>Data evasione:"+x.getDataEvasione()+" <br>Num Elementi Carrello"+x.getNumItem()+"<br> Indirizzo di spedizione:"+x.getVia()+" "+x.getCivico()+" "+x.getCap()+"</h3>");
         out.print("<caption>\n" +
@@ -34,7 +34,7 @@
                 "</caption>");
         out.print("<table >");
         out.print("<tr><th>Quantita</th><th>Prezzo</th><th>Titolo</th><tr>");
-        for(prodotto p: x.getCarrello())
+        for(Prodotto p: x.getCarrello())
           out.print("<tr><td class='riga'>"+p.getArticolo().getTitolo()+"</td><td class='riga'>"+p.getQuantita()+"</td><td class='riga'>"+p.getPrezzo()+"</td>"+"</tr>");
         out.print("<tr><td colspan='2'><h2>Totale:</h2></td><td>"+x.getPrezzo()+"</td></tr>");
         out.print("</table>");

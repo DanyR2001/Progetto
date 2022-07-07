@@ -9,7 +9,7 @@ import static Model.ordineDAO.listaTupleDB;
 
 public class oldOrderDAO {
 
-    public static oldOrder doRetriveById(utente u, listaVinili service){
+    public static oldOrder doRetriveById(Utente u, ListaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico FROM ordine WHERE id_user=? and evaso=true order by dataev desc");
@@ -17,7 +17,7 @@ public class oldOrderDAO {
             ResultSet rs = ps.executeQuery();
             oldOrder ret=new oldOrder();
             while(rs.next()) {
-                ordine tmp = new ordine();
+                Ordine tmp = new Ordine();
                 tmp.setCodice(rs.getInt(1));
                 tmp.setPrezzo(rs.getDouble(2));
                 tmp.setEvaso(rs.getBoolean(3));

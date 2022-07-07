@@ -1,8 +1,8 @@
-<%@ page import="Model.tag" %>
+<%@ page import="Model.Tag" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Model.listaVinili" %>
+<%@ page import="Model.ListaVinili" %>
 <%@ page import="Model.tagsDAO" %>
-<%@ page import="Model.vinile" %><%--
+<%@ page import="Model.Vinile" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 31/05/22
@@ -23,8 +23,8 @@
 <body>
 <%
     String val= (String) session.getAttribute("String");
-    List<vinile> result= (List<vinile>) session.getAttribute("listaResult");
-    List<tag> lista= (List<tag>) session.getAttribute("tags");
+    List<Vinile> result= (List<Vinile>) session.getAttribute("listaResult");
+    List<Tag> lista= (List<Tag>) session.getAttribute("tags");
 %>
 <table>
     <tr><th>Ricerca</th><th>Tag:</th></tr>
@@ -35,7 +35,7 @@
         <td>
         <%
             if(lista!=null)
-                for(tag x: lista)
+                for(Tag x: lista)
                     out.print("<input type='checkbox' form='form1' name='cheackbox' value=\""+x.getNome()+"\" id='"+x.getId_tag()+"'><lable for='"+x.getId_tag()+"'>"+x.getNome()+"</lable>");
         %>
     </td></tr>

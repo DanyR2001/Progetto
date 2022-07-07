@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.listaVinili;
-import Model.tag;
+import Model.ListaVinili;
+import Model.Tag;
 import Model.tagsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "Search", value = "/Search")
 public class Search extends HttpServlet {
@@ -17,17 +16,17 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cont=request.getParameter("String");
         HttpSession snn= request.getSession();
-        listaVinili libreria= (listaVinili) snn.getAttribute("libreria");
+        ListaVinili libreria= (ListaVinili) snn.getAttribute("libreria");
         if(cont!=null){
             if(libreria!=null) {
                 List vin;
                 if(cont.length()>=1)
-                    vin = libreria.getTitleContein(cont);
+                    vin = libreria.getTitleContain(cont);
                 else
-                    vin = libreria.getAvableVinil().getAllVinil();
+                    vin = libreria.getAvailableVinili().getAllVinili();
                 snn.setAttribute("listaResult",vin);
                 snn.setAttribute("String",cont);
-                List<tag> lista= tagsDAO.getAll();
+                List<Tag> lista= tagsDAO.getAll();
                 snn.setAttribute("tags",lista);
                 String val=request.getParameter("String");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
@@ -41,9 +40,9 @@ public class Search extends HttpServlet {
                 String testo=request.getParameter("search");
                 if(testo!=null) {
                     if (testo.length() >= 1)
-                        resp = libreria.getTitleContein(testo);
+                        resp = libreria.getTitleContain(testo);
                     else
-                        resp = libreria.getAvableVinil().getAllVinil();
+                        resp = libreria.getAvailableVinili().getAllVinili();
                     snn.setAttribute("String", testo);
                 }
             }

@@ -1,20 +1,19 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class vinile {
+public class Vinile {
     private int PK;
     private String Titolo;
     private double prezzo;
     //private int quantita;
     private String url;
     private String artista;
-    private ArrayList<tag> Tags;
+    private ArrayList<Tag> Tags;
 
 
 
-    public vinile(int PK, String titolo, double prezzo, String url, String artista) {
+    public Vinile(int PK, String titolo, double prezzo, String url, String artista) {
         this.PK = PK;
         Titolo = titolo;
         this.prezzo = prezzo;
@@ -22,7 +21,7 @@ public class vinile {
         this.artista = artista;
     }
 
-    public vinile(){
+    public Vinile(){
     }
 
     public int getPK() {
@@ -65,18 +64,18 @@ public class vinile {
         this.artista = artista;
     }
 
-    public boolean equals(vinile o) {
+    public boolean equals(Vinile o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        vinile vinile = (vinile) o;
+        Vinile vinile = (Vinile) o;
         return PK == vinile.PK && Titolo.equals(vinile.Titolo) && url.equals(vinile.url) && artista.equals(vinile.artista);
     }
 
-    public ArrayList<tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return Tags;
     }
 
-    public void setTags(ArrayList<tag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         Tags = tags;
     }
 

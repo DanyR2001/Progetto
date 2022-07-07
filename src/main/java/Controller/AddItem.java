@@ -14,14 +14,14 @@ public class AddItem extends HttpServlet {
         int id= Integer.parseInt(request.getParameter("id"));
         int quantita=Integer.parseInt(request.getParameter("quantita"));
         HttpSession snn=request.getSession();
-        listaVinili servise= (listaVinili) snn.getAttribute("libreria");
-        ordine carrello= (ordine) snn.getAttribute("carrello");
-        vinile act=servise.findVinilieFromId(id);
-        prodotto p=new prodotto();
+        ListaVinili servise= (ListaVinili) snn.getAttribute("libreria");
+        Ordine carrello= (Ordine) snn.getAttribute("carrello");
+        Vinile act=servise.findViniliFromId(id);
+        Prodotto p=new Prodotto();
         p.setArticolo(act);
         p.setQuantita(quantita);
         carrello.addProdotto(p,servise);
-        utente u= (utente) snn.getAttribute("utente");
+        Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
             ordineDAO.uploadOrdine(u,carrello,servise);
         }

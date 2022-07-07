@@ -3,11 +3,11 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listaVinili {
-    ArrayList<vinile> list;
+public class ListaVinili {
+    ArrayList<Vinile> list;
     ArrayList<Integer> size;
 
-    public listaVinili(){
+    public ListaVinili(){
         list = new ArrayList<>();
         size= new ArrayList<>();
     }
@@ -25,24 +25,24 @@ public class listaVinili {
                 v1.setQuantita(quntita);
     }*/
 
-    public vinile findVinilieFromId(int id){
+    public Vinile findViniliFromId(int id){
         if(list.size()>0)
-            for(vinile v: list)
+            for(Vinile v: list)
                 if(v.getPK()==id)
                     return v;
         return null;
     }
 
-    public ArrayList<vinile> getAllVinil(){
+    public ArrayList<Vinile> getAllVinili(){
         if(list.size()>0)
             return list;
         return null;
     }
 
-    public listaVinili getAvableVinil(){
-        listaVinili ret=null;
+    public ListaVinili getAvailableVinili(){
+        ListaVinili ret=null;
         if(list.size()>0){
-            ret=new listaVinili();
+            ret=new ListaVinili();
             for(int i=0;i<list.size();i++)
                 if(size.get(i)>0) {
                     ret.add(list.get(i),size.get(i));
@@ -51,12 +51,12 @@ public class listaVinili {
         return ret;
     }
 
-    public listaVinili getFromTag(tag Tag){
-        listaVinili ret=null;
+    public ListaVinili getFromTag(Tag Tag){
+        ListaVinili ret=null;
         if(Tag!=null) {
-            ret = new listaVinili();
+            ret = new ListaVinili();
             for (int i = 0; i < list.size(); i++) {
-                vinile v = list.get(i);
+                Vinile v = list.get(i);
                 if (v.getTags() != null) {
                     for (int j = 0; j < v.getTags().size(); j++)
                         if (v.getTags().get(j).equals(Tag))
@@ -68,12 +68,12 @@ public class listaVinili {
         return null;
     }
 
-    public void add(vinile v,Integer disponibilita){
+    public void add(Vinile v, Integer disponibilita){
         list.add(v);
         size.add(disponibilita);
     }
 
-    public boolean isAvable(vinile v){
+    public boolean isAvable(Vinile v){
         if(list.size()>0)
             for (int i=0;i<list.size();i++) {
                 System.out.println("ciao 2");
@@ -90,7 +90,7 @@ public class listaVinili {
         return false;
     }
 
-    public Integer getQuantitaVin(vinile v){
+    public Integer getQuantitaVin(Vinile v){
         if(list.size()>0)
             for (int i=0;i<list.size();i++)
                 if(list.get(i).equals(v))
@@ -98,7 +98,7 @@ public class listaVinili {
         return -1;
     }
 
-    public void setQuantitaVin(vinile v,Integer quantita){
+    public void setQuantitaVin(Vinile v, Integer quantita){
         if(list.size()>0)
             for (int i=0;i<list.size();i++)
                 if(list.get(i).equals(v)){
@@ -117,7 +117,7 @@ public class listaVinili {
                     size=a.getQuantita();
         return size;
     }*/
-    public vinile get(int index){
+    public Vinile get(int index){
         return list.get(index);
     }
     public int size(){
@@ -134,10 +134,10 @@ public class listaVinili {
         return 0;
     }
 
-    public List<vinile> getTitleContein(String name){
-        List<vinile> ret=new ArrayList<>();
+    public List<Vinile> getTitleContain(String name){
+        List<Vinile> ret=new ArrayList<>();
         for(int i=0;i<list.size()&&name.length()>0;i++){
-            vinile v=list.get(i);
+            Vinile v=list.get(i);
             if(v.getTitolo().toLowerCase().contains(name.toLowerCase())){
                 if(isAvable(v))
                     ret.add(v);
@@ -148,15 +148,15 @@ public class listaVinili {
         return ret;
     }
 
-    public List<vinile> getListFromTag(String[] tags){
-        List<vinile> ret=new ArrayList();
-        for(vinile v: list) {
+    public List<Vinile> getListFromTag(String[] tags){
+        List<Vinile> ret=new ArrayList();
+        for(Vinile v: list) {
             boolean flag=false;
             for (int i=0;i<tags.length&&flag==false;i++) {
                 flag = true;
                 if(v.getTags()!=null) {
                     for (int j = 0; j < v.getTags().size(); j++) {
-                        tag x = v.getTags().get(j);
+                        Tag x = v.getTags().get(j);
                         if (x.getNome().equals(tags[i]))
                             flag = false;
                     }

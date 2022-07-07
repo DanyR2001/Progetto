@@ -3,17 +3,17 @@ package Model;
 import java.util.ArrayList;
 
 public class oldOrder {
-    ArrayList<ordine> list;
+    ArrayList<Ordine> list;
 
     public oldOrder(){
         list=new ArrayList<>();
     };
 
-    public ArrayList<ordine> getList() {
+    public ArrayList<Ordine> getList() {
         return list;
     }
 
-    public void setList(ArrayList<ordine> list) {
+    public void setList(ArrayList<Ordine> list) {
         this.list = list;
     }
 }

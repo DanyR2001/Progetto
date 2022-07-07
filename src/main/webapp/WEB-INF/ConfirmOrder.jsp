@@ -1,6 +1,6 @@
-<%@ page import="Model.ordine" %>
-<%@ page import="Model.prodotto" %>
-<%@ page import="Model.utente" %><%--
+<%@ page import="Model.Ordine" %>
+<%@ page import="Model.Prodotto" %>
+<%@ page import="Model.Utente" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 13/06/22
@@ -15,12 +15,12 @@
 <body>
 <table style="border: 1px black">
     <%
-    ordine carrello= (ordine) session.getAttribute("carrello");
-    utente u= (utente) session.getAttribute("utente");
+    Ordine carrello= (Ordine) session.getAttribute("carrello");
+    Utente u= (Utente) session.getAttribute("utente");
     if(carrello!=null&&u!=null){
         if(carrello.getCarrello()!=null)
             if(carrello.getCarrello().size()>0){
-                for(prodotto p :carrello.getCarrello()){
+                for(Prodotto p :carrello.getCarrello()){
                 %>
                 <tr><td><%=p.getArticolo().getTitolo()%></td><td><%=p.getQuantita()%></td><td><%=p.getPrezzo()%></td></tr>
            <% }

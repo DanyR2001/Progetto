@@ -21,7 +21,7 @@ public class ordineDAO {
         }
     }
 
-    public static void insertProductByOrder(prodotto p, int codice_ordine){
+    public static void insertProductByOrder(Prodotto p, int codice_ordine){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO comporre (id_vinile,code_ordine,quantita,prezzo )VALUES (?,?,?,?)");
@@ -37,8 +37,8 @@ public class ordineDAO {
         }
     }
 
-    public static ArrayList<vinile> uploadOrdine(utente u, ordine temp,listaVinili service) {
-        ordine old=getCarrelloFromDb(u,service);
+    public static ArrayList<Vinile> uploadOrdine(Utente u, Ordine temp, ListaVinili service) {
+        Ordine old=getCarrelloFromDb(u,service);
         if(old!=null) {
             System.out.println("2 size "+temp.getNumItem());
             if(old.getCarrello()!=null) {
@@ -70,10 +70,10 @@ public class ordineDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for(prodotto p: temp.getCarrello()) {
+        for(Prodotto p: temp.getCarrello()) {
             insertProductByOrder(p, temp.getCodice());
         }
-        ArrayList<vinile> ret=new ArrayList<>();
+        ArrayList<Vinile> ret=new ArrayList<>();
         int i=0,j=0;
         if(old.getCarrello()!=null)
             for(i=0;i<old.getCarrello().size();i++) {
@@ -90,7 +90,7 @@ public class ordineDAO {
 
     }
 
-    public static void insertOrdine(utente u, ordine temp) {
+    public static void insertOrdine(Utente u, Ordine temp) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "Insert ordine (prezzo,id_user) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -106,13 +106,13 @@ public class ordineDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for(prodotto p: temp.getCarrello()) {
+        for(Prodotto p: temp.getCarrello()) {
             insertProductByOrder(p, temp.getCodice());
         }
     }
 
 //ok
-    public static ArrayList<prodotto> listaTupleDB(ordine o,listaVinili service){
+    public static ArrayList<Prodotto> listaTupleDB(Ordine o, ListaVinili service){
         System.out.println("2 inizio lista da db");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -121,13 +121,13 @@ public class ordineDAO {
             System.out.println("2 ha2 "+o.getCodice());
             ResultSet rs = ps.executeQuery();
             boolean flag=false;
-            ArrayList<prodotto> listaDB=new ArrayList<>();
+            ArrayList<Prodotto> listaDB=new ArrayList<>();
             System.out.println("2 ha3 ");
             while(rs.next()){
                 flag=true;
                 System.out.println("2 ha1ha ");
-                prodotto pr=new prodotto();
-                pr.setArticolo(service.findVinilieFromId(rs.getInt(1)));
+                Prodotto pr=new Prodotto();
+                pr.setArticolo(service.findViniliFromId(rs.getInt(1)));
                 pr.setPrezzo(rs.getDouble(3));
                 pr.setQuantita(rs.getInt(2));
                 listaDB.add(pr);
@@ -143,7 +143,7 @@ public class ordineDAO {
     }
 
 //ok
-    public static ordine getCarrelloFromDb(utente u,listaVinili service){
+    public static Ordine getCarrelloFromDb(Utente u, ListaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso FROM ordine WHERE id_user=? and evaso=false");
@@ -151,7 +151,7 @@ public class ordineDAO {
             ResultSet rs = ps.executeQuery();
             if(!rs.next())
                 return null;
-            ordine tmp = new ordine();
+            Ordine tmp = new Ordine();
             tmp.setCodice(rs.getInt(1));
             tmp.setPrezzo(rs.getDouble(2));
             tmp.setEvaso(rs.getBoolean(3));
@@ -163,7 +163,7 @@ public class ordineDAO {
         }
     }
 
-    public static void completeOrdine(ordine carrello){
+    public static void completeOrdine(Ordine carrello){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "UPDATE ordine set evaso = ?, dataev = ? , via=?,cap=?,civico=? where codice=?");
@@ -178,7 +178,7 @@ public class ordineDAO {
             ps.setInt(6,carrello.getCodice());
             listaDisponibiliDAO service=new listaDisponibiliDAO();
             if(carrello.getCarrello()!=null)
-                for(prodotto p: carrello.getCarrello())
+                for(Prodotto p: carrello.getCarrello())
                     service.changeQuantiti(p.getQuantita(),p.getArticolo().getPK());
             if (ps.executeUpdate() < 1) {
                 throw new RuntimeException("2 Update error.");

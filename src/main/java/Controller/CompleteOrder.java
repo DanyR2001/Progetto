@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.ordine;
+import Model.Ordine;
 import Model.ordineDAO;
-import Model.utente;
+import Model.Utente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -14,8 +14,8 @@ public class CompleteOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
-        utente user= (utente) session.getAttribute("utente");
-        ordine carrello=(ordine) session.getAttribute("carrello");
+        Utente user= (Utente) session.getAttribute("utente");
+        Ordine carrello=(Ordine) session.getAttribute("carrello");
         if(user==null){
             System.out.println("complete 1");
             session.setAttribute("login",false);

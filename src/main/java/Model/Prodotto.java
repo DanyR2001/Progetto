@@ -1,20 +1,20 @@
 package Model;
 
-public class prodotto {
-    private vinile articolo;
+public class Prodotto {
+    private Vinile articolo;
     private int quantita;
     private double prezzo;
 
-    public prodotto(){}
+    public Prodotto(){}
 
-    public prodotto(vinile v){
+    public Prodotto(Vinile v){
         articolo=v;
     }
-    public vinile getArticolo() {
+    public Vinile getArticolo() {
         return articolo;
     }
 
-    public void setArticolo(vinile atricolo) {
+    public void setArticolo(Vinile atricolo) {
         this.articolo = atricolo;
     }
 
@@ -40,19 +40,19 @@ public class prodotto {
         this.prezzo = prezzo;
     }
 
-    public boolean equals(prodotto p){
+    public boolean equals(Prodotto p){
         if(this.articolo.equals(p.getArticolo()))
             return true;
         return false;
     }
 
-    public boolean esattamenteLoStesso(prodotto p){
+    public boolean esattamenteLoStesso(Prodotto p){
         if(this.articolo.equals(p.getArticolo())&&quantita==p.getQuantita()&&prezzo==p.getPrezzo())
             return true;
         return false;
     }
 
-    public void fusion(prodotto p){
+    public void fusion(Prodotto p){
         if(p.getArticolo().getTitolo().equals(this.articolo.getTitolo())) {
             this.quantita+=p.getQuantita();
             this.prezzo=cal_cost();

@@ -13,15 +13,15 @@ public class Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession snn=request.getSession();
-        utente u= (utente) snn.getAttribute("utente");
+        Utente u= (Utente) snn.getAttribute("utente");
         System.out.println("1");
         if(u!=null){
             if(u.isAdmin_bool()){
                 System.out.println("11");
                 listaDisponibiliDAO service=new listaDisponibiliDAO();
-                listaVinili libreria= service.getAll();
+                ListaVinili libreria= service.getAll();
                 snn.setAttribute("libreria",libreria);
-                ArrayList<tag> lista= tagsDAO.getAll();
+                ArrayList<Tag> lista= tagsDAO.getAll();
                 snn.setAttribute("tags",lista);
                 RequestDispatcher dispatcher = null;
                 String src=request.getParameter("src");

@@ -14,34 +14,35 @@ import java.util.ArrayList;
 public class InitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        listaVinili libreria;
-        ordine carrello;
-        utente user;
-        ArrayList<tag> Tags=tagsDAO.getAll();
+        ListaVinili libreria;
+        Ordine carrello;
+        Utente user;
+        ArrayList<Tag> Tags=tagsDAO.getAll();
         HttpSession session=request.getSession();
         session.setAttribute("tags",Tags);
         RequestDispatcher dispatcher=null;
         System.out.println("--Inizio servlet--");
         System.out.println("--if(1;2)--");
+
         if(session.isNew()){
             System.out.println("--(1)--");
-            listaDisponibiliDAO service=new listaDisponibiliDAO();
-            libreria=service.getAll();
-            carrello=new ordine();
+            listaDisponibiliDAO service=new listaDisponibiliDAO();      //se la sessione è nuova, prendo i vinili disponibili dal dd, creo un
+            libreria=service.getAll();                                  //nuovo carrello e metto tutto nella nuova sessione
+            carrello=new Ordine();
             session.setAttribute("libreria",libreria);
             session.setAttribute("carrello",carrello);
         }
-        else{
+        else{                                                           //la sessione esiste
             System.out.println("--(2)--");
-            libreria= (listaVinili) session.getAttribute("libreria");
-            carrello= (ordine) session.getAttribute("carrello");
-            user= (utente) session.getAttribute("utente");
+            libreria= (ListaVinili) session.getAttribute("libreria");
+            carrello= (Ordine) session.getAttribute("carrello");
+            user= (Utente) session.getAttribute("utente");
             System.out.println("--if(3;4;5;6;7;8;9;10)--");
-            if(libreria==null&&carrello==null&&user==null){
+            if(libreria==null&&carrello==null&&user==null){             //la sessione c'è ma non ho la lista di vinili, nè il carrello nè l'utente
                 System.out.println("--(3)--");
                 listaDisponibiliDAO service=new listaDisponibiliDAO();
                 libreria=service.getAll();
-                carrello=new ordine();
+                carrello=new Ordine();
                 session.setAttribute("libreria",libreria);
                 session.setAttribute("carrello",carrello);
             }
@@ -53,11 +54,11 @@ public class InitServlet extends HttpServlet {
                     System.out.println("--(4)--");
                     listaDisponibiliDAO service = new listaDisponibiliDAO();
                     libreria = service.getAll();
-                    ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
+                    Ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
                     System.out.println("--if(4.1)--");
                     if (carrelloDb == null) {
                         System.out.println("--(4.1)--");
-                        carrelloDb = new ordine();
+                        carrelloDb = new Ordine();
                     }
                     session.setAttribute("libreria", libreria);
                     session.setAttribute("carrello", carrelloDb);
@@ -72,7 +73,7 @@ public class InitServlet extends HttpServlet {
                     System.out.println("--(5)--");
                     listaDisponibiliDAO service = new listaDisponibiliDAO();
                     libreria = service.getAll();
-                    ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
+                    Ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
                     System.out.println("--if(5.1;5.2)--");
                     if (carrelloDb == null) {
                         System.out.println("--(5.1)--");
@@ -97,10 +98,10 @@ public class InitServlet extends HttpServlet {
                 }
                 else {
                     System.out.println("--(6)--");
-                    ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
+                    Ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
                     if (carrelloDb == null) {
                         System.out.println("--(6.1)--");
-                        carrello = new ordine();
+                        carrello = new Ordine();
                         listaDisponibiliDAO service = new listaDisponibiliDAO();
                         libreria = service.getAll();
                         //devo creare nel db un nuovo ordine
@@ -116,7 +117,7 @@ public class InitServlet extends HttpServlet {
                      dispatcher = request.getRequestDispatcher("/Admin");
                 }
                 else {
-                    ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
+                    Ordine carrelloDb = ordineDAO.getCarrelloFromDb(user, libreria);
                     //carrello.join(carrelloDb,libreria);
                     if (carrelloDb == null) {
                         System.out.println("--(7.1)--");
@@ -141,7 +142,7 @@ public class InitServlet extends HttpServlet {
             }
             else if(libreria!=null&&carrello==null&&user==null){
                 System.out.println("--(9)--");
-                carrello=new ordine();
+                carrello=new Ordine();
                 session.setAttribute("carrello",carrello);
             }
             else if(libreria==null&&carrello!=null&&user==null){

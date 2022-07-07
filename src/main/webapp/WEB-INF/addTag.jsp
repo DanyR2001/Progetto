@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.tag" %>
-<%@ page import="Model.vinile" %>
-<%@ page import="Model.listaVinili" %><%--
+<%@ page import="Model.Tag" %>
+<%@ page import="Model.Vinile" %>
+<%@ page import="Model.ListaVinili" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 14/06/22
@@ -19,9 +19,9 @@
         <tr><td>Inserisci il nome del tag</td><td><input type="text" name="Nome" required></td>
         <tr><td colspan="2" >seleziona il vinile al quale lo vuoi collegare:</td></tr>
         <%
-           listaVinili vin= (listaVinili) session.getAttribute("libreria");
+           ListaVinili vin= (ListaVinili) session.getAttribute("libreria");
            if(vin != null) {
-               ArrayList<vinile> list = vin.getAllVinil();
+               ArrayList<Vinile> list = vin.getAllVinili();
                if (list != null) {
                    for (int i=0;i<list.size();i++){
                        out.print("<tr><td colspan='2'>");

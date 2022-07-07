@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.tag;
+import Model.Tag;
 import Model.tagsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -19,12 +19,12 @@ public class AddTag extends HttpServlet {
         System.out.println("p1");
         if(snn!=null) {
             System.out.println("p2");
-            ArrayList<tag> tags= (ArrayList<tag>) snn.getAttribute("tags");
+            ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
             if (nome != null && cheackbox != null && tags!=null) {
                 System.out.println("p3");
                 if (cheackbox.length >= 1) {
                     System.out.println("p4");
-                    tag t = tagsDAO.insertTag(nome);
+                    Tag t = tagsDAO.insertTag(nome);
                     for (String s : cheackbox) {
                         int x = Integer.parseInt(s);
                         tagsDAO.insertTagForVinil(x, t.getId_tag());

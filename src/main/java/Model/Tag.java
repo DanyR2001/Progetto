@@ -1,6 +1,6 @@
 package Model;
 
-public class tag {
+public class Tag {
     private int id_tag;
     private String Nome;
 
@@ -20,7 +20,7 @@ public class tag {
         Nome = nome;
     }
 
-    public boolean equals(tag x){
+    public boolean equals(Tag x){
         return x.getId_tag()==this.getId_tag();
     }
 

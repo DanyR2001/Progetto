@@ -3,17 +3,17 @@ package Model;
 import java.sql.*;
 
 public class listaDisponibiliDAO {
-     public listaVinili getAll(){
+     public ListaVinili getAll(){
          System.out.println(" inizio lista vinili da db");
          boolean flag=false;
-         listaVinili retun= new listaVinili();
+         ListaVinili retun= new ListaVinili();
          try (Connection con = ConPool.getConnection()) {
              PreparedStatement ps =
                      con.prepareStatement("SELECT * FROM vinilidisp");
              ResultSet rs = ps.executeQuery();
              while(rs.next()){
                  System.out.println(" prova 12 ");
-                 vinile v=new vinile();
+                 Vinile v=new Vinile();
                  v.setPK(rs.getInt(1));
                  v.setTitolo(rs.getString(2));
                  v.setPrezzo(rs.getDouble(3));
@@ -53,7 +53,7 @@ public class listaDisponibiliDAO {
 
      }
 
-    public void insertVinil(vinile v, Integer quantita) {
+    public void insertVinil(Vinile v, Integer quantita) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "insert into vinilidisp (Titolo,Prezzo,Quantita,Url,Artista) value (?, ?, ?, ?, ?)",
@@ -78,7 +78,7 @@ public class listaDisponibiliDAO {
         }
     }
 
-    public void changeById(vinile v,int quantita){
+    public void changeById(Vinile v, int quantita){
         //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(

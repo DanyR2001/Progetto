@@ -6,8 +6,8 @@
 <html>
 <%
         HttpSession snn=request.getSession();
-        ordine carrello= (ordine) session.getAttribute("carrello");
-        utente u = (utente) snn.getAttribute("utente");
+        Ordine carrello= (Ordine) session.getAttribute("carrello");
+        Utente u = (Utente) snn.getAttribute("utente");
         if(u!=null)
             if(u.isAdmin_bool()){
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -94,14 +94,14 @@
 <div >
     <ul class="hs full">
         <%
-            listaVinili list1= ((listaVinili) snn.getAttribute("libreria"));
-            ArrayList<tag> tags= (ArrayList<tag>) snn.getAttribute("tags");
+            ListaVinili list1= ((ListaVinili) snn.getAttribute("libreria"));
+            ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
             for(int j=0;j<tags.size();j++) {
-                listaVinili list = list1.getAvableVinil().getFromTag(tags.get(j));
+                ListaVinili list = list1.getAvailableVinili().getFromTag(tags.get(j));
                 if(list.size()>0) {
                     out.print("<p style='color:white '>vinili tipo tag: "+tags.get(j).getNome()+"</p>");
                     for (int i = 0; i < list.size(); i++) {
-                        prodotto temp = carrello.getItem(list.get(i));
+                        Prodotto temp = carrello.getItem(list.get(i));
                         if (temp != null) {
                             if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
                                 out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" + application.getContextPath() + list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");

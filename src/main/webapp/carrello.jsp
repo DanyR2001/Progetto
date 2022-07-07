@@ -21,10 +21,10 @@
 <table>
 <%
     HttpSession snn=request.getSession();
-    ordine carrello= (ordine) snn.getAttribute("carrello");
-    utente user= (utente) snn.getAttribute("utente");
-    listaVinili service=(listaVinili) snn.getAttribute("libreria");
-    ArrayList<vinile> listaRimossi= (ArrayList<vinile>) snn.getAttribute("removedVinil");
+    Ordine carrello= (Ordine) snn.getAttribute("carrello");
+    Utente user= (Utente) snn.getAttribute("utente");
+    ListaVinili service=(ListaVinili) snn.getAttribute("libreria");
+    ArrayList<Vinile> listaRimossi= (ArrayList<Vinile>) snn.getAttribute("removedVinil");
     if(user!=null)
         if(user.isAdmin_bool()){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -32,14 +32,14 @@
         }
    if(listaRimossi!=null){
        out.print("<fieldset>");
-       for(vinile v :listaRimossi)
+       for(Vinile v :listaRimossi)
            out.print("<h1>"+v.getTitolo()+" di "+v.getArtista());
        out.print("</fieldset>");
        snn.setAttribute("removedVinil",null);
    }
    if(carrello.getNumItem()>=1){
     for(int i=0;i<carrello.getNumItem();i++){
-        prodotto p=carrello.getCarrello().get(i);
+        Prodotto p=carrello.getCarrello().get(i);
 %>
     <form action="UpdateCarrello">
         <input type="hidden" name="index" value="<%out.print(i);%>">

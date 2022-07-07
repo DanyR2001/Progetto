@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.utente;
+import Model.Utente;
 import Model.utentiDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -13,7 +13,7 @@ import java.sql.Date;
 public class RegistrazioneServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        utente utente = new utente();
+        Utente utente = new Utente();
         String nome=request.getParameter("nome");
         utente.setNome(nome);
         String cognome=request.getParameter("cognome");

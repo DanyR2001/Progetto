@@ -5,9 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.util.Locale;
 
-public class utente {
+public class Utente {
     private int ID;
     private String Nome;
     private String Cognome;
@@ -19,9 +18,9 @@ public class utente {
     private int Cap;
     private int Civico;
 
-    public utente(){};
+    public Utente(){};
 
-    public utente(int id, String name,String cognome, String email, Date dataNascita,String passwordhash, boolean admin_bool,String via,int cap,int civico) {
+    public Utente(int id, String name, String cognome, String email, Date dataNascita, String passwordhash, boolean admin_bool, String via, int cap, int civico) {
         ID = id;
         Nome = name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
         Cognome=cognome.substring(0,1).toUpperCase()+cognome.substring(1,cognome.length()).toLowerCase();

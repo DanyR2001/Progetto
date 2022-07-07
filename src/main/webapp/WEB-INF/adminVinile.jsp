@@ -1,5 +1,5 @@
-<%@ page import="Model.listaVinili" %>
-<%@ page import="Model.vinile" %><%--
+<%@ page import="Model.ListaVinili" %>
+<%@ page import="Model.Vinile" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 24/05/22
@@ -15,10 +15,10 @@
 <body>
 <a href="RedirectTo?src=Vinile" >Aggiungi un nuovo vinile</a>
 <%
-listaVinili lib= (listaVinili) session.getAttribute("libreria");
+ListaVinili lib= (ListaVinili) session.getAttribute("libreria");
 if(lib!=null)
-    for(int i=0;i<lib.getAllVinil().size();i++){
-        vinile v=lib.get(i);
+    for(int i = 0; i<lib.getAllVinili().size(); i++){
+        Vinile v=lib.get(i);
         %>
         <form action="UploadItem">
         <input type="hidden" name="index" value="<%out.print(i);%>">

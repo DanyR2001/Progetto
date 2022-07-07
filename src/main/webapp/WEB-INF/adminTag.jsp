@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.listaVinili" %>
-<%@ page import="Model.tag" %>
-<%@ page import="Model.vinile" %><%--
+<%@ page import="Model.ListaVinili" %>
+<%@ page import="Model.Tag" %>
+<%@ page import="Model.Vinile" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 14/06/22
@@ -17,13 +17,13 @@
 <a href="RedirectTo?src=Tag" >Aggiungi un nuovo tag</a>
 <table>
 <%
-    ArrayList<tag> lib= (ArrayList<tag>) session.getAttribute("tags");
+    ArrayList<Tag> lib= (ArrayList<Tag>) session.getAttribute("tags");
     if(lib!=null){
         %>
     <tr><td>Nome tag</td><td>Id</td><td></td></tr>
     <%
         for(int i=0;i<lib.size();i++){
-            tag t=lib.get(i);
+            Tag t=lib.get(i);
 %>
     <tr>
         <form action="RemoveTag">

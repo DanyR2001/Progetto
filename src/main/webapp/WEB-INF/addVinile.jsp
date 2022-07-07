@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.tag" %><%--
+<%@ page import="Model.Tag" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso
   Date: 24/05/22
@@ -20,7 +20,7 @@
     Artista:<input type="text" name="Artista">
     Immgaine:<input type="file" name="Upload" />
     <%
-        ArrayList<tag> list= (ArrayList<tag>) session.getAttribute("Tags");
+        ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("Tags");
         if(list!=null)
             for(int i=0;i<list.size();i++) {
                 out.print("<input type='checkbox' id='"+list.get(i).getNome()+"' name='" + list.get(i).getNome() + "' value='" + list.get(i).getId_tag() + "'>");

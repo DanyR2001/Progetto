@@ -15,9 +15,9 @@ public class UpdateCarrello extends HttpServlet {
         int index= Integer.parseInt( request.getParameter("index"));
         int quantita= Integer.parseInt( request.getParameter("quantita"));
         HttpSession snn=request.getSession();
-        listaVinili service= (listaVinili) snn.getAttribute("libreria");
-        ordine carrello= (ordine) snn.getAttribute("carrello");
-        vinile v=carrello.getCarrello().get(index).getArticolo();
+        ListaVinili service= (ListaVinili) snn.getAttribute("libreria");
+        Ordine carrello= (Ordine) snn.getAttribute("carrello");
+        Vinile v=carrello.getCarrello().get(index).getArticolo();
         int actual=carrello.getCarrello().get(index).getQuantita();
         int remain=service.getQuantitaVin(v)-actual;
         int total=service.getQuantitaVin(v);
@@ -26,9 +26,9 @@ public class UpdateCarrello extends HttpServlet {
         carrello.refreshCost();
         carrello.check();
         System.out.println("--(UC codice)--"+carrello.getCodice());
-        utente u= (utente) snn.getAttribute("utente");
+        Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
-            ArrayList<vinile> lista=ordineDAO.uploadOrdine(u,carrello,service);
+            ArrayList<Vinile> lista=ordineDAO.uploadOrdine(u,carrello,service);
             System.out.println(" qunr carrelo "+carrello.getPrezzo());
             snn.setAttribute("removedVinil",lista);
         }
