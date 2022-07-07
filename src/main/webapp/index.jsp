@@ -95,19 +95,25 @@
     <ul class="hs full">
         <%
             listaVinili list1= ((listaVinili) snn.getAttribute("libreria"));
-            listaVinili list=list1.getAvableVinil();
-            for(int i=0;i<list.size();i++) {
-                prodotto temp=carrello.getItem(list.get(i));
-                if(temp!=null) {
-                    if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
-                        out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
+            ArrayList<tag> tags= (ArrayList<tag>) snn.getAttribute("tags");
+            for(int j=0;j<tags.size();j++) {
+                listaVinili list = list1.getAvableVinil().getFromTag(tags.get(j));
+                if(list.size()>0) {
+                    out.print("vinili tipo tag: "+tags.get(j).getNome());
+                    for (int i = 0; i < list.size(); i++) {
+                        prodotto temp = carrello.getItem(list.get(i));
+                        if (temp != null) {
+                            if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
+                                out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" + application.getContextPath() + list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
+                            }
+                        } else {
+                            System.out.println("disponibilità " + list.getMaxDisp(i));
+                            out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" + application.getContextPath() + list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
+                            //out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
+                        }
                     }
                 }
-                else{
-                    System.out.println("disponibilità " + list.getMaxDisp(i));
-                    out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" +application.getContextPath()+ list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
-                    //out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
-                    }
+                out.print("<br>");
             }
         %>
 

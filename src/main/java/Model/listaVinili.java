@@ -51,6 +51,23 @@ public class listaVinili {
         return ret;
     }
 
+    public listaVinili getFromTag(tag Tag){
+        listaVinili ret=null;
+        if(Tag!=null) {
+            ret = new listaVinili();
+            for (int i = 0; i < list.size(); i++) {
+                vinile v = list.get(i);
+                if (v.getTags() != null) {
+                    for (int j = 0; j < v.getTags().size(); j++)
+                        if (v.getTags().get(j).equals(Tag))
+                            ret.add(v,size.get(i));
+                }
+            }
+            return ret;
+        }
+        return null;
+    }
+
     public void add(vinile v,Integer disponibilita){
         list.add(v);
         size.add(disponibilita);
@@ -152,6 +169,8 @@ public class listaVinili {
             return ret;
         return null;
     }
+
+
 
 
 

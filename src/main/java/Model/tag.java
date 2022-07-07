@@ -20,4 +20,8 @@ public class tag {
         Nome = nome;
     }
 
+    public boolean equals(tag x){
+        return x.getId_tag()==this.getId_tag();
+    }
+
 }
