@@ -14,8 +14,8 @@ public class Prodotto {
         return articolo;
     }
 
-    public void setArticolo(Vinile atricolo) {
-        this.articolo = atricolo;
+    public void setArticolo(Vinile articolo) {
+        this.articolo = articolo;
     }
 
     private double cal_cost(){
@@ -26,8 +26,8 @@ public class Prodotto {
         return quantita;
     }
 
-    public void setQuantita(int quantia) {
-        this.quantita = quantia;
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
         this.prezzo=cal_cost();
     }
 
@@ -42,12 +42,6 @@ public class Prodotto {
 
     public boolean equals(Prodotto p){
         if(this.articolo.equals(p.getArticolo()))
-            return true;
-        return false;
-    }
-
-    public boolean esattamenteLoStesso(Prodotto p){
-        if(this.articolo.equals(p.getArticolo())&&quantita==p.getQuantita()&&prezzo==p.getPrezzo())
             return true;
         return false;
     }

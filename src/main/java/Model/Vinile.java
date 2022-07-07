@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class Vinile {
     private int PK;
-    private String Titolo;
+    private String titolo;
     private double prezzo;
-    //private int quantita;
     private String url;
     private String artista;
     private ArrayList<Tag> Tags;
@@ -15,7 +14,7 @@ public class Vinile {
 
     public Vinile(int PK, String titolo, double prezzo, String url, String artista) {
         this.PK = PK;
-        Titolo = titolo;
+        this.titolo = titolo;
         this.prezzo = prezzo;
         this.url = url;
         this.artista = artista;
@@ -33,11 +32,11 @@ public class Vinile {
     }
 
     public String getTitolo() {
-        return Titolo;
+        return titolo;
     }
 
     public void setTitolo(String titolo) {
-        Titolo = titolo;
+        this.titolo = titolo;
     }
 
     public double getPrezzo() {
@@ -64,11 +63,11 @@ public class Vinile {
         this.artista = artista;
     }
 
-    public boolean equals(Vinile o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vinile vinile = (Vinile) o;
-        return PK == vinile.PK && Titolo.equals(vinile.Titolo) && url.equals(vinile.url) && artista.equals(vinile.artista);
+        return PK == vinile.PK && titolo.equals(vinile.titolo) && url.equals(vinile.url) && artista.equals(vinile.artista);
     }
 
     public ArrayList<Tag> getTags() {
