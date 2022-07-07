@@ -99,7 +99,7 @@
             for(int j=0;j<tags.size();j++) {
                 listaVinili list = list1.getAvableVinil().getFromTag(tags.get(j));
                 if(list.size()>0) {
-                    out.print("vinili tipo tag: "+tags.get(j).getNome());
+                    out.print("<p style='color:white '>vinili tipo tag: "+tags.get(j).getNome()+"</p>");
                     for (int i = 0; i < list.size(); i++) {
                         prodotto temp = carrello.getItem(list.get(i));
                         if (temp != null) {
@@ -113,7 +113,9 @@
                         }
                     }
                 }
+                out.print("</ul>");
                 out.print("<br>");
+                out.print("<ul class=\"hs full\">");
             }
         %>
 
