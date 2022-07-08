@@ -90,17 +90,18 @@ li {
 
 #country-list li {
     padding: 10px;
-    background: #f0f0f0;
+    background: white;
     border-bottom: #bbb9b9 1px solid;
     display: list-item;
     text-align: -webkit-match-parent;
+    width: inherit;
 }
 #country-list {
-    float: left;
     list-style: none;
-    padding: 0;
-    width: min-content;
+    width: 194px;
     position: absolute;
+    overflow: auto;
+    box-shadow: 0 1px 4px 1px #545454;
 }
 li img {
     width: 200px;

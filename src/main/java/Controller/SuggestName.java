@@ -25,7 +25,7 @@ public class SuggestName extends HttpServlet {
                     List<Vinile> lib=libreria.getTitleContain(keyword);
                     if(lib!=null)
                         for(Vinile v: lib){
-                            out.println("<li value=\""+v.getPK()+"\" id=\""+v.getTitolo()+"\" onClick='selectSuggest(\""+v.getTitolo()+"\");'>"+v.getTitolo()+"</li>");
+                            out.println("<li class='c' value=\""+v.getPK()+"\" id=\""+v.getTitolo()+"\" onClick='selectSuggest(\""+v.getTitolo()+"\");'>"+v.getTitolo()+"</li>");
                         }
                     /*else
                         out.println("<li >Nessuna corrispondenza</li>");*/

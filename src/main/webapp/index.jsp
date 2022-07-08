@@ -27,6 +27,7 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
+
         $(document).ready(function(){
             $("#search-box").keyup(function(){
                 $.ajax({
@@ -36,11 +37,16 @@
                     success: function(data){
                         $("#suggestion-box").show(); //mostra i suggeriemnti
                         $("#suggestion-box").html(data);
-                        $("#search-box").css("background","#FFF");
                     }
                 });
             });
         });
+
+        $(document).click(function (e) {
+            var target=$(e.target);
+            if(!target.hasClass("c"))
+                $("#suggestion-box").hide();
+        })
 
         //To select country name
         function selectSuggest(val) {
@@ -54,6 +60,7 @@
             if (event.keyCode == 13)
                 window.location.href = "./Search?String="+val;
         }
+
     </script>
 
 </head>
@@ -70,8 +77,9 @@
 
     <nav class="header-right" id="myLinks">
         <div class = "Search">
-            <input type="text" id="search-box" placeholder="Search.." onkeypress="search();">
-            <div id="suggestion-box"></div>
+            <input type="text" class="c" id="search-box" placeholder="Search.." onkeypress="search()" >
+                <div id="suggestion-box" class="c"></div>
+
         </div>
         <a href="index.jsp"><p>Homepage</p><img src="img/home.png" alt="homepage"></a>
         <a href="AreaPersonale"><p>Profilo</p><img src="img/user%20(2).png" alt="profile"></a>
