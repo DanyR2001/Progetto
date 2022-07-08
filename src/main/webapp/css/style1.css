@@ -113,12 +113,13 @@ html, body {
 
 .header-right input[type=text] {
     font-size: 17px;
-    border-radius: 5px;
+    border-radius: 7px;
     background-color: #FFFFFF;
     border: 2.5px solid black;
     padding: 6px;
     margin-top: 8px;
     margin-right: 8px;
+    z-index: 1;
 }
 
 .header-right div.Search {
