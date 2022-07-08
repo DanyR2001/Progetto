@@ -23,11 +23,11 @@ public class Ordine {
     }
 
     static boolean isPresent(ArrayList<Prodotto> l, Prodotto pr){
-        boolean flag=false;
+        boolean flag = false;
         if(l!=null)
             for(Prodotto p: l)
                 if(p.equals(pr))
-                    flag=true;
+                    flag = true;
         return flag;
     }
 

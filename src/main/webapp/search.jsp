@@ -1,7 +1,5 @@
 <%@ page import="Model.Tag" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Model.ListaVinili" %>
-<%@ page import="Model.tagsDAO" %>
 <%@ page import="Model.Vinile" %><%--
   Created by IntelliJ IDEA.
   User: danielerusso

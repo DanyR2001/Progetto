@@ -1,0 +1,357 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    font-family: ".SF NS Mono", sans-serif;
+    font-size: 18px;
+    background-color: #FFBE51;
+}
+
+
+/* header */
+
+.header {
+    max-width: 100%;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    padding: 20px 10px;
+    min-width: 375px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 2px 4px 13px 1px #252525;
+    z-index: 1;
+}
+
+.header a{
+    display: block;
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 28px;
+    border-radius: 10px;
+}
+
+.header img, .header-right a img, .header a img {
+    width: 32px;
+}
+
+.header-right a span, .header a span {
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+    color: #ffffff;
+    font-weight: 400;
+    position: absolute;
+    top: 31px;
+    right: 70px;
+    background-color: black;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.header-right a {
+    padding: 12px 12px 0px 10px;
+    margin-left: 2px;
+}
+
+.header-right a p {
+    display: none;
+}
+
+.header ::placeholder{
+    color:black;
+}
+
+
+.header input[type=checkbox]{
+    display: none;
+}
+
+.header .hamburger {
+    display: none;
+    font-size: 2rem;
+    user-select: none;
+    padding: 2px 12px 8px 12px;
+    border-radius: 10px;
+    line-height: 2rem;
+}
+
+.header a.ricerca, .header #cart2 {
+    display: none;
+    padding: 6px 12px 0px 12px;
+    margin-top: 6px;
+}
+
+.header a.logo {
+    font-size:2rem;
+    font-weight: bold;
+}
+
+.header-right a:hover {
+    background-color: #E7E7E7FF;
+    color: black;
+    border-radius: 10px;
+}
+
+.header .hamburger:hover {
+    background-color: #E7E7E7FF;
+    color: black;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+}
+
+.header-right input[type=text] {
+    font-size: 17px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    border: 2.5px solid black;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.header-right div.Search {
+    float: left;
+}
+
+.header-right input[type=text]:focus {
+    outline: none;
+}
+
+.header .vynil {
+    float: left;
+    margin: 9px 2px 0px 7px;
+}
+
+main {
+    z-index: 0;
+    margin-top: 110px;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+main .box {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 1050px;
+    height: 640px;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+}
+
+main .inner-box {
+    width: 93.4%;
+    height: 89.2%;
+    margin: 35px;
+    display: flex;
+}
+
+main .forms-wrap {
+    position: relative;
+    width: 45%;
+    height: 100%;
+
+}
+
+main .carousel {
+    height: 100%;
+    width: 55%;
+    left: 45%;
+    top: 0;
+    background-color: #FF8A00;
+    border-radius: 0.5rem;
+}
+
+main form {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+main .heading h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #151111;
+}
+
+main .heading h6 {
+    color: #bababa;
+    font-weight: 400;
+    font-size: 0.75rem;
+    display: inline;
+}
+
+main .toggle {
+    color: #151111;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+main .toggle:hover {
+    color: #8371fd;
+}
+
+main .input-wrap {
+    position: relative;
+    height: 37px;
+    margin-bottom: 2rem;
+}
+
+main .input-field {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #bbb;
+    padding: 0;
+    font-size: 0.95rem;
+    color: #151111;
+    transition: 0.4s;
+}
+
+main label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: #bbb;
+    pointer-events: none;
+    transition: 0.4s;
+}
+
+main .input-field.active {
+    border-bottom-color: #151111;
+}
+
+main .input-field.active + label {
+    font-size: 0.75rem;
+    top: -2px;
+}
+
+main .sign-btn {
+    display: inline-block;
+    width: 100%;
+    height: 43px;
+    background-color: #151111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+    transition: 0.3s;
+}
+
+main .sign-btn:hover {
+    background-color: #8371fd;
+}
+
+
+@media screen and (max-width: 780px) {
+    .header a {
+        float: none;
+        display: inline-block;
+        text-align: left;
+    }
+
+    .header-right #cart1 {
+        display: none;
+    }
+
+    .header-right a {
+        display: block;
+        padding: 12px;
+        margin: 0;
+    }
+
+    .header a span{
+        right: 75px;
+    }
+    .header-right {
+        display: none;
+        float: none;
+    }
+
+    .header-right a p {
+        display: block;
+        margin: 0;
+    }
+
+    .header-right a img {
+        display: none;
+    }
+
+
+
+    .header input[type=checkbox]:checked ~ .header-right{
+        display: block;
+    }
+
+    .header .hamburger {
+        display: block;
+        float: right;
+        margin-top: 6px;
+    }
+
+    .header-right input[type=text] {
+        display: none;
+    }
+
+    .header a.logo {
+        font-size:0;
+        line-height: 14px;
+        text-align: center;
+        padding: 19px 12px 7px 12px;
+    }
+
+    .header a.logo:after {
+        content: "LP";
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .header a.ricerca, .header #cart2  {
+        display: block;
+        float: right;
+        margin-right: 5px;
+    }
+
+    .header a.ricerca:hover {
+        background-color: #E7E7E7FF;
+        color: black;
+    }
+
+    /* header*/
+
+
+}
+

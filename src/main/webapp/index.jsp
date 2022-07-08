@@ -1,12 +1,12 @@
-<%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Model.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <%
-        HttpSession snn=request.getSession();
-        Ordine carrello= (Ordine) session.getAttribute("carrello");
+        HttpSession snn = request.getSession();
+        Ordine carrello = (Ordine) session.getAttribute("carrello");
         Utente u = (Utente) snn.getAttribute("utente");
         if(u!=null)
             if(u.isAdmin_bool()){
@@ -15,83 +15,93 @@
             }
 %>
 <head>
-    <title>JSP - Hello World</title>
-    <link rel="stylesheet"
-          href="./css/style.css"
-          type="text/css"/>
-    <script src="./lib/jquery-3.6.0.js"></script>
+    <title>Homepage</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style1.css" type="text/css">
+    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
+
+    <script src="./lib/jquery-3.6.0.js"> </script>
+
     <script>
         $(document).ready(function(){
             $("#search-box").keyup(function(){
                 $.ajax({
-                    type: "POST",
-                    url: "SuggestName",
-                    data:'keyword='+$(this).val(),
-                    beforeSend: function(){
-                        $("#search-box").css("background","#FFF no-repeat 165px");
-                    },
+                    type: "POST", //tipo di richiesta
+                    url: "SuggestName", //url a cui inviare la richiesta
+                    data:'keyword='+ $(this).val(), //dati passati al server: passa cosa c'è scritto nella barra di ricerca
                     success: function(data){
-                        $("#suggesstion-box").show();
-                        $("#suggesstion-box").html(data);
+                        $("#suggestion-box").show(); //mostra i suggeriemnti
+                        $("#suggestion-box").html(data);
                         $("#search-box").css("background","#FFF");
                     }
                 });
             });
         });
+
         //To select country name
         function selectSuggest(val) {
             $("#search-box").val(val);
-            $("#suggesstion-box").hide();
+            $("#suggestion-box").hide();
             var id=document.getElementById(val).getAttribute("value");
             window.location.href = "./item.jsp?id="+id;
         }
-        function serch(){
-            var val=document.getElementById("search-box").value;
+        function search(){
+            var val= document.getElementById("search-box").value;
             if (event.keyCode == 13)
                 window.location.href = "./Search?String="+val;
         }
     </script>
+
 </head>
+
 <body>
-<ul class="navbar">
-    <li><a href="index.jsp" class="spec">Home</a></li>
-    <%if(u==null){%>
-    <li><a href="access.jsp" class="spec">Accedi/Registrati</a></li>
-    <%}%>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-            <a href="#" class="element">Link 1</a>
-            <a href="#" class="element">Link 2</a>
-            <a href="#" class="element">Link 3</a>
+<header class="header">
+    <img src="img/vynil.png" class="vynil" alt="vynil">
+    <a href="index.jsp" class="logo">LostInTheLoop</a>
+
+    <input type="checkbox" id="checkbox_toggle" />
+    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+    <a href="carrello.jsp" id="cart2"><img src="img/shopping-cart.png" alt="cart"><span id="cart-counter2"><%=carrello.getNumItem()%></span></a>
+    <a href="Search?String=" class="ricerca"><img src="img/loupe.png"></a>
+
+    <nav class="header-right" id="myLinks">
+        <div class = "Search">
+            <input type="text" id="search-box" placeholder="Search.." onkeypress="search();">
+            <div id="suggestion-box"></div>
         </div>
-    </li>
-    <li><a href="Search?String=" class="spec">Ricerca</a></li>
-    <li><a href="carrello.jsp" class="spec"><%
-        if(carrello.getCarrello()!=null)
-            out.print(carrello.getNumItem());
-        else
-            out.print(0);
-    %> elementi nel carrello</a></li>
+        <a href="index.jsp"><p>Homepage</p><img src="img/home.png" alt="homepage"></a>
+        <a href="AreaPersonale"><p>Profilo</p><img src="img/user%20(2).png" alt="profile"></a>
+        <a href="carrello.jsp" id="cart1"><img src="img/shopping-cart.png" alt="cart"><span id="cart-counter1"><%=carrello.getNumItem()%></span></a>
+        <%if(u==null){%>
+        <a href="access.jsp"><p>Login</p><img src="img/enter.png" alt="login"></a> <!--se non c'è l'utente appare il login -->
+        <%} else {%>
+        <a href="Logout"><p>Login</p><img src="img/logout.png" alt="logout"></a> <!-- se c'è, logout -->
+        <%}%>
+    </nav>
+
+</header>
+
+
+    <!--
+    <li><a href="carrello.jsp" class="spec">
 
     <%
-        if(u!=null) {
+      /*  if(u!=null) {
             System.out.println(" utente " + u.getNome());
             out.print("<li> <a href='Logout'>Logout</a></li>\n");
-            out.print("<li> <a>Bentornato " + u.getNome() + " continua con gli acquisti:</a></li>\n");
+            out.print("<li> <a>Bentornato " + u.getNome() + " continua con gli acquisti:</a></li>\n"); da aggiungere
         }
+
+       */
     %>
-    <li> <a href='AreaPersonale'>Area Personale</a></li>
-    <li>
-        <div class="Search">
-            <input type="text" id="search-box" placeholder="Nome vinile" onkeypress="serch();" />
-            <div id="suggesstion-box"></div>
-        </div>
-    </li>
-</ul>
-<h1><%= "Hello World!" %>
-</h1>
-<div >
+    -->
+
+
+<div>
     <ul class="hs full">
         <%
             ListaVinili list1= ((ListaVinili) snn.getAttribute("libreria"));
