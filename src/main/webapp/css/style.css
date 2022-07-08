@@ -87,36 +87,7 @@ li {
     float: left;
 }
 
-#suggestion-box {
-    display: flex;
-    justify-content: center;
-}
-#country-list li {
-    padding: 10px;
-    display: list-item;
-    text-align: -webkit-match-parent;
-    width: inherit;
 
-}
-#country-list {
-    list-style: none;
-    width: 184px;
-    position: absolute;
-    overflow: auto;
-    box-shadow: 0 1px 4px 1px #545454;
-    z-index: -1;
-    margin-top: -2px;
-    margin-right: 8.4px;
-    border-radius: 0 0 7px 7px;
-    font-size: 0.9rem;
-    background-color: white;
-}
-
-#country-list li:hover {
-    background-color: #F3F1F1FF;
-    border-radius: 7px;
-    cursor: default;
-}
 
 li img {
     width: 200px;

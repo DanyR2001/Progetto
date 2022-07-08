@@ -1,0 +1,256 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    font-family: ".SF NS Mono", sans-serif;
+    font-size: 18px;
+    background-color: #FFBE51;
+}
+
+.header {
+    max-width: 100%;
+    background-color: #FFFFFF;
+    padding: 20px 10px;
+    min-width: 375px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 2px 4px 13px 1px #252525;
+    z-index: 1;
+}
+
+.header a{
+    display: flex;
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 28px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.header img, .header-right a img, .header a img {
+    width: 32px;
+}
+
+#cart-counter1, #cart-counter2 {
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+    color: #ffffff;
+    font-weight: 400;
+    position: absolute;
+    top: 31px;
+    right: 70px;
+    background-color: black;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#user {
+    font-size: 10px;
+    line-height: 15px;
+    color: #ffffff;
+    font-weight: 400;
+    position: absolute;
+    top: 65px;
+    background-color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+}
+
+.header-right a {
+    padding: 12px 12px 0px 10px;
+    margin-left: 2px;
+}
+
+.header-right a p {
+    display: none;
+}
+
+.header ::placeholder{
+    color:black;
+}
+
+
+.header input[type=checkbox]{
+    display: none;
+}
+
+.header .hamburger {
+    display: none;
+    font-size: 2rem;
+    user-select: none;
+    padding: 2px 12px 8px 12px;
+    border-radius: 10px;
+    line-height: 2rem;
+}
+
+.header a.ricerca, .header #cart2 {
+    display: none;
+    padding: 6px 12px 0px 12px;
+    margin-top: 6px;
+}
+
+.header a.logo {
+    font-size:2rem;
+    font-weight: bold;
+}
+
+.header-right a:hover {
+    background-color: #F3F1F1FF;
+    color: black;
+    border-radius: 10px;
+}
+
+.header .hamburger:hover {
+    background-color: #F3F1F1FF;
+    color: black;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+}
+
+.header-right input[type=text] {
+    font-size: 17px;
+    border-radius: 7px;
+    background-color: #FFFFFF;
+    border: 2.5px solid black;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 8px;
+    z-index: 1;
+}
+
+.header-right div.Search {
+    float: left;
+}
+
+.header-right input[type=text]:focus {
+    outline: none;
+}
+
+.header .vinyl {
+    float: left;
+    margin: 9px 2px 0px 7px;
+}
+
+#suggestion-box {
+    display: flex;
+    justify-content: center;
+}
+#country-list li {
+    padding: 10px;
+    display: list-item;
+    text-align: -webkit-match-parent;
+    width: inherit;
+
+}
+
+#country-list {
+    list-style: none;
+    width: 184px;
+    position: absolute;
+    overflow: auto;
+    box-shadow: 0 1px 4px 1px #545454;
+    z-index: -1;
+    margin-top: -2px;
+    margin-right: 8.4px;
+    border-radius: 0 0 7px 7px;
+    font-size: 0.9rem;
+    background-color: white;
+}
+
+#country-list li:hover {
+    background-color: #F3F1F1FF;
+    border-radius: 7px;
+    cursor: default;
+}
+
+@media screen and (max-width: 780px) {
+    .header a {
+        float: none;
+        display: inline-block;
+        text-align: left;
+    }
+
+    .header-right #cart1 {
+        display: none;
+    }
+
+    .header-right a {
+        display: block;
+        padding: 12px;
+        margin: 0;
+    }
+
+    #cart-counter2 {
+        right: 75px;
+    }
+
+    .header-right {
+        display: none;
+        float: none;
+    }
+
+    .header-right a p {
+        display: block;
+        margin: 0;
+    }
+
+    .header-right a img {
+        display: none;
+    }
+
+
+    .header input[type=checkbox]:checked ~ .header-right {
+        display: block;
+    }
+
+    .header .hamburger {
+        display: block;
+        float: right;
+        margin-top: 6px;
+    }
+
+    .header-right input[type=text] {
+        display: none;
+    }
+
+    .header a.logo {
+        font-size: 0;
+        line-height: 14px;
+        text-align: center;
+        padding: 19px 12px 7px 12px;
+    }
+
+    .header a.logo:after {
+        content: "LP";
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .header a.ricerca, .header #cart2 {
+        display: block;
+        float: right;
+        margin-right: 5px;
+    }
+
+    .header a.ricerca:hover {
+        background-color: #F3F1F1FF;
+        color: black;
+    }
+
+}
