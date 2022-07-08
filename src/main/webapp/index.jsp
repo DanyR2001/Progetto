@@ -15,7 +15,7 @@
             }
 %>
 <head>
-    <title>Homepage</title>
+    <title>Home - LP</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,13 +81,28 @@
                 <div id="suggestion-box" class="c"></div>
 
         </div>
-        <a href="index.jsp"><p>Homepage</p><img src="img/home.png" alt="homepage"></a>
-        <a href="AreaPersonale"><p>Profilo</p><img src="img/user%20(2).png" alt="profile"></a>
-        <a href="carrello.jsp" id="cart1"><img src="img/shopping-cart.png" alt="cart"><span id="cart-counter1"><%=carrello.getNumItem()%></span></a>
+        <a href="index.jsp">
+            <p>Home</p>
+            <img src="img/home.png" alt="homepage">
+        </a>
+        <a href="AreaPersonale">
+            <p>Profilo</p>
+            <img src="img/user%20(2).png" alt="profile">
+        </a>
+        <a href="carrello.jsp" id="cart1">
+            <img src="img/shopping-cart.png" alt="cart">
+            <span id="cart-counter1"><%=carrello.getNumItem()%></span>
+        </a>
         <%if(u==null){%>
-        <a href="access.jsp"><p>Login</p><img src="img/enter.png" alt="login"></a> <!--se non c'è l'utente appare il login -->
+        <a href="access.jsp">
+            <p>Login</p>
+            <img src="img/enter.png" alt="login">
+        </a> <!--se non c'è l'utente appare il login -->
         <%} else {%>
-        <a href="Logout"><p>Login</p><img src="img/logout.png" alt="logout"></a> <!-- se c'è, logout -->
+        <a href="Logout">
+            <p>Logout</p>
+            <img src="img/logout.png" alt="logout">
+        </a> <!-- se c'è, logout -->
         <%}%>
     </nav>
 

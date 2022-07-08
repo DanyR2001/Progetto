@@ -96,13 +96,13 @@ html, body {
 }
 
 .header-right a:hover {
-    background-color: #E7E7E7FF;
+    background-color: #F3F1F1FF;
     color: black;
     border-radius: 10px;
 }
 
 .header .hamburger:hover {
-    background-color: #E7E7E7FF;
+    background-color: #F3F1F1FF;
     color: black;
 }
 
@@ -346,7 +346,7 @@ main .sign-btn:hover {
     }
 
     .header a.ricerca:hover {
-        background-color: #E7E7E7FF;
+        background-color: #F3F1F1FF;
         color: black;
     }
 
