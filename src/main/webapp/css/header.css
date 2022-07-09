@@ -248,9 +248,13 @@ html, body {
         margin-right: 5px;
     }
 
-    .header a.ricerca:hover {
+    .header a.ricerca:hover, #cart2:hover {
         background-color: #F3F1F1FF;
         color: black;
+    }
+
+    #user {
+        display: none;
     }
 
 }

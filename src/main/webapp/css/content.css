@@ -6,6 +6,7 @@ main {
     display: flex;
     overflow: hidden;
     min-height: 100vh;
+    padding: 0 10px 0 10px;
 }
 
 main .box {

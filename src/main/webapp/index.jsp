@@ -21,7 +21,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./css/style1.css" type="text/css">
     <link rel="stylesheet" href="./css/style.css" type="text/css"/>
     <link rel="stylesheet" href="css/header.css" type="text/css">
 
@@ -82,7 +81,7 @@
             <input type="text" class="c" id="search-box" placeholder="Search.." onkeypress="search()" >
                 <div id="suggestion-box" class="c"></div>
         </div>
-        <a href="index.jsp"><p>Home</p><img src="img/home.png" alt="homepage"></a>
+        <a href="index.jsp" ><p>Home</p><img src="img/home.png" alt="homepage" tooltip="Home"></a>
         <a href="AreaPersonale"><p>Profilo</p><img src="img/user%20(2).png" alt="profile">
             <% if(u!=null) { %>
             <span id="user"><%=u.getNome()%></span>
@@ -102,35 +101,75 @@
 
 
 
-    <div>
-        <ul class="hs full">
+    <div class="slider-wrap">
+        <section class="slider">
             <%
-                ListaVinili list1= ((ListaVinili) snn.getAttribute("libreria"));
-                ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
-                for(int j=0;j<tags.size();j++) {
-                    ListaVinili list = list1.getAvailableVinili().getFromTag(tags.get(j));
-                    if(list.size()>0) {
-                        out.print("<p style='color:white '>vinili tipo tag: "+tags.get(j).getNome()+"</p>");
+                ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
+                ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
+                for (Tag tag : tags) {
+                    ListaVinili list = list1.getAvailableVinili().getFromTag(tag);
+                    if (list.size() > 0) {
+            %>
+
+            <div class="tag">
+                <h2><%= tag.getNome() %></h2>
+            </div>
+            <div class="item-wrapper">
+
+            <%
                         for (int i = 0; i < list.size(); i++) {
-                            Prodotto temp = carrello.getItem(list.get(i));
+                        Prodotto temp = carrello.getItem(list.get(i));                  //viene controllata la disponibilità dei vinili in base a quelli che stanno nel carrello
                             if (temp != null) {
-                                if (list.getMaxDisp(i) - temp.getQuantita() > 0) {
-                                    out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" + application.getContextPath() + list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
-                                }
+                                if ((list.getMaxDisp(i) - temp.getQuantita()) > 0) {
+            %>
+
+
+
+                        <a href="item.jsp?id=<%=list.get(i).getPK()%>" class="item-reference">
+                            <div class="item-container">
+                                <div class="item">
+                                    <img class="item-img" src="<%=application.getContextPath()%><%=list.get(i).getUrl()%>" alt="<%=list.get(i).getTitolo()%>">
+                                    <div class="item-info">
+                                        <p class="item-titolo"><%=list.get(i).getTitolo()%></p>
+                                        <p class="item-artista"><%=list.get(i).getArtista()%></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+
+            <%                  }
                             } else {
-                                System.out.println("disponibilità " + list.getMaxDisp(i));
-                                out.print("<li class=\"item\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> <img src=\"" + application.getContextPath() + list.get(i).getUrl() + "\">" + list.get(i).getTitolo() + "</a></li>\n");
-                                //out.print("<li class=\"item\"><img src=\"" + application.getContextPath()+list.get(i).getUrl() + "\"><a href=\"item.jsp?id=" + list.get(i).getPK() + "\"> " + list.get(i).getTitolo() + "</a></li>\n");
-                            }
+            %>
+
+                        <a href="item.jsp?id=<%=list.get(i).getPK()%>" class="item-reference">
+                            <div class="item-container">
+                                <div class="item">
+                                    <img class="item-img" src="<%=application.getContextPath()%><%=list.get(i).getUrl()%>" alt="<%=list.get(i).getTitolo()%>">
+                                    <div class="item-info">
+                                        <p class="item-titolo"><%=list.get(i).getTitolo()%></p>
+                                        <p class="item-artista"><%=list.get(i).getArtista()%></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+            <%
+                             }
                         }
+            %>
+            </div>
+        </section>
+        <section class="slider">
+            <%
                     }
-                    out.print("</ul>");
-                    out.print("<br>");
-                    out.print("<ul class=\"hs full\">");
+
                 }
             %>
 
-        </ul>
+        </section>
     </div>
 </main>
 

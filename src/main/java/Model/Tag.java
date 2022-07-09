@@ -17,7 +17,7 @@ public class Tag {
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        Nome = nome.substring(0,1).toUpperCase()+nome.substring(1).toLowerCase();
     }
 
     public boolean equals(Tag x){
