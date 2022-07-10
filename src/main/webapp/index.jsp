@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/content.css" type="text/css"/>
     <link rel="stylesheet" href="css/header.css" type="text/css">
 
     <script src="./lib/jquery-3.6.0.js"> </script>
@@ -102,7 +102,7 @@
 
 
     <div class="slider-wrap">
-        <section class="slider">
+
             <%
                 ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
                 ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
@@ -110,7 +110,7 @@
                     ListaVinili list = list1.getAvailableVinili().getFromTag(tag);
                     if (list.size() > 0) {
             %>
-
+        <section class="slider">
             <div class="tag">
                 <h2><%= tag.getNome() %></h2>
             </div>
@@ -162,16 +162,27 @@
             %>
             </div>
         </section>
-        <section class="slider">
             <%
                     }
 
                 }
             %>
 
-        </section>
     </div>
 </main>
+
+<footer class="footer">
+    <div class="footer-info">
+        <a href="index.jsp" class="footer-link" >Home</a>
+        <%if(u==null){%>
+        <a href="access.jsp" class="footer-link" >Login</a>
+        <%} else {%>
+        <a href="Logout" class="footer-link">Logout </a>
+        <%}%>
+        <a href="carrello.jsp" class="footer-link">Carrello</a>
+        <a href="Search?String=" class="footer-link">Ricerca</a>
+    </div>
+</footer>
 
 </body>
 </html>

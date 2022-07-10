@@ -7,7 +7,7 @@
 html, body {
     font-family: ".SF NS Mono", sans-serif;
     font-size: 18px;
-    background-color: #FFBE51;
+    background-color: white;
 }
 
 .header {
@@ -179,6 +179,23 @@ html, body {
     cursor: default;
 }
 
+.footer {
+    width: 100%;
+    padding: 40px 40px 40px 40px;
+    background-color: white;
+    height: 200px;
+}
+
+.footer-info {
+    height: inherit;
+    display: grid;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #545454;
+    font-size: 0.8rem;
+}
 @media screen and (max-width: 780px) {
     .header a {
         float: none;
