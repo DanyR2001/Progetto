@@ -10,13 +10,16 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username=request.getParameter("mail");
         String password=request.getParameter("pass");
-        Utente x=new utentiDAO().doRetrieveByUsernamePassword(username,password);
-        if (x==null)
+        Utente x= new utentiDAO().doRetrieveByUsernamePassword(username,password);
+        if (x == null)
+            //se l'utente non esiste
             System.out.println("prco");
+
         request.getSession().setAttribute("utente", x);
         response.sendRedirect(".");
     }

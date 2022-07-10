@@ -1,12 +1,6 @@
 <%@ page import="Model.oldOrder" %>
 <%@ page import="Model.Ordine" %>
-<%@ page import="Model.Prodotto" %><%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 27/05/22
-  Time: 12:18
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Model.Prodotto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
