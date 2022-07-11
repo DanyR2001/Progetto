@@ -77,6 +77,12 @@ if(flag!=null)
             out.print("<h1>Devi aver fatto l'acceso per poter accedere all'area personale, accedi o registrati.</h1>");
             session.setAttribute("noLogArea",null);
         }
+Boolean flag2= (Boolean) session.getAttribute("failLogin");
+    if(flag2!=null)
+        if(flag2){
+            out.print("<h1>Credenziali errate, riprovare</h1>");
+            session.setAttribute("failLogin",null);
+        }
 %>
 
 <body>
