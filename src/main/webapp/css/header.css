@@ -18,7 +18,8 @@ main {
     overflow: hidden;
     min-height: 100vh;
     padding: 40px 10px 50px 10px;
-    background-color: #ac6aff;
+    background: rgb(112, 76, 255);
+    background: linear-gradient(90deg, rgba(112, 76, 255, 1) 0%, rgba(172, 106, 255, 1) 99%);
 }
 
 .header {

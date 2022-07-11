@@ -26,8 +26,14 @@
 
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
 
         $(document).ready(function(){
+            myFunction();
             $("#search-box").keyup(function(){
                 $.ajax({
                     type: "POST", //tipo di richiesta
@@ -60,32 +66,33 @@
                 window.location.href = "./Search?String="+val;
         }
 
+        function showRegistration() {
+            $(".login-wrap").hide();
+            $(".register-option").hide();
+            $(".registration-wrap").show();
+        }
+
     </script>
 
 </head>
+
+<body>
 
 <%
 Boolean flag= (Boolean) session.getAttribute("noLogOrder");
 if(flag!=null)
     if(flag==false) {
-        out.print("<h1>Devi aver fatto l'acceso per copletare l'ordine, accedi o registrati.</h1>");
+        out.print("<div id=\"snackbar\">devi loggarti per completare l'ordine..</div>\n");
         session.setAttribute("noLogOrder",null);
     }
     Boolean flag1= (Boolean) session.getAttribute("noLogArea");
     if(flag1!=null)
         if(flag1==false) {
-            out.print("<h1>Devi aver fatto l'acceso per poter accedere all'area personale, accedi o registrati.</h1>");
+            out.print("<div id=\"snackbar\">devi loggarti per vedere la tua area personale..</div>\n");
             session.setAttribute("noLogArea",null);
-        }
-Boolean flag2= (Boolean) session.getAttribute("failLogin");
-    if(flag2!=null)
-        if(flag2){
-            out.print("<h1>Credenziali errate, riprovare</h1>");
-            session.setAttribute("failLogin",null);
         }
 %>
 
-<body>
 
     <header class="header">
     <img src="img/vynil.png" class="vinyl" alt="vinyl">
@@ -131,72 +138,90 @@ Boolean flag2= (Boolean) session.getAttribute("failLogin");
 
                         <div class="login-form">
                             <div class="input-wrap">
-                                <input id="login-mail" name="mail" type="text" class="input-field" required placeholder="Email"/>
+                                <input id="login-mail" name="mail" type="email" class="input-field" required placeholder="Email"/>
                             </div>
 
                             <div class="input-wrap">
                                 <input id="login-pass" name="pass" type="password" class="input-field" required placeholder="Password"/>
                             </div>
 
-                            <input type="submit" value="Sign In" class="sign-btn"  />
+                            <input type="submit" value="Sign In" class="sign-in-btn"  />
+
+                            <%
+                                Boolean flag2 = (Boolean) session.getAttribute("failLogin");
+                                if(flag2 != null)
+                                    if(flag2){
+
+                            %>
+                            <div class ="err">
+                                <span> &#9888; Email o password errate.</span>
+                            </div>
+                            <%
+                                        session.setAttribute("failLogin",null);
+                                    }
+                            %>
                         </div>
                     </form>
                 </div>
 
-                <div class="register-wrap">
+                <div class="register-option">
 
                     <section>
                         <div class="heading2">
                             <h2>Not registered yet?</h2>
                         </div>
 
-                        <button class="reg-btn" type="button">Sign Up</button>
+                        <button class="reg-btn" type="button" onclick="showRegistration()">Sign Up</button>
                     </section>
 
 
+
+                </div>
+
+                <div class="registration-wrap">
                     <form action="RegistrazioneServlet" method="post"  autocomplete="off" class="sign-up-form">
 
                         <div class="heading">
-                            <h2>Sign Up</h2>
+                            <h2>Registration</h2>
                         </div>
 
                         <div class="actual-form">
 
-                            <div class="input-wrap">
-                                <input type="text" id="reg-nome" name="nome" class="input-field" required>
-                                <label for="reg-nome">Nome</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="text" id="reg-cognome" name="cognome" class="input-field" required>
-                                <label for="reg-cognome">Cognome</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="date" id="reg-date"  name="date" class="input-field" required>
-                                <label for="reg-date">Data di nascita</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="email" id="reg-email" name="email" class="input-field" required>
-                                <label for="reg-email">Email</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="password" id="reg-pass" name="pass" class="input-field" required>
-                                <label for="reg-pass">Password</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="text" name="via" id="reg-via" class="input-field" required>
-                                <label for="reg-via">Via</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="number" name="civico" id="reg-civico" class="input-field" required>
-                                <label for="reg-civico">Civico</label>
-                            </div>
-                            <div class="input-wrap">
-                                <input type="number" name="cap" id="reg-cap" class="input-field" required>
-                                <label for="reg-cap">CAP</label>
+                            <div class="part1">
+                                <div class="input-wrap">
+                                    <input type="text" id="reg-nome" name="nome" class="input-field" required placeholder="Nome">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="text" id="reg-cognome" name="cognome" class="input-field" required placeholder="Cognome">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="date" id="reg-date"  name="date" class="input-field" required placeholder="Data di nascita">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="email" id="reg-email" name="email" class="input-field" required placeholder="Email">
+                                </div>
                             </div>
 
-                            <input type="submit" value="Registrati" class="sign-btn"  />
+                            <div class="part2">
+                                <div class="input-wrap">
+                                    <input type="password" id="reg-pass" name="pass" class="input-field" required placeholder="Password">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="text" name="via" id="reg-via" class="input-field" required placeholder="Via">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="number" name="civico" id="reg-civico" class="input-field" required placeholder="Civico">
+                                </div>
+                                <div class="input-wrap">
+                                    <input type="number" name="cap" id="reg-cap" class="input-field" required placeholder="CAP">
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="submit-wrap">
+                            <input type="submit" value="Sign up" class="sign-up-btn" />
+                        </div>
+
                     </form>
                 </div>
 

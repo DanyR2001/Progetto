@@ -31,8 +31,11 @@ public class Prodotto {
         this.prezzo=cal_cost();
     }
 
-    public double getPrezzo() {
+    public void setQuantitaOldOrder(int quantita) {
+        this.quantita = quantita;
+    }
 
+    public double getPrezzo() {
         return prezzo;
     }
 

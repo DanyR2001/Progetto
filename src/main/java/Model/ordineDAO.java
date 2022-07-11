@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ordineDAO {
 
@@ -112,7 +113,7 @@ public class ordineDAO {
     }
 
 //ok
-    public static ArrayList<Prodotto> listaTupleDB(Ordine o, ListaVinili service){
+    public static List<Prodotto> listaTupleDB(Ordine o, ListaVinili service){
         System.out.println("2 inizio lista da db");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -121,7 +122,7 @@ public class ordineDAO {
             System.out.println("2 ha2 "+o.getCodice());
             ResultSet rs = ps.executeQuery();
             boolean flag=false;
-            ArrayList<Prodotto> listaDB=new ArrayList<>();
+            List<Prodotto> listaDB=new ArrayList<>();
             System.out.println("2 ha3 ");
             while(rs.next()){
                 flag=true;
@@ -132,7 +133,7 @@ public class ordineDAO {
                 pr.setQuantita(rs.getInt(2));
                 listaDB.add(pr);
             }
-            if(flag==false) {
+            if(!flag) {
                 System.out.println("2 haha 1212");
                 return null;
             }
@@ -141,6 +142,9 @@ public class ordineDAO {
             throw new RuntimeException(e);
         }
     }
+
+
+
 
 //ok
     public static Ordine getCarrelloFromDb(Utente u, ListaVinili service){
@@ -156,7 +160,7 @@ public class ordineDAO {
             tmp.setPrezzo(rs.getDouble(2));
             tmp.setEvaso(rs.getBoolean(3));
             System.out.println("2 code "+tmp.getCodice());
-            tmp.setList(listaTupleDB(tmp,service));
+            tmp.setList((ArrayList<Prodotto>) listaTupleDB(tmp,service));
             return tmp;
         } catch (SQLException e) {
             throw new RuntimeException(e);

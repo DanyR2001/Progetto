@@ -9,6 +9,11 @@ public class oldOrder {
         list=new ArrayList<>();
     };
 
+    public void add(Ordine x){
+        if(x!= null)
+            list.add(x);
+    }
+
     public ArrayList<Ordine> getList() {
         return list;
     }

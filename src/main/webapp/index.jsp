@@ -74,7 +74,7 @@
     <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
     <a href="carrello.jsp" id="cart2"><img src="img/shopping-cart.png" alt="cart"><span id="cart-counter2"><%=carrello.getNumItem()%></span></a>
-    <a href="Search?String=" class="ricerca"><img src="img/loupe.png"></a>
+    <a href="Search?String=" class="ricerca"><img src="img/loupe.png" alt="loupe"></a>
 
     <nav class="header-right" id="myLinks">
         <div class = "Search">

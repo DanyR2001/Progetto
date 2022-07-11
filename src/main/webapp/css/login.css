@@ -30,7 +30,7 @@ main .login-wrap {
 
 }
 
-main .register-wrap {
+main .register-option {
     height: 100%;
     width: 55%;
     left: 45%;
@@ -39,7 +39,7 @@ main .register-wrap {
     border-radius: 10px;
 }
 
-main form {
+main .sign-in-form {
     max-width: 260px;
     width: 100%;
     margin: 0 auto;
@@ -48,7 +48,32 @@ main form {
     flex-direction: column;
 }
 
-.register-wrap section {
+
+main .sign-up-form{
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+main .sign-up-form .actual-form {
+    width: 100%;
+    display: flex;
+}
+
+main .part1 {
+    width: 50%;
+    margin: 6%;
+}
+
+main .part2 {
+    width: 50%;
+    margin: 6%;
+}
+
+.register-option section {
     max-width: 340px;
     width: 100%;
     margin: 0 auto;
@@ -56,6 +81,16 @@ main form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+main .heading {
+    margin-top: 30px;
+}
+
+main .heading h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #151111;
 }
 
 main .heading1 {
@@ -97,8 +132,9 @@ main .input-field {
     padding: 0;
     font-size: 0.95rem;
     color: #151111;
-    transition: 0.4s;
+    font-family: ".SF NS Mono", sans-serif;
 }
+
 
 main label {
     position: absolute;
@@ -107,10 +143,14 @@ main label {
     font-size: 0.95rem;
     color: #bbb;
     pointer-events: none;
-    transition: 0.4s;
 }
 
-main .sign-btn {
+main .submit-wrap {
+    display: flex;
+    justify-content:  center;
+    margin-bottom: 20px;
+}
+main .sign-in-btn {
     display: inline-block;
     width: 100%;
     height: 43px;
@@ -119,8 +159,19 @@ main .sign-btn {
     border: none;
     cursor: pointer;
     border-radius: 0.8rem;
+}
+
+main .sign-up-btn {
+    display: inline-block;
+    width: 40%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
     font-size: 0.8rem;
-    transition: 0.3s;
+    height: 43px;
+    background-color: #151111;
+
 }
 
 main .reg-btn {
@@ -142,13 +193,62 @@ main .reg-btn:hover {
     border: 2px solid white;
 }
 
-main .sign-btn:hover {
+main .sign-in-btn:hover, main .sign-up-btn:hover {
     border: 2px solid black;
     background-color: white;
     color: black;
 }
 
-.sign-up-form {
+.registration-wrap {
     display: none;
+    width: 100%;
+    height: 100%;
 }
 
+main .login-form .err {
+    font-size: 15px;
+    color: darkred;
+    margin-top: 10px;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}

@@ -4,10 +4,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Model.ordineDAO.listaTupleDB;
 
 public class oldOrderDAO {
+
+    public static List<Prodotto> listaTupleDbOldOrder(Ordine o, ListaVinili service){
+        System.out.println("2 inizio lista da db");
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id_vinile,quantita, prezzo FROM comporre WHERE code_ordine=?");
+            ps.setInt(1,o.getCodice());
+            System.out.println("2 ha2 "+o.getCodice());
+            ResultSet rs = ps.executeQuery();
+            boolean flag=false;
+            List<Prodotto> listaDB=new ArrayList<>();
+            System.out.println("2 ha3 ");
+            while(rs.next()){
+                flag=true;
+                System.out.println("2 ha1ha ");
+                Prodotto pr=new Prodotto();
+                pr.setArticolo(service.findViniliFromId(rs.getInt(1)));
+                pr.setPrezzo(rs.getDouble(3));
+                pr.setQuantitaOldOrder(rs.getInt(2));
+                listaDB.add(pr);
+            }
+            if(!flag) {
+                System.out.println("2 haha 1212");
+                return null;
+            }
+            return listaDB;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static oldOrder doRetriveById(Utente u, ListaVinili service){
         try (Connection con = ConPool.getConnection()) {
@@ -25,9 +57,9 @@ public class oldOrderDAO {
                 tmp.setVia(rs.getString(5));
                 tmp.setCap(rs.getInt(6));
                 tmp.setCivico(rs.getInt(7));
-                System.out.println("2 code " + tmp.getCodice());
-                tmp.setList(listaTupleDB(tmp, service));
-                ret.getList().add(tmp);
+                System.out.println("2 code oldOrder " + tmp.getCodice());
+                tmp.setList((ArrayList<Prodotto>) listaTupleDbOldOrder(tmp, service));
+                ret.add(tmp);
             }
             return ret;
         } catch (SQLException e) {

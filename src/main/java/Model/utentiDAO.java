@@ -7,7 +7,7 @@ public class utentiDAO {
     public static void doSave(Utente u) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO Users (nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico)VALUES (?,?,?,?,?,?,?,?;?)",
+                    "INSERT INTO Users (nome, cognome, mail, dat, passwordhash, admin_bool, via, cap, civico) VALUES (?,?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
