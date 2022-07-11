@@ -108,7 +108,7 @@
                 ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
                 for (Tag tag : tags) {
                     ListaVinili list = list1.getAvailableVinili().getFromTag(tag);
-                    if (list.size() > 0) {
+                    if (list.size() > 0 && list.toShow(carrello)) {
             %>
         <section class="slider">
             <div class="tag">

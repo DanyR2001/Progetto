@@ -12,19 +12,6 @@ public class ListaVinili {
         size= new ArrayList<>();
     }
 
-    /*public void aggiorna(vinile v, int quatita){
-        for(vinile v1: list)
-            if(v1.equals(v))
-                if(v1.getQuantita()>=quatita)
-                    v1.removeNumItem(quatita);
-    }*/
-
-    /*public void setDisponibili(vinile v,int quntita){
-        for(vinile v1: list)
-            if(v1.equals(v))
-                v1.setQuantita(quntita);
-    }*/
-
     public Vinile findViniliFromId(int id){
         if(list.size()>0)
             for(Vinile v: list)
@@ -171,7 +158,21 @@ public class ListaVinili {
     }
 
 
+    public boolean toShow(Ordine carrello) {
 
-
-
+        boolean flag = true;
+            for (int i = 0; i < list.size(); i++){
+                Prodotto p = carrello.getItem(list.get(i));
+                if(p != null) {
+                    if ((size.get(i) - p.getQuantita()) > 0) {
+                        return true;
+                    }else {
+                        flag = false;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        return flag;
+    }
 }
