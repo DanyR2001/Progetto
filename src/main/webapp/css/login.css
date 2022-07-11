@@ -1,4 +1,7 @@
-
+.login {
+    align-items: center;
+    justify-content: center;
+}
 main .box {
     margin: 10px;
     display: flex;

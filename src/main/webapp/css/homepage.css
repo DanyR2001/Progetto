@@ -1,19 +1,4 @@
 
-main {
-    z-index: 0;
-    margin-top: 92px;
-    width: 100%;
-    display: flex;
-    overflow: hidden;
-    min-height: 100vh;
-    padding: 40px 10px 50px 10px;
-    background-color: #FFBE51;
-}
-
-.login {
-    align-items: center;
-    justify-content: center;
-}
 main .slider-wrap {
     width: inherit;
 }
