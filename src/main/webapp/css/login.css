@@ -104,7 +104,6 @@ main label {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translateY(-50%);
     font-size: 0.95rem;
     color: #bbb;
     pointer-events: none;

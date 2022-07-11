@@ -125,13 +125,11 @@ if(flag!=null)
 
                         <div class="login-form">
                             <div class="input-wrap">
-                                <input id="login-mail" name="mail" type="text" class="input-field" required/>
-                                <label for="login-mail">Email</label>
+                                <input id="login-mail" name="mail" type="text" class="input-field" required placeholder="Email"/>
                             </div>
 
                             <div class="input-wrap">
-                                <input id="login-pass" name="pass" type="password" class="input-field" required/>
-                                <label for="login-pass">Password</label>
+                                <input id="login-pass" name="pass" type="password" class="input-field" required placeholder="Password"/>
                             </div>
 
                             <input type="submit" value="Sign In" class="sign-btn"  />
