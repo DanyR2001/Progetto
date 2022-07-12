@@ -148,7 +148,6 @@ main label {
 main .submit-wrap {
     display: flex;
     justify-content:  center;
-    margin-bottom: 20px;
 }
 main .sign-in-btn {
     display: inline-block;
@@ -159,6 +158,19 @@ main .sign-in-btn {
     border: none;
     cursor: pointer;
     border-radius: 0.8rem;
+}
+
+main .sign-in {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #545454;
+
+}
+
+main .sign-in span a {
+    color: rgba(172, 106, 255, 1);
+    cursor: pointer;
 }
 
 main .sign-up-btn {
@@ -215,16 +227,17 @@ main .login-form .err {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background-color: #333;
-    color: #fff;
+    background-color: white;
+    color: black;
     text-align: center;
-    border-radius: 2px;
+    border-radius: 0.8rem;
     padding: 16px;
     position: fixed;
+    right: 30px;
+    top: 120px;
+    font-size: 0.8rem;
     z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
+    border: 2px solid black;
 }
 
 #snackbar.show {
@@ -234,21 +247,21 @@ main .login-form .err {
 }
 
 @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {right: 0; opacity: 0;}
+    to {right: 30px; opacity: 1;}
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {right: 0; opacity: 0;}
+    to {right: 30px; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {right: 30px; opacity: 1;}
+    to {right: 0; opacity: 0;}
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {right: 30px; opacity: 1;}
+    to {right: 0; opacity: 0;}
 }

@@ -72,6 +72,13 @@
             $(".registration-wrap").show();
         }
 
+        function  showLogin() {
+            $(".registration-wrap").hide();
+            $(".login-wrap").show();
+            $(".register-option").show();
+
+        }
+
     </script>
 
 </head>
@@ -81,14 +88,19 @@
 <%
 Boolean flag= (Boolean) session.getAttribute("noLogOrder");
 if(flag!=null)
-    if(flag==false) {
-        out.print("<div id=\"snackbar\">devi loggarti per completare l'ordine..</div>\n");
-        session.setAttribute("noLogOrder",null);
+    if(!flag) {
+
+%>
+      <div id="snackbar">Accedi per completare l'ordine.</div>
+<%
+            session.setAttribute("noLogOrder",null);
     }
     Boolean flag1= (Boolean) session.getAttribute("noLogArea");
     if(flag1!=null)
-        if(flag1==false) {
-            out.print("<div id=\"snackbar\">devi loggarti per vedere la tua area personale..</div>\n");
+        if(!flag1) {
+%>
+            <div id="snackbar">Accedi per visualizzare la tua area personale.</div>
+<%
             session.setAttribute("noLogArea",null);
         }
 %>
@@ -145,7 +157,7 @@ if(flag!=null)
                                 <input id="login-pass" name="pass" type="password" class="input-field" required placeholder="Password"/>
                             </div>
 
-                            <input type="submit" value="Sign In" class="sign-in-btn"  />
+                            <input type="submit" value="Accedi" class="sign-in-btn"  />
 
                             <%
                                 Boolean flag2 = (Boolean) session.getAttribute("failLogin");
@@ -168,10 +180,10 @@ if(flag!=null)
 
                     <section>
                         <div class="heading2">
-                            <h2>Not registered yet?</h2>
+                            <h2>Prima volta qui?</h2>
                         </div>
 
-                        <button class="reg-btn" type="button" onclick="showRegistration()">Sign Up</button>
+                        <button class="reg-btn" type="button" onclick="showRegistration()">Registrati</button>
                     </section>
 
 
@@ -182,7 +194,7 @@ if(flag!=null)
                     <form action="RegistrazioneServlet" method="post"  autocomplete="off" class="sign-up-form">
 
                         <div class="heading">
-                            <h2>Registration</h2>
+                            <h2>Nuovo Account</h2>
                         </div>
 
                         <div class="actual-form">
@@ -219,8 +231,12 @@ if(flag!=null)
                         </div>
 
                         <div class="submit-wrap">
-                            <input type="submit" value="Sign up" class="sign-up-btn" />
+                            <input type="submit" value="Registrati" class="sign-up-btn" />
                         </div>
+                        <div class="sign-in">
+                            <span>Hai già un account? <a onclick="showLogin()"> Accedi </a></span>
+                        </div>
+
 
                     </form>
                 </div>
