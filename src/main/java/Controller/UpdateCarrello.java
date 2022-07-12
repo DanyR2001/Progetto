@@ -32,7 +32,7 @@ public class UpdateCarrello extends HttpServlet {
             System.out.println(" qunr carrelo "+carrello.getPrezzo());
             snn.setAttribute("removedVinil",lista);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -6,10 +6,11 @@
 <%
     HttpSession snn=request.getSession();
     Ordine carrello= (Ordine) snn.getAttribute("carrello");
-    Utente user= (Utente) snn.getAttribute("utente");
+    Utente u = (Utente) snn.getAttribute("utente");
     ListaVinili service=(ListaVinili) snn.getAttribute("libreria");
-    if(user!=null)
-        if(user.isAdmin_bool()){
+    ArrayList<Vinile> listaRimossi= (ArrayList<Vinile>) snn.getAttribute("removedVinil");
+    if(u!=null)
+        if(u.isAdmin_bool()){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
             dispatcher.forward(request, response);
         }
@@ -22,6 +23,7 @@
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/header.css" type="text/css"/>
+    <link rel="stylesheet" href="css/carrello.css" type="text/css"/>
 
     <style>
         table, th, tr {
@@ -86,12 +88,12 @@
         </div>
         <a href="index.jsp" ><p>Home</p><img src="img/home.png" alt="homepage" tooltip="Home"></a>
         <a href="AreaPersonale"><p>Profilo</p><img src="img/user%20(2).png" alt="profile">
-            <% if(user!=null) { %>
-            <span id="user"><%=user.getNome()%></span>
+            <% if(u != null) { %>
+            <span id="user"><%=u.getNome()%></span>
             <%}%>
         </a>
         <a href="carrello.jsp" id="cart1"><img src="img/shopping-cart.png" alt="cart"><span id="cart-counter1"><%=carrello.getNumItem()%></span></a>
-        <%if(user==null){%>
+        <%if(u == null){%>
         <a href="access.jsp"><p>Login</p><img src="img/enter.png" alt="login"></a> <!--se non c'è l'utente appare il login -->
         <%} else {%>
         <a href="Logout"><p>Logout</p><img src="img/logout.png" alt="logout"></a> <!-- se c'è, logout -->
@@ -100,51 +102,75 @@
 
 </header>
 
-    <main>
-        <table>
-            <%
+    <main class="cart-page">
+        <div class="box">
+            <div class="inner-box">
+                <%
+                    if(carrello.getCarrello().size()>0) {
 
-                ArrayList<Vinile> listaRimossi= (ArrayList<Vinile>) snn.getAttribute("removedVinil");
-                if(listaRimossi!=null){
-                    out.print("<fieldset>");
-                    for(Vinile v :listaRimossi)
-                        out.print("<h1>"+v.getTitolo()+" di "+v.getArtista());
-                    out.print("</fieldset>");
-                    snn.setAttribute("removedVinil",null);
-                }
-                if(carrello.getNumItem()>=1){
-                    for(int i=0;i<carrello.getNumItem();i++){
-                        Prodotto p=carrello.getCarrello().get(i);
-            %>
-            <form action="UpdateCarrello">
-                <input type="hidden" name="index" value="<%out.print(i);%>">
-                <%System.out.println("ciao "+p.getQuantita()+" cazzo ");%>
-                <tr><td><%out.print("<h2>"+p.getArticolo().getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita' min='0' max='"+(service.getQuantitaVin(p.getArticolo()))+"' value='"+p.getQuantita()+"'>");%></td><td><%out.print(p.getPrezzo());%></td><td><input type="submit" value="applica modifiche"></td></tr>
-            </form>
-            <%}
-            %>
-            <tr><td colspan="2"><h1>Totale</h1></td><td colspan="2"><h1><%=carrello.getPrezzo()%></h1></td></tr>
-            <%
-                }
-            %>
-        </table>
-        <%
-            if(carrello.getCarrello().size()>0){
-                out.print("<form action='RedirectOrder'>");
-                out.print("<input type='submit' value='Completa ordine'>");
-                out.print("</form>");
-            }
-            else{
-                out.print("<h1>Carrello vuoto</h1>");
-            }
+                %>
+                <div class="cart">
+                    <div class="cart-text">
+                        <h1>Carrello</h1>
+                    </div>
 
-        %>
+                    <table>
+                    </table>
+                    <form action="RedirectOrder">
+                        <input type="submit" value="Completa ordine">
+                    </form>
+                </div>
+                <%
+                    }  else {
+                %>
+                <div class="empty-cart">
+                    <img src="img/cart.png" alt="cart">
+                    <div class="empty-cart-text">
+                        <h1>Carrello vuoto</h1>
+                    </div>
+
+                </div>
+
+
+                <%
+                    }
+                %>
+
+                    <%
+
+
+                        if(listaRimossi!=null) {
+                            out.print("<fieldset>");
+                            for(Vinile v :listaRimossi)
+                                out.print("<h1>"+v.getTitolo()+" di "+v.getArtista());
+                            out.print("</fieldset>");
+                            snn.setAttribute("removedVinil",null);
+                        }
+                    %>
+                    <%
+                        if(carrello.getNumItem() >= 1) {
+                            for(int i = 0; i < carrello.getNumItem(); i++){
+                                Prodotto p = carrello.getCarrello().get(i);
+                    %>
+                    <form action="UpdateCarrello">
+                        <input type="hidden" name="index" value="<%out.print(i);%>">
+                        <tr><td><%out.print("<h2>"+p.getArticolo().getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita' min='0' max='"+(service.getQuantitaVin(p.getArticolo()))+"' value='"+p.getQuantita()+"'>");%></td><td><%out.print(p.getPrezzo());%></td><td><input type="submit" value="applica modifiche"></td></tr>
+                    </form>
+                    <%      }
+                    %>
+                    <tr><td colspan="2"><h1>Totale</h1></td><td colspan="2"><h1><%=carrello.getPrezzo()%></h1></td></tr>
+                    <%
+                        }
+                    %>
+                </table>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
         <div class="footer-info">
             <a href="index.jsp" class="footer-link" >Home</a>
-            <%if(user==null){%>
+            <%if(u == null){%>
             <a href="access.jsp" class="footer-link" >Login</a>
             <%} else {%>
             <a href="Logout" class="footer-link">Logout </a>
