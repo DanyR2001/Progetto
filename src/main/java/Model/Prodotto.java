@@ -1,5 +1,7 @@
 package Model;
 
+import java.text.DecimalFormat;
+
 public class Prodotto {
     private Vinile articolo;
     private int quantita;
@@ -36,7 +38,8 @@ public class Prodotto {
     }
 
     public double getPrezzo() {
-        return prezzo;
+        DecimalFormat dr=new DecimalFormat("0.00");
+        return Double.parseDouble(dr.format(prezzo).replace(",","."));
     }
 
     public void setPrezzo(double prezzo) {
