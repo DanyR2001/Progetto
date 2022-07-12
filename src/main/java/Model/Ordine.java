@@ -177,12 +177,18 @@ public class Ordine {
         this.prezzo=prezzo;
     }
 
-    public void check(){
+    public ArrayList<Vinile> check(){
+        ArrayList<Vinile> ret=new ArrayList<>();
         for(int i=0;i<list.size();i++) {
             Prodotto p = list.get(i);
-            if (p.getQuantita() <= 0)
+            if (p.getQuantita() <= 0) {
+                ret.add(list.get(i).getArticolo());
                 list.remove(i);
+            }
         }
+        if(ret.size()>0)
+            return ret;
+        return null;
     }
 
     public String toString(){

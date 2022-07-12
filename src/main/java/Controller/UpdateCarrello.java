@@ -24,13 +24,17 @@ public class UpdateCarrello extends HttpServlet {
         System.out.println(" item "+v.getTitolo()+" act order "+actual+" remin list "+remain+" total "+total+" quanita form "+quantita+" nuovi riamente" );
         carrello.getCarrello().get(index).setQuantita(quantita);
         carrello.refreshCost();
-        carrello.check();
+        ArrayList<Vinile> removed= carrello.check();
         System.out.println("--(UC codice)--"+carrello.getCodice());
         Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
             ArrayList<Vinile> lista=ordineDAO.uploadOrdine(u,carrello,service);
+            System.out.println(" rimozione prova "+lista.size());
             System.out.println(" qunr carrelo "+carrello.getPrezzo());
             snn.setAttribute("removedVinil",lista);
+        }
+        else{
+            snn.setAttribute("removedVinil",removed);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
         dispatcher.forward(request, response);
