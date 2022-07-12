@@ -13,7 +13,10 @@ public class UpdateCarrello extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int index= Integer.parseInt( request.getParameter("index"));
-        int quantita= Integer.parseInt( request.getParameter("quantita"));
+        String qt=request.getParameter("quantita");
+        Integer quantita=0;
+        if(qt!=null)
+            quantita = Integer.parseInt(qt);
         HttpSession snn=request.getSession();
         ListaVinili service= (ListaVinili) snn.getAttribute("libreria");
         Ordine carrello= (Ordine) snn.getAttribute("carrello");

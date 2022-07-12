@@ -49,6 +49,10 @@
             });
         });
 
+        function submit(i){
+            $("#"+i).submit;
+        }
+
         $(document).click(function (e) {
             var target=$(e.target);
             if(!target.hasClass("c"))
@@ -134,14 +138,26 @@
                         for(int i = 0; i < carrello.getNumItem(); i++) {
                             Prodotto p = carrello.getCarrello().get(i);
                     %>
-                        <form action="UpdateCarrello">
+                        <form action="UpdateCarrello" id="<%=i%>">
                             <input type="hidden" name="index" value="<%=i%>">
                             <tr class="table-item">
 
                                 <td><h3><%=p.getArticolo().getTitolo()%></h3></td>
-                                <td><input type="number" name="quantita" min="0" max="<%=service.getQuantitaVin(p.getArticolo())%>" value="<%=p.getQuantita()%>"></td>
+                                <td>
+                                    <select name="quantita" onchange="submit(<%=i%>)">
+                                        <%
+                                            for(int j=0;j<=service.getQuantitaVin(p.getArticolo());j++){
+                                            if(j==p.getQuantita()){%>
+                                                <option selected="selected"><%=j%></option>
+                                            <%}
+                                            else{%>
+                                                <option><%=j%></option>
+                                           <%}
+                                           }
+                                %>
+                                    </select>
                                 <td><%=p.getPrezzo()%></td>
-                                <td><input type="submit" value="applica modifiche"></td>
+                                <td><a href="UpdateCarrello?index=<%=i%>">Remove</a></td>
                             </tr>
                         </form>
                         <%
