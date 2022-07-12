@@ -163,6 +163,7 @@ main {
     display: flex;
     justify-content: center;
 }
+
 #country-list li {
     padding: 10px;
     display: list-item;
@@ -208,6 +209,11 @@ main {
     color: #545454;
     font-size: 0.8rem;
 }
+
+.footer-link:hover {
+    color: black;
+}
+
 @media screen and (max-width: 780px) {
     .header a {
         float: none;

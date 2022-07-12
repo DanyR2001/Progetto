@@ -196,7 +196,6 @@ main .reg-btn {
     cursor: pointer;
     border-radius: 0.8rem;
     font-size: 0.8rem;
-    transition: 0.3s;
 }
 
 main .reg-btn:hover {

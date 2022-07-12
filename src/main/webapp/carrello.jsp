@@ -25,17 +25,17 @@
     <link rel="stylesheet" href="css/header.css" type="text/css"/>
     <link rel="stylesheet" href="css/carrello.css" type="text/css"/>
 
-    <style>
-        table, th, tr {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
 
         $(document).ready(function(){
+            myFunction();
             $("#search-box").keyup(function(){
                 $.ajax({
                     type: "POST", //tipo di richiesta
@@ -71,6 +71,17 @@
     </script>
 </head>
 <body>
+<%
+
+    if(listaRimossi!=null) {
+        for(Vinile v :listaRimossi) {
+%>
+    <div id="snackbar">"<%=v.getTitolo()%>" rimosso dal carrello.</div>
+<%
+        }
+        snn.setAttribute("removedVinil",null);
+    }
+%>
     <header class="header">
     <img src="img/vynil.png" class="vinyl" alt="vinyl">
     <a href="index.jsp" class="logo">LostInTheLoop</a>
@@ -113,11 +124,38 @@
                     <div class="cart-text">
                         <h1>Carrello</h1>
                     </div>
-
                     <table>
+                        <tr class="column-name">
+                            <td><h2>Prodotto</h2></td>
+                            <td><h2>Quantità</h2></td>
+                            <td><h2>Prezzo</h2></td>
+                        </tr>
+                    <%
+                        for(int i = 0; i < carrello.getNumItem(); i++) {
+                            Prodotto p = carrello.getCarrello().get(i);
+                    %>
+                        <form action="UpdateCarrello">
+                            <input type="hidden" name="index" value="<%=i%>">
+                            <tr class="table-item">
+
+                                <td><h3><%=p.getArticolo().getTitolo()%></h3></td>
+                                <td><input type="number" name="quantita" min="0" max="<%=service.getQuantitaVin(p.getArticolo())%>" value="<%=p.getQuantita()%>"></td>
+                                <td><%=p.getPrezzo()%></td>
+                                <td><input type="submit" value="applica modifiche"></td>
+                            </tr>
+                        </form>
+                        <%
+                        }
+                        %>
+                        <tr>
+                            <td colspan="2"><h2>Totale</h2></td>
+                            <td colspan="2"><h2><%=carrello.getPrezzo()%></h2></td>
+                        </tr>
+
                     </table>
-                    <form action="RedirectOrder">
-                        <input type="submit" value="Completa ordine">
+
+                    <form action="RedirectOrder" class="submit-order">
+                        <input type="submit" value="Completa ordine" class="submit-order-btn">
                     </form>
                 </div>
                 <%
@@ -130,39 +168,9 @@
                     </div>
 
                 </div>
-
-
                 <%
                     }
                 %>
-
-                    <%
-
-
-                        if(listaRimossi!=null) {
-                            out.print("<fieldset>");
-                            for(Vinile v :listaRimossi)
-                                out.print("<h1>"+v.getTitolo()+" di "+v.getArtista());
-                            out.print("</fieldset>");
-                            snn.setAttribute("removedVinil",null);
-                        }
-                    %>
-                    <%
-                        if(carrello.getNumItem() >= 1) {
-                            for(int i = 0; i < carrello.getNumItem(); i++){
-                                Prodotto p = carrello.getCarrello().get(i);
-                    %>
-                    <form action="UpdateCarrello">
-                        <input type="hidden" name="index" value="<%out.print(i);%>">
-                        <tr><td><%out.print("<h2>"+p.getArticolo().getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita' min='0' max='"+(service.getQuantitaVin(p.getArticolo()))+"' value='"+p.getQuantita()+"'>");%></td><td><%out.print(p.getPrezzo());%></td><td><input type="submit" value="applica modifiche"></td></tr>
-                    </form>
-                    <%      }
-                    %>
-                    <tr><td colspan="2"><h1>Totale</h1></td><td colspan="2"><h1><%=carrello.getPrezzo()%></h1></td></tr>
-                    <%
-                        }
-                    %>
-                </table>
             </div>
         </div>
     </main>
