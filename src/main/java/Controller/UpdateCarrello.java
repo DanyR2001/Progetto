@@ -14,7 +14,7 @@ public class UpdateCarrello extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int index= Integer.parseInt( request.getParameter("index"));
         String qt=request.getParameter("quantita");
-        Integer quantita=0;
+        Integer quantita = 0;
         if(qt!=null)
             quantita = Integer.parseInt(qt);
         HttpSession snn=request.getSession();
@@ -24,16 +24,12 @@ public class UpdateCarrello extends HttpServlet {
         int actual=carrello.getCarrello().get(index).getQuantita();
         int remain=service.getQuantitaVin(v)-actual;
         int total=service.getQuantitaVin(v);
-        System.out.println(" item "+v.getTitolo()+" act order "+actual+" remin list "+remain+" total "+total+" quanita form "+quantita+" nuovi riamente" );
         carrello.getCarrello().get(index).setQuantita(quantita);
         carrello.refreshCost();
         ArrayList<Vinile> removed= carrello.check();
-        System.out.println("--(UC codice)--"+carrello.getCodice());
         Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
-            ArrayList<Vinile> lista=ordineDAO.uploadOrdine(u,carrello,service);
-            System.out.println(" rimozione prova "+lista.size());
-            System.out.println(" qunr carrelo "+carrello.getPrezzo());
+            ArrayList<Vinile> lista = ordineDAO.uploadOrdine(u,carrello,service);
             snn.setAttribute("removedVinil",lista);
         }
         else{

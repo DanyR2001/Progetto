@@ -130,9 +130,11 @@
                     </div>
                     <table>
                         <tr class="column-name">
+                            <td></td>
                             <td><h2>Prodotto</h2></td>
-                            <td><h2>Quantità</h2></td>
-                            <td><h2>Prezzo</h2></td>
+                            <td class="al"><h2>Quantità</h2></td>
+                            <td class="al"><h2>Prezzo</h2></td>
+                            <td class="al"><h2>Subtotale</h2></td>
                         </tr>
                     <%
                         for(int i = 0; i < carrello.getNumItem(); i++) {
@@ -142,8 +144,9 @@
                             <input type="hidden" name="index" value="<%=i%>">
                             <tr class="table-item">
 
-                                <td><h3><%=p.getArticolo().getTitolo()%></h3></td>
-                                <td>
+                                <td><img src="<%=application.getContextPath()%><%=p.getArticolo().getUrl()%>" alt="<%=p.getArticolo().getTitolo()%>" class="product-img"></td>
+                                <td><a href="item.jsp?id=<%=p.getArticolo().getPK()%>" class="product-titolo"><%=p.getArticolo().getTitolo()%></a></td>
+                                <td class="quant">
                                     <select name="quantita" onchange="submit(<%=i%>)">
                                         <%
                                             for(int j=0;j<=service.getQuantitaVin(p.getArticolo());j++){
@@ -156,16 +159,22 @@
                                            }
                                 %>
                                     </select>
-                                <td><%=p.getPrezzo()%></td>
-                                <td><a href="UpdateCarrello?index=<%=i%>">Remove</a></td>
+                                </td>
+                                <td class="prezzo"><%=p.getArticolo().getPrezzo()%></td>
+                                <td class="subtotale"><%=p.getPrezzo()%></td>
+                                <td><a href="UpdateCarrello?index=<%=i%>" class="remove"><img src="img/delete.png" alt="delete"></a></td>
                             </tr>
                         </form>
                         <%
                         }
                         %>
                         <tr>
-                            <td colspan="2"><h2>Totale</h2></td>
-                            <td colspan="2"><h2><%=carrello.getPrezzo()%></h2></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="al"><h2>Totale</h2></td>
+                            <td class="al"><h2><%=carrello.getPrezzo()%></h2></td>
+                            <td></td>
                         </tr>
 
                     </table>

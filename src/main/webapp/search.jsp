@@ -10,6 +10,9 @@
     HttpSession snn = request.getSession();
     Ordine carrello = (Ordine) session.getAttribute("carrello");
     Utente u = (Utente) snn.getAttribute("utente");
+    String val= (String) session.getAttribute("String");
+    List<Vinile> result= (List<Vinile>) session.getAttribute("listaResult");
+    List<Tag> lista= (List<Tag>) session.getAttribute("tags");
     if(u!=null)
         if(u.isAdmin_bool()){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -24,6 +27,7 @@
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/header.css" type="text/css"/>
+    <link rel="stylesheet" href="css/ricerca.css" type="text/css"/>
 
     <style>
         table, th, td {
@@ -70,6 +74,7 @@
 
     </script>
 </head>
+
 <body>
 
     <header class="header">
@@ -103,47 +108,75 @@
 
 </header>
 
-    <%
-    String val= (String) session.getAttribute("String");
-    List<Vinile> result= (List<Vinile>) session.getAttribute("listaResult");
-    List<Tag> lista= (List<Tag>) session.getAttribute("tags");
-%>
-    <table>
-    <tr><th>Ricerca</th><th>Tag:</th></tr>
-    <tr>
-        <td>
-            <input type="text" id="search" name="search" value="<%out.print(val);%>" form='form1'>
-        </td>
-        <td>
-        <%
-            if(lista!=null)
-                for(Tag x: lista)
-                    out.print("<input type='checkbox' form='form1' name='cheackbox' value=\""+x.getNome()+"\" id='"+x.getId_tag()+"'><lable for='"+x.getId_tag()+"'>"+x.getNome()+"</lable>");
-        %>
-    </td></tr>
-    <tr><td>Filtra per:</td><td>
-        <form action="Search" id="form1">
-        <input type="submit" value="Cerca">
-        </form>
-    </td>
-    </tr>
-    <tr><td>
-            <input type="radio" id="testo" name="choose" value="Testo" form='form1' required>
-            <label for="testo">Casella di testo</label>
-        </td><td>
-            <input type="radio" id="tag" name="choose" value="Tag" form='form1'>
-            <label for="tag">Tag</label>
-        </td>
-    </tr>
-    <%
-    if(result!=null)
-        for(int i=0;i<result.size();i++){
-            out.print("<tr><td> <img style='height=50px;width: 50px' src=\"" +application.getContextPath()+ result.get(i).getUrl() + "\"></td><td> <a href=\"item.jsp?id=" + result.get(i).getPK() + "\">"+ result.get(i).getTitolo() +"</a></td></tr>\n");
-        }
-    else
-        out.print("Nessun risultato");
-    %>
-</table>
+    <main>
+        <div class="search-panel">
+            <div class="panel">
+                <div class="search">
+                    <p>Ricerca</p>
+                    <input type="text" id="search" name="search" value="<%=val%>" form="form1">
+                </div>
+                <div  class="tags">
+                    <p>Tag</p>
+                    <%
+                        if(lista!=null)
+                            for(Tag x: lista) {
+                    %>
+                    <input type="checkbox" form="form1" name="cheackbox" value="<%=x.getNome()%>" id="<%=x.getId_tag()%>">
+                    <lable for="<%=x.getId_tag()%>"><%=x.getNome()%></lable>
+                    <br>
+                    <%
+                            }
+                    %>
+                </div>
+
+                <table>
+
+                    <tr>
+                        <td>Filtra per:</td>
+                        <td></td>
+                    </tr>
+                    <tr><td>
+                        <input type="radio" id="testo" name="choose" value="Testo" form="form1" required>
+                        <label for="testo">Casella di testo</label>
+                    </td><td>
+                        <input type="radio" id="tag" name="choose" value="Tag" form="form1">
+                        <label for="tag">Tag</label>
+                    </td>
+                    </tr>
+                </table>
+                <form action="Search" id="form1">
+                    <input type="submit" value="Cerca">
+                </form>
+            </div>
+        </div>
+
+        <div class="show-item">
+                <%
+                    if(result != null) {
+                        for(int i = 0; i < result.size(); i++){
+                %>
+
+                <a href="item.jsp?id=<%=result.get(i).getPK()%>" class="item-reference">
+                    <div class="item-container">
+                        <div class="item">
+                            <img class="item-img" src="<%=application.getContextPath()%><%=result.get(i).getUrl()%>" alt="<%=result.get(i).getTitolo()%>">
+                            <div class="item-info">
+                                <p class="item-titolo"><%=result.get(i).getTitolo()%></p>
+                                <p class="item-artista"><%=result.get(i).getArtista()%></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <%
+                    }
+                } else {
+                %>
+                <p>Nessun Risultato</p>
+                <%
+                    }
+                %>
+        </div>
+    </main>
 
     <footer class="footer">
         <div class="footer-info">
