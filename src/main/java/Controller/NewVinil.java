@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.listaDisponibiliDAO;
+import Model.ListaDisponibiliDAO;
 import Model.Tag;
 import Model.Vinile;
 import jakarta.servlet.*;
@@ -64,7 +64,7 @@ public class NewVinil extends HttpServlet {
                 }
             }
         System.out.println("1111");
-        listaDisponibiliDAO service=new listaDisponibiliDAO();
+        ListaDisponibiliDAO service=new ListaDisponibiliDAO();
         Vinile v=new Vinile();
         v.setUrl(File.separator+UPLOAD_DIRECTORY+File.separator+Titol);
         v.setPrezzo(Prezzo);

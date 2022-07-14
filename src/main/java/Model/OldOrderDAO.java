@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Model.ordineDAO.listaTupleDB;
-
-public class oldOrderDAO {
+public class OldOrderDAO {
 
     public static List<Prodotto> listaTupleDbOldOrder(Ordine o, ListaVinili service){
         System.out.println("2 inizio lista da db");
@@ -41,13 +39,13 @@ public class oldOrderDAO {
         }
     }
 
-    public static oldOrder doRetriveById(Utente u, ListaVinili service){
+    public static OldOrder doRetriveById(Utente u, ListaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico FROM ordine WHERE id_user=? and evaso=true order by dataev desc");
             ps.setInt(1,u.getID());
             ResultSet rs = ps.executeQuery();
-            oldOrder ret=new oldOrder();
+            OldOrder ret=new OldOrder();
             while(rs.next()) {
                 Ordine tmp = new Ordine();
                 tmp.setCodice(rs.getInt(1));

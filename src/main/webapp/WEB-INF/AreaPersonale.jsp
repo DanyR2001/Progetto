@@ -1,4 +1,4 @@
-<%@ page import="Model.oldOrder" %>
+<%@ page import="Model.OldOrder" %>
 <%@ page import="Model.Ordine" %>
 <%@ page import="Model.Prodotto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,7 +18,7 @@
 </head>
 <body>
   <%
-    oldOrder list= (oldOrder) session.getAttribute("OldOrdini");
+    OldOrder list= (OldOrder) session.getAttribute("OldOrdini");
     if(list!=null){
       for(Ordine x :list.getList()){
         out.print("<fieldset>");

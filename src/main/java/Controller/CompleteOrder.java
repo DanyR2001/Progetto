@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Ordine;
-import Model.ordineDAO;
+import Model.OrdineDAO;
 import Model.Utente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -39,7 +39,7 @@ public class CompleteOrder extends HttpServlet {
                 carrello.setCivico(civico);
                 carrello.setVia(via);
                 carrello.setCap(cap);
-                ordineDAO.completeOrdine(carrello);
+                OrdineDAO.completeOrdine(carrello);
                 //devo scalare la quantita dei presi dai vinili
                 carrello=null;
                 session.removeAttribute("carrello");

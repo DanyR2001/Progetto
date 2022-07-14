@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Tag;
-import Model.tagsDAO;
+import Model.TagsDAO;
 import Model.Utente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -22,7 +22,7 @@ public class RemoveTag extends HttpServlet {
                 Integer id=Integer.parseInt(request.getParameter("ID_tag"));
                 if(id!=null){
                     Tag fin=null;
-                    tagsDAO.removeTagByID(id);
+                    TagsDAO.removeTagByID(id);
                     for(Tag t: tags)
                         if(t.getId_tag()==id)
                             fin=t;

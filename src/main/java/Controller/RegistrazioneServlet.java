@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Utente;
-import Model.utentiDAO;
+import Model.UtentiDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -31,7 +31,7 @@ public class RegistrazioneServlet extends HttpServlet {
         utente.setCap(cap);
         Integer civico=Integer.parseInt(request.getParameter("civico"));
         utente.setCap(civico);
-        utentiDAO.doSave(utente);
+        UtentiDAO.doSave(utente);
         request.getSession().setAttribute("utente", utente);
         response.sendRedirect(".");
     }

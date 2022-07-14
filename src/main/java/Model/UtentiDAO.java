@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.*;
 
-public class utentiDAO {
+public class UtentiDAO {
 
     public static void doSave(Utente u) {
         try (Connection con = ConPool.getConnection()) {

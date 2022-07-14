@@ -3,7 +3,7 @@ package Model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class tagsDAO {
+public class TagsDAO {
 
     public static ArrayList<Tag> getTagByIdVinil(int id){
         try (Connection con = ConPool.getConnection()) {

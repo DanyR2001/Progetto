@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Utente;
-import Model.utentiDAO;
+import Model.UtentiDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username=request.getParameter("mail");
         String password=request.getParameter("pass");
-        Utente x= new utentiDAO().doRetrieveByUsernamePassword(username,password);
+        Utente x= new UtentiDAO().doRetrieveByUsernamePassword(username,password);
         HttpSession snn=request.getSession();
         String path="";
         if (x == null) {

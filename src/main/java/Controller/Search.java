@@ -2,7 +2,7 @@ package Controller;
 
 import Model.ListaVinili;
 import Model.Tag;
-import Model.tagsDAO;
+import Model.TagsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -26,7 +26,7 @@ public class Search extends HttpServlet {
                     vin = libreria.getAvailableVinili().getAllVinili();
                 snn.setAttribute("listaResult",vin);
                 snn.setAttribute("String",cont);
-                List<Tag> lista= tagsDAO.getAll();
+                List<Tag> lista= TagsDAO.getAll();
                 snn.setAttribute("tags",lista);
                 String val=request.getParameter("String");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");

@@ -29,7 +29,7 @@ public class UpdateCarrello extends HttpServlet {
         ArrayList<Vinile> removed= carrello.check();
         Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
-            ArrayList<Vinile> lista = ordineDAO.uploadOrdine(u,carrello,service);
+            ArrayList<Vinile> lista = OrdineDAO.uploadOrdine(u,carrello,service);
             snn.setAttribute("removedVinil",lista);
         }
         else{

@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.oldOrder;
-import Model.oldOrderDAO;
+import Model.OldOrder;
+import Model.OldOrderDAO;
 import Model.ListaVinili;
 import Model.Utente;
 import jakarta.servlet.*;
@@ -19,7 +19,7 @@ public class AreaPersonale extends HttpServlet {
             Utente u= (Utente) snn.getAttribute("utente");
             ListaVinili lib= (ListaVinili) snn.getAttribute("libreria");
             if(u!=null&&lib!=null){
-                oldOrder old= oldOrderDAO.doRetriveById(u,lib);
+                OldOrder old= OldOrderDAO.doRetriveById(u,lib);
                 snn.setAttribute("OldOrdini",old);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
                 dispatcher.forward(request, response);

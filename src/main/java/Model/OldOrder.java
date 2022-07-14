@@ -2,10 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 
-public class oldOrder {
+public class OldOrder {
     ArrayList<Ordine> list;
 
-    public oldOrder(){
+    public OldOrder(){
         list=new ArrayList<>();
     };
 

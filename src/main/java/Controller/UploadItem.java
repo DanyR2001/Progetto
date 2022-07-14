@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.listaDisponibiliDAO;
+import Model.ListaDisponibiliDAO;
 import Model.ListaVinili;
 import Model.Utente;
 import Model.Vinile;
@@ -23,7 +23,7 @@ public class UploadItem extends HttpServlet {
                 Vinile v=lib.get(Index);
                 int Quantita= Integer.parseInt(request.getParameter("quantita"));
                 double Prezzo=Double.parseDouble(request.getParameter("prezzo"));
-                listaDisponibiliDAO service=new listaDisponibiliDAO();
+                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
                 v.setPrezzo(Prezzo);
                 lib.setQuantitaVin(v,Quantita);
                 service.changeById(v,Quantita);

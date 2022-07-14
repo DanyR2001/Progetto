@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ordineDAO {
+public class OrdineDAO {
 
     public static void deleteAllPorductByOrder(int codice_ordine){
         try (Connection con = ConPool.getConnection()) {
@@ -180,7 +180,7 @@ public class ordineDAO {
             ps.setInt(4,carrello.getCap());
             ps.setInt(5,carrello.getCivico());
             ps.setInt(6,carrello.getCodice());
-            listaDisponibiliDAO service=new listaDisponibiliDAO();
+            ListaDisponibiliDAO service=new ListaDisponibiliDAO();
             if(carrello.getCarrello()!=null)
                 for(Prodotto p: carrello.getCarrello())
                     service.changeQuantiti(p.getQuantita(),p.getArticolo().getPK());

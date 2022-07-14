@@ -23,7 +23,7 @@ public class AddItem extends HttpServlet {
         carrello.addProdotto(p,servise);
         Utente u= (Utente) snn.getAttribute("utente");
         if(u!=null){
-            ordineDAO.uploadOrdine(u,carrello,servise);
+            OrdineDAO.uploadOrdine(u,carrello,servise);
         }
         snn.setAttribute("carrello",carrello);
         snn.setAttribute("refresh",true);

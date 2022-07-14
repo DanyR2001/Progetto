@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.*;
 
-public class listaDisponibiliDAO {
+public class ListaDisponibiliDAO {
      public ListaVinili getAll(){
          System.out.println(" inizio lista vinili da db");
          boolean flag=false;
@@ -20,7 +20,7 @@ public class listaDisponibiliDAO {
                  Integer quantita=rs.getInt(4);
                  v.setUrl(rs.getString(5));
                  v.setArtista(rs.getString(6));
-                 v.setTags(tagsDAO.getTagByIdVinil(v.getPK()));
+                 v.setTags(TagsDAO.getTagByIdVinil(v.getPK()));
                  retun.add(v,quantita);
                  flag=true;
              }
@@ -72,7 +72,7 @@ public class listaDisponibiliDAO {
             v.setPK(id);
             if(v.getTags()!=null)
                 for(int i=0;i<v.getTags().size();i++)
-                    tagsDAO.insertTagForVinil(v.getPK(),v.getTags().get(i).getId_tag());
+                    TagsDAO.insertTagForVinil(v.getPK(),v.getTags().get(i).getId_tag());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

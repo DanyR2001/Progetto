@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Tag;
-import Model.tagsDAO;
+import Model.TagsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -24,10 +24,10 @@ public class AddTag extends HttpServlet {
                 System.out.println("p3");
                 if (cheackbox.length >= 1) {
                     System.out.println("p4");
-                    Tag t = tagsDAO.insertTag(nome);
+                    Tag t = TagsDAO.insertTag(nome);
                     for (String s : cheackbox) {
                         int x = Integer.parseInt(s);
-                        tagsDAO.insertTagForVinil(x, t.getId_tag());
+                        TagsDAO.insertTagForVinil(x, t.getId_tag());
                     }
                     tags.add(t);
                     snn.setAttribute("tags",tags);

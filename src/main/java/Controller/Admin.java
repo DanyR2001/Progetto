@@ -18,10 +18,10 @@ public class Admin extends HttpServlet {
         if(u!=null){
             if(u.isAdmin_bool()){
                 System.out.println("11");
-                listaDisponibiliDAO service=new listaDisponibiliDAO();
+                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
                 ListaVinili libreria= service.getAll();
                 snn.setAttribute("libreria",libreria);
-                ArrayList<Tag> lista= tagsDAO.getAll();
+                ArrayList<Tag> lista= TagsDAO.getAll();
                 snn.setAttribute("tags",lista);
                 RequestDispatcher dispatcher = null;
                 String src=request.getParameter("src");
