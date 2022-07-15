@@ -59,7 +59,9 @@ public class OldOrderDAO {
                 tmp.setList((ArrayList<Prodotto>) listaTupleDbOldOrder(tmp, service));
                 ret.add(tmp);
             }
-            return ret;
+            if(ret.size()>0)
+                return ret;
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

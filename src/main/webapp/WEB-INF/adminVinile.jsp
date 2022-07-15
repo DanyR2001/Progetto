@@ -21,8 +21,8 @@ if(lib!=null)
         Vinile v=lib.get(i);
         %>
         <form action="UploadItem">
-        <input type="hidden" name="index" value="<%out.print(i);%>">
-        <tr><td><%out.print("<h2>"+v.getTitolo()+"</h2>");%></td><td><%out.print("Quantita: <input type='number' name='quantita'  min='0' value='"+(lib.getQuantitaVin(v))+"' >");%></td><td><%out.print("Prezzo:<input type='number' step='.01' name='prezzo' value='"+v.getPrezzo()+"'>");%></td><td><input type="submit" value="applica modifiche"></td></tr>
+        <input type="hidden" name="index" value="<%=i%>">
+        <tr><td><h2><%=v.getTitolo()%></h2></td><td>Quantita:<input type="number" name="quantita"  min="0" value="<%=lib.getQuantitaVin(v)%>" ></td><td>Prezzo:<input type="number" step=".01" name="prezzo" value="<%=v.getPrezzo()%>"></td><td>Artista:<input type="text" name="nameArtist" value="<%=v.getArtista()%>"></td><td><input type="submit" value="applica modifiche"></td></tr>
 </form>
    <% }
 %>

@@ -23,8 +23,10 @@ public class UploadItem extends HttpServlet {
                 Vinile v=lib.get(Index);
                 int Quantita= Integer.parseInt(request.getParameter("quantita"));
                 double Prezzo=Double.parseDouble(request.getParameter("prezzo"));
+                String Artista= request.getParameter("nameArtist");
                 ListaDisponibiliDAO service=new ListaDisponibiliDAO();
                 v.setPrezzo(Prezzo);
+                v.setArtista(Artista);
                 lib.setQuantitaVin(v,Quantita);
                 service.changeById(v,Quantita);
                 System.out.println("aiuto");

@@ -82,10 +82,11 @@ public class ListaDisponibiliDAO {
         //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE vinilidisp set Quantita = ? , Prezzo = ? where ID=?");
+                    "UPDATE vinilidisp set Quantita = ? , Prezzo = ?, Artista = ? where ID=?");
             ps.setInt(1, quantita);
             ps.setDouble(2,v.getPrezzo());
-            ps.setInt(3, v.getPK());
+            ps.setString(3,v.getArtista());
+            ps.setInt(4, v.getPK());
             if (ps.executeUpdate() < 1) {
                 throw new RuntimeException("2 Update error.");
             }

@@ -125,7 +125,7 @@ public class ListaVinili {
         List<Vinile> ret=new ArrayList<>();
         for(int i=0;i<list.size()&&name.length()>0;i++){
             Vinile v=list.get(i);
-            if(v.getTitolo().toLowerCase().contains(name.toLowerCase())){
+            if((v.getTitolo().toLowerCase()+" "+v.getArtista().toLowerCase()).contains(name.toLowerCase())){
                 if(isAvable(v))
                     ret.add(v);
             }
@@ -159,7 +159,6 @@ public class ListaVinili {
 
 
     public boolean toShow(Ordine carrello) {
-
         boolean flag = true;
             for (int i = 0; i < list.size(); i++){
                 Prodotto p = carrello.getItem(list.get(i));

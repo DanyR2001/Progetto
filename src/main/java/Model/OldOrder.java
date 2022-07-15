@@ -21,4 +21,11 @@ public class OldOrder {
     public void setList(ArrayList<Ordine> list) {
         this.list = list;
     }
+
+    public Integer size(){
+        if(list==null)
+            return null;
+        return list.size();
+    }
+
 }
