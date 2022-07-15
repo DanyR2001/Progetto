@@ -1,0 +1,266 @@
+.login {
+    align-items: center;
+    justify-content: center;
+}
+main .box {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 1050px;
+    height: 640px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+}
+
+main .inner-box {
+    width: 93.4%;
+    height: 89.2%;
+    margin: 35px;
+    display: flex;
+}
+
+main .login-wrap {
+    position: relative;
+    width: 45%;
+    height: 100%;
+
+}
+
+main .register-option {
+    height: 100%;
+    width: 55%;
+    left: 45%;
+    top: 0;
+    background-color: black;
+    border-radius: 10px;
+}
+
+main .sign-in-form {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main .sign-up-form{
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+main .sign-up-form .actual-form {
+    width: 100%;
+    display: flex;
+}
+
+main .part1 {
+    width: 50%;
+    margin: 6%;
+}
+
+main .part2 {
+    width: 50%;
+    margin: 6%;
+}
+
+.register-option section {
+    max-width: 340px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .heading {
+    margin-top: 30px;
+}
+
+main .heading h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #151111;
+}
+
+main .heading1 {
+    margin-top: 120px;
+    margin-bottom: 70px;
+}
+
+main .heading2 {
+    margin-top: 120px;
+    margin-bottom: 216px;
+}
+
+main .heading1 h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #151111;
+}
+
+main .heading2 h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+}
+
+main .input-wrap {
+    position: relative;
+    height: 37px;
+    margin-bottom: 2rem;
+}
+
+main .input-field {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #bbb;
+    padding: 0;
+    font-size: 0.95rem;
+    color: #151111;
+    font-family: ".SF NS Mono", sans-serif;
+}
+
+
+main label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    font-size: 0.95rem;
+    color: #bbb;
+    pointer-events: none;
+}
+
+main .submit-wrap {
+    display: flex;
+    justify-content:  center;
+}
+main .sign-in-btn {
+    display: inline-block;
+    width: 100%;
+    height: 43px;
+    background-color: #151111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+}
+
+main .sign-in {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #545454;
+
+}
+
+main .sign-in span a {
+    color: rgba(172, 106, 255, 1);
+    cursor: pointer;
+}
+
+main .sign-up-btn {
+    display: inline-block;
+    width: 40%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+    height: 43px;
+    background-color: #151111;
+
+}
+
+main .reg-btn {
+    display: inline-block;
+    width: 76.4%;
+    height: 43px;
+    background-color: #fff;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+}
+
+main .reg-btn:hover {
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+}
+
+main .sign-in-btn:hover, main .sign-up-btn:hover {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+}
+
+.registration-wrap {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+main .login-form .err {
+    font-size: 15px;
+    color: darkred;
+    margin-top: 10px;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 0.8rem;
+    padding: 16px;
+    position: fixed;
+    right: 30px;
+    top: 120px;
+    font-size: 0.8rem;
+    z-index: 1;
+    border: 2px solid black;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {right: 0; opacity: 0;}
+    to {right: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {right: 0; opacity: 0;}
+    to {right: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {right: 30px; opacity: 1;}
+    to {right: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {right: 30px; opacity: 1;}
+    to {right: 0; opacity: 0;}
+}

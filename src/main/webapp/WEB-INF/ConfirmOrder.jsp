@@ -20,10 +20,12 @@
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/header.css" type="text/css">
+    <link rel="stylesheet" href="css/confirmOrder.css" type="text/css">
 
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
+
 
         $(document).ready(function(){
             $("#search-box").keyup(function(){
@@ -93,31 +95,40 @@
     </nav>
 
     </header>
-    <main>
-        <table style="border: 1px black">
-            <%
-                if(carrello!=null&&u!=null){
-                    if(carrello.getCarrello()!=null)
-                        if(carrello.getCarrello().size()>0){
-                            for(Prodotto p :carrello.getCarrello()){
-            %>
-            <tr><td><%=p.getArticolo().getTitolo()%></td><td><%=p.getQuantita()%></td><td><%=p.getPrezzo()%></td></tr>
-            <% }
-            %>
-            <form action="CompleteOrder" >
-                <table>
-                    <tr><th colspan="2">Conferma l'indirizzo di spedizione:</th></tr>
-                    <tr><td>Via:</td><td><input type="text" value="<%= u.getVia()%>" name="via" id="via" required /></td></tr>
-                    <tr><td>Civico:</td><td><input type="number" value="<%= u.getCivico()%>" name="civico" required /> </td></tr>
-                    <tr><td>Cap:</td><td><input type="number" value="<%= u.getCap()%>" name="cap" required /></td></tr>
-                    <tr><td colspan="2"><input type="submit"></td> </tr>
-                </table>
-            </form>
-            <%
+    <main class="login">
+        <div class="box">
+            <div class="inner-box">
+                <div class="login-wrap">
+                    <table style="border: 1px black">
+                        <%
+                            if(carrello!=null&&u!=null){
+                                if(carrello.getCarrello()!=null)
+                                    if(carrello.getCarrello().size()>0){
+                                        for(Prodotto p :carrello.getCarrello()){
+                        %>
+                        <tr><td><%=p.getArticolo().getTitolo()%></td><td><%=p.getQuantita()%></td><td><%=p.getPrezzo()%></td></tr>
+                        <% }
+                        %>
+                        </table>
+                </div>
+                <div class="register-option">
+                    <form action="CompleteOrder" >
+                        <table>
+                            <tr><th colspan="2">Conferma l'indirizzo di spedizione:</th></tr>
+                            <tr><td>Via:</td><td><input type="text" value="<%= u.getVia()%>" name="via" id="via" required /></td></tr>
+                            <tr><td>Civico:</td><td><input type="number" value="<%= u.getCivico()%>" name="civico" required /> </td></tr>
+                            <tr><td>Cap:</td><td><input type="number" value="<%= u.getCap()%>" name="cap" required /></td></tr>
+                            <tr><td colspan="2"><input type="submit"></td> </tr>
+                        </table>
+                    </form>
+
+                    <%
+                                }
                         }
-                }
-            %>
-        </table>
+                    %>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <div class="footer-info">

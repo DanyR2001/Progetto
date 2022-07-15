@@ -8,6 +8,7 @@
         HttpSession snn = request.getSession();
         Ordine carrello = (Ordine) session.getAttribute("carrello");
         Utente u = (Utente) snn.getAttribute("utente");
+        Integer num= (Integer) snn.getAttribute("numRemoved");
         if(u!=null)
             if(u.isAdmin_bool()){
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -27,8 +28,18 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            if(x!=null) {
+                x.className = "show";
+                setTimeout(function () {
+                    x.className = x.className.replace("show", "");
+                }, 3000);
+            }
+        }
 
         $(document).ready(function(){
+            myFunction();
             $("#search-box").keyup(function(){
                 $.ajax({
                     type: "POST", //tipo di richiesta
@@ -68,6 +79,17 @@
 </head>
 
 <body>
+<%
+
+    if(num!=null) {
+        if(num>0){
+%>
+        <div id="snackbar"><%=num%> elemento/i rimosso/i dal carrello.</div>
+<%
+        }
+        snn.setAttribute("numRemoved",null);
+    }
+%>
 <header class="header">
     <img src="img/vynil.png" class="vinyl" alt="vinyl">
     <a href="index.jsp" class="logo">LostInTheLoop</a>

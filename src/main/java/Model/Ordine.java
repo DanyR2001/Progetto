@@ -59,7 +59,8 @@ public class Ordine {
         this.codice = codice;
     }
 
-    public void join(Ordine p, ListaVinili service){
+    public int join(Ordine p, ListaVinili service){
+        int count=0;
         ArrayList<Prodotto> op=p.getCarrello();
         if(codice==null&&p.getCodice()!=null)
             codice=p.getCodice();
@@ -90,6 +91,7 @@ public class Ordine {
                     }
                 else{
                     System.out.println("join 8");
+                    count++;
                     list.remove(i);
                     }
             }
@@ -104,6 +106,9 @@ public class Ordine {
                                 pr.setQuantita(service.getQuantitaVin(pr.getArticolo()));
                             list.add(pr);
                         }
+                        else{
+                            count++;
+                        }
                     }
                 }
                 refreshCost();
@@ -114,6 +119,7 @@ public class Ordine {
             list=p.getCarrello();
             refreshCost();
         }
+        return count;
     }
 
     public void addProdotto(Prodotto p, ListaVinili service){

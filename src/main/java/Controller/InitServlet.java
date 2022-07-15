@@ -82,7 +82,9 @@ public class InitServlet extends HttpServlet {
                         System.out.println("--(5.2)--");
                         if (carrelloDb.getCarrello() != null) {
                             System.out.println("--(5.3)--");
-                            carrello.join(carrelloDb, libreria);
+                            int num=carrello.join(carrelloDb, libreria);
+                            if(num>0)
+                                session.setAttribute("numRemoved",num);
                             //devo aggiornare il DB
                             //ordineDAO.uploadOrdine(user,carrello,libreria);
                         }
@@ -127,7 +129,9 @@ public class InitServlet extends HttpServlet {
                         carrello.toPrint();
                         System.out.println("--DB--");
                         carrelloDb.toPrint();
-                        carrello.join(carrelloDb, libreria);
+                        int num=carrello.join(carrelloDb, libreria);
+                        if(num>0)
+                            session.setAttribute("numRemoved",num);
                         OrdineDAO.uploadOrdine(user, carrello, libreria);
                         //funziona
                     }
