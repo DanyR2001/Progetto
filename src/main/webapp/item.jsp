@@ -29,7 +29,45 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/header.css" type="text/css"/>
 
+    <script src="./lib/jquery-3.6.0.js"> </script>
+    <script>
 
+        $(document).ready(function(){
+            $("#search-box").keyup(function(){
+                $.ajax({
+                    type: "POST", //tipo di richiesta
+                    url: "SuggestName", //url a cui inviare la richiesta
+                    data:'keyword='+ $(this).val(), //dati passati al server: passa cosa c'è scritto nella barra di ricerca
+                    success: function(data){
+                        $("#suggestion-box").show(); //rende visibile il div
+                        $("#suggestion-box").html(data);
+                    }
+                });
+            });
+        });
+
+        $(document).click(function (e) {
+            var target=$(e.target);
+            if(!target.hasClass("c"))
+                $("#suggestion-box").hide();
+            else
+                $("#suggestion-box").show();
+        })
+
+        //To select country name
+        function selectSuggest(val) {
+            $("#search-box").val(val);
+            $("#suggestion-box").hide();
+            var id=document.getElementById(val).getAttribute("value");
+            window.location.href = "./item.jsp?id="+id;
+        }
+        function search(){
+            var val= document.getElementById("search-box").value;
+            if (event.keyCode == 13)
+                window.location.href = "./Search?String="+val;
+        }
+
+    </script>
 </head>
 <body>
 <header class="header">

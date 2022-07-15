@@ -55,6 +55,8 @@
       var target=$(e.target);
       if(!target.hasClass("c"))
         $("#suggestion-box").hide();
+      else
+        $("#suggestion-box").show();
     })
 
     //To select country name
