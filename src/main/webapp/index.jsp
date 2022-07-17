@@ -28,6 +28,34 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
+
+        function next(id) {
+            var container = document.getElementById(''+id);
+            var width = container.offsetWidth;
+            sideScroll(container,'right',10,width,10);
+        }
+
+        function back(id) {
+            var container = document.getElementById(''+id);
+            var width = container.offsetWidth;
+            sideScroll(container,'left',10,width,10);
+        }
+
+        function sideScroll(element,direction,speed,distance,step){
+            scrollAmount = 0;
+            var slideTimer = setInterval(function(){
+                if(direction === 'left'){
+                    element.scrollLeft -= step;
+                } else {
+                    element.scrollLeft += step;
+                }
+                scrollAmount += step;
+                if(scrollAmount >= distance){
+                    window.clearInterval(slideTimer);
+                }
+            }, speed);
+        }
+
         function myFunction() {
             var x = document.getElementById("snackbar");
             if(x!=null) {
@@ -130,15 +158,17 @@
             <%
                 ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
                 ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
-                for (Tag tag : tags) {
-                    ListaVinili list = list1.getAvailableVinili().getFromTag(tag);
+                for (int j = 0; j< tags.size(); j++) {
+                    ListaVinili list = list1.getAvailableVinili().getFromTag(tags.get(j));
                     if (list.size() > 0 && list.toShow(carrello)) {
             %>
+
         <section class="slider">
             <div class="tag">
-                <h2><%= tag.getNome() %></h2>
+                <h2><%= tags.get(j).getNome() %></h2>
             </div>
-            <div class="item-wrapper">
+            <button type="button" class="go-left" onclick="back(<%=j%>)" > &#5176; </button>
+            <div class="item-wrapper" id="<%=j%>">
 
             <%
                         for (int i = 0; i < list.size(); i++) {
@@ -185,7 +215,9 @@
                         }
             %>
             </div>
+            <button type="button" class="go-right" onclick="next(<%=j%>)" > &#5171;</button>
         </section>
+
             <%
                     }
 
