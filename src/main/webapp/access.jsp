@@ -207,31 +207,39 @@ if(flag!=null)
 
                             <div class="part1">
                                 <div class="input-wrap">
-                                    <input type="text" id="reg-nome" name="nome" class="input-field" required placeholder="Nome">
+                                    <label for="reg-nome">Nome</label>
+                                    <input type="text" id="reg-nome" name="nome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="text" id="reg-cognome" name="cognome" class="input-field" required placeholder="Cognome">
+                                    <label for="reg-cognome">Cognome</label>
+                                    <input type="text" id="reg-cognome" name="cognome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="date" id="reg-date"  name="date" class="input-field" required placeholder="Data di nascita">
+                                    <label for="reg-date">Data di nascita</label>
+                                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " onfocus="(this.type='date')" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="email" id="reg-email" name="email" class="input-field" required placeholder="Email">
+                                    <label for="reg-email">Email</label>
+                                    <input type="email" id="reg-email" name="email" class="input-field" required>
                                 </div>
                             </div>
 
                             <div class="part2">
                                 <div class="input-wrap">
-                                    <input type="password" id="reg-pass" name="pass" class="input-field" required placeholder="Password">
+                                    <label for="reg-pass">Password</label>
+                                    <input type="password" id="reg-pass" name="pass" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="text" name="via" id="reg-via" class="input-field" required placeholder="Via">
+                                    <label for="reg-via">Via</label>
+                                    <input type="text" name="via" id="reg-via" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="number" name="civico" id="reg-civico" class="input-field" required placeholder="Civico">
+                                    <label for="reg-civico">Civico</label>
+                                    <input type="number" name="civico" id="reg-civico" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="number" name="cap" id="reg-cap" class="input-field" required placeholder="CAP">
+                                    <label for="reg-cap">CAP</label>
+                                    <input type="number" name="cap" id="reg-cap" class="input-field" required>
                                 </div>
                             </div>
                         </div>

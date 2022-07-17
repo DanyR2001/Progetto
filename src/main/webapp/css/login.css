@@ -139,7 +139,7 @@ main .input-field {
 main label {
     position: absolute;
     left: 0;
-    top: 50%;
+    top: -10px;
     font-size: 0.95rem;
     color: #bbb;
     pointer-events: none;
@@ -263,4 +263,20 @@ main .login-form .err {
 @keyframes fadeout {
     from {right: 30px; opacity: 1;}
     to {right: 0; opacity: 0;}
+}
+
+main input[type="date"]::before {
+    content: attr(placeholder);
+}
+
+main input[type="date"] {
+    color: #ffffff;
+}
+main input[type="date"]:focus,
+main input[type="date"]:valid {
+    color: black;
+}
+main input[type="date"]:focus::before,
+main input[type="date"]:valid::before {
+    content: "" !important;
 }
