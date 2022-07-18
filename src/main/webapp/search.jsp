@@ -39,6 +39,7 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
 
+
         $(document).ready(function(){
             $("#search-box").keyup(function(){
                 $.ajax({
@@ -111,7 +112,7 @@
 </header>
 
     <main>
-        <div class="search-panel">
+        <div class="search-panel" id="search-panel">
             <div class="panel">
                 <div class="search">
                     <p>Ricerca</p>

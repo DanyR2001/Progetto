@@ -10,7 +10,6 @@ main .box {
     position: relative;
     width: 100%;
     max-width: 1050px;
-    height: 640px;
     background-color: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
@@ -37,6 +36,7 @@ main .register-option {
     top: 0;
     background-color: black;
     border-radius: 10px;
+    padding-bottom: 150px;
 }
 
 main .sign-in-form {
@@ -279,4 +279,21 @@ main input[type="date"]:valid {
 main input[type="date"]:focus::before,
 main input[type="date"]:valid::before {
     content: "" !important;
+}
+
+@media screen and (max-width: 780px) {
+
+    main .inner-box {
+        flex-direction: column;
+    }
+
+    main .login-wrap {
+        width: 100%;
+        margin-bottom: 100px;
+
+    }
+
+    main .register-option {
+        width: 100%;
+    }
 }

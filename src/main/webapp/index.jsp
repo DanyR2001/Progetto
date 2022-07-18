@@ -32,13 +32,13 @@
         function next(id) {
             var container = document.getElementById(''+id);
             var width = container.offsetWidth;
-            sideScroll(container,'right',10,width,10);
+            sideScroll(container,'right',5,width,10);
         }
 
         function back(id) {
             var container = document.getElementById(''+id);
             var width = container.offsetWidth;
-            sideScroll(container,'left',10,width,10);
+            sideScroll(container,'left',5,width,10);
         }
 
         function sideScroll(element,direction,speed,distance,step){
