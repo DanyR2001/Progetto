@@ -116,22 +116,28 @@
                                 <h1><%=v.getTitolo()%></h1>
                                 <sub><%=v.getArtista()%></sub>
                                 <h3>Prezzo: <%=v.getPrezzo()%></h3>
-                                <h3>Quantita:<%
+                                <h3 class="inline">Quantita:</h3><%
                                     if (eq!=null){
-                                        if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0)
-                                            out.print(" ESAURITO");
-                                        else
-                                            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+(service.getMaxDispId(v.getPK())-eq.getQuantita())+"\">");
+                                        if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0) {%>
+                                            <h3 class="inline">ESAURITO</h3>
+                                            <input value="aggiungi al carrello" class="button" disabled>
+                                        <%}
+                                        else {%>
+                                            <input type="number" name="quantita" min="1" value="1" max="<%=(service.getMaxDispId(v.getPK()) - eq.getQuantita())%>" >
+                                            <input type="submit" value="aggiungi al carrello" class="button">
+                                    <%}
+                                    } else{
+                                        if(service.getMaxDispId(v.getPK())!=0){%>
+                                            <input type="number" name="quantita" min="1" value="1" max="<%=service.getMaxDispId(v.getPK())%>">
+                                             <input type="submit" value="aggiungi al carrello" class="button">
+                                    <%}
+                                        else {%>
+                                            <h3 class="inline">ESAURITO</h3>
+                                            <input value="aggiungi al carrello" class="button" disabled>
+                                        <%}
                                     }
-                                    else{
-                                        if(service.getMaxDispId(v.getPK())!=0)
-                                            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
-                                        else
-                                            out.print(" ESAURITO");
-                                    }
-                                %></h3>
+                                %>
                                 <input type="hidden" name="id" value="<%=v.getPK()%>">
-                                <input type="submit" value="aggiungi al carrello" class="button">
                             </form>
                     </div>
                     <div class="item-info-tag">
@@ -143,7 +149,7 @@
                                 </div>
                                 <div class="item-info-tag-element">
                                     <%for(int i=0;i<v.getTags().size();i++){%>
-                                        <div class="tag"><h2><%=v.getTags().get(i).getNome()%></h2></div>
+                                    <div class="tag"><a href="Search?search=&cheackbox=<%=v.getTags().get(i).getNome()%>&choose=Tag"><h2><%=v.getTags().get(i).getNome()%></h2></a></div>
                                  <% }%>
                                 </div>
                                 <%}

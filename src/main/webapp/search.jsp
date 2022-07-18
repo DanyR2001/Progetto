@@ -3,6 +3,7 @@
 <%@ page import="Model.Vinile" %>
 <%@ page import="Model.Ordine" %>
 <%@ page import="Model.Utente" %>
+<%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -156,6 +157,44 @@
         <div class="show-item">
                 <%
                     if(result != null) {
+                        String choose = null;
+                        String[] selected =null;
+                        String testo=null;
+                       Enumeration<String> name=request.getParameterNames();
+                       while(name.hasMoreElements()){
+                           String parameter=name.nextElement();
+                           if(parameter.equals("search")||parameter.equals("cheackbox")||parameter.equals("choose")||parameter.equals("String")){
+                                if(parameter.equals("choose"))
+                                    choose=request.getParameter(parameter);
+                               if(parameter.equals("cheackbox"))
+                                   selected = request.getParameterValues(parameter);
+                               if(parameter.equals("search")||parameter.equals("String")) {
+                                   if(parameter.equals("String"))
+                                       choose="Testo";
+                                   testo = request.getParameter(parameter);
+                               }
+                               System.out.println(parameter);
+                           }
+                       }
+                       if(choose!=null){
+                           if(choose.equals("Tag")){
+                               %>
+                                <h3>Risultati ricerca per Tag: </h3>
+                                <%
+                               if(selected!=null){
+                                   for(int i=0;i<selected.length;i++){
+                                       %>
+                                        <h3> <%=selected[i]%> </h3>
+                                        <%
+                                   }
+                               }
+                           }
+                           else if(choose.equals("Testo")){
+                                %>
+                                <h3>Risultati ricerca per Testo: <%=testo%></h3>
+                                <%
+                           }
+                       }
                         for(int i = 0; i < result.size(); i++){
                 %>
 

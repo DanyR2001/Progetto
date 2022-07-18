@@ -30,7 +30,7 @@ public class RegistrazioneServlet extends HttpServlet {
         Integer cap=Integer.parseInt(request.getParameter("cap"));
         utente.setCap(cap);
         Integer civico=Integer.parseInt(request.getParameter("civico"));
-        utente.setCap(civico);
+        utente.setCivico(civico);
         UtentiDAO.doSave(utente);
         request.getSession().setAttribute("utente", utente);
         response.sendRedirect(".");

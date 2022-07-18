@@ -48,7 +48,14 @@ public class Search extends HttpServlet {
             }
             else if(radio.equals("Tag")){
                 String[] selected = request.getParameterValues("cheackbox");
-                resp=libreria.getListFromTag(selected);
+                if(selected!=null){
+                    if(selected.length>0)
+                        resp=libreria.getListFromTag(selected);
+                    else
+                        resp = libreria.getAvailableVinili().getAllVinili();
+                }
+                else
+                    resp = libreria.getAvailableVinili().getAllVinili();
                 snn.setAttribute("String","");
             }
             snn.setAttribute("listaResult",resp);

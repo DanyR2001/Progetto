@@ -32,6 +32,7 @@
 
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/header.css" type="text/css">
+  <link rel="stylesheet" href="css/areaPersonale.css" type="text/css">
 
   <script src="./lib/jquery-3.6.0.js"> </script>
 
@@ -105,25 +106,36 @@
   </nav>
 
 </header>
-  <main>
-      <h1>Bentornato <%=u.getNome()%>:</h1>
-      <h2>Mail: <%= u.getMail()%></h2>
-      <h2>Data di nascita: <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
-      <h2>Indirizzo di riferimento: Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
-
+  <main class="cart-page">
+    <div class="box">
+      <div class="inner-box">
+        <div class="user-info">
+          <div>
+            <h1 class="inline">Bentornato </h1><h1 class="normal"><%=u.getNome()%>:</h1>
+          </div>
+          <h2 >Mail: </h2><h2 class="normal"><%= u.getMail()%></h2>
+          <h2 >Data di nascita:</h2><h2 class="normal"> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
+          <h2 >Indirizzo di riferimento:</h2><h2 class="normal"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
+        </div>
+        <div class="order-info">
+          <div class="margin">
         <%
         if(list!=null){
           for(Ordine x :list.getList()){%>
-            <fieldset>
-              <h3>Codice ordine:<%=x.getCodice()%> <br>Prezzo:<%=x.getPrezzo()%> <br>Data evasione:<%=x.getDataEvasione()%> <br>Num Elementi Carrello<%=x.getNumItem()%><br> Indirizzo di spedizione:<%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></h3>
+            <div class="order">
+              <h3>Codice ordine:</h3><h3 class="normal"><%=x.getCodice()%> </h3>
+              <h3>Data evasione:</h3><h3 class="normal"><%=x.getDataEvasione()%>
+              <h3>Num Elementi Carrello:</h3><h3 class="normal"> <%=x.getNumItem()%></h3>
+              <h3>Indirizzo di spedizione:<h3 class="normal"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></h3>
+                <h3>Prezzo totale:</h3><h3 class="normal"> <%=x.getPrezzo()%> </h3>
             <caption>
                     <p>Elementi ordine:</p>
             </caption>
             <table >
               <tr>
-                <th>Quantita</th>
-                <th>Prezzo</th>
                 <th>Titolo</th>
+                <th>Quantità</th>
+                <th>Prezzo</th>
               <tr>
             <%
               for(Prodotto p: x.getCarrello()){%>
@@ -138,7 +150,7 @@
               <td><%=x.getPrezzo()%></td>
             </tr>
             </table>
-            </fieldset>
+            </div>
            <%}
         }
         else{
@@ -147,6 +159,10 @@
            <%
         }
       %>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <footer class="footer">
     <div class="footer-info">
