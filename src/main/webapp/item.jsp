@@ -28,6 +28,8 @@
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/header.css" type="text/css"/>
+    <link rel="stylesheet" href="css/item.css" type="text/css"/>
+
 
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
@@ -101,34 +103,55 @@
 
 </header>
 
-<main>
-    <form action="AddItem">
-        <table>
-            <tr><td><img src="<% out.print(application.getContextPath()+ v.getUrl() );%>"></td><td><% out.print(v.getTitolo());%></td></tr>
-            <tr><td>Quantità:<%
-                if (eq!=null){
-                    if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0)
-                        out.print(" ESAURITO");
-                    else
-                        out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+(service.getMaxDispId(v.getPK())-eq.getQuantita())+"\">");
-                }
-                else{
-                    if(service.getMaxDispId(v.getPK())!=0)
-                        out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
-                    else
-                        out.print(" ESAURITO");
-                }
-            %>
-            </td><td>Prezzo: <% out.print(v.getPrezzo());%></td></tr>
-            <tr><td>Artista: <% out.print(v.getArtista());%></td><td><input type="submit" value="aggiungi al carrello"></td></tr>
-            <%
-                if(v.getTags()!=null)
-                    for(int i=0;i<v.getTags().size();i++)
-                        out.print("<fieldset><h3>"+v.getTags().get(i).getNome()+" </h3></fieldset>");
-            %>
-            <input type="hidden" name="id" value="<% out.print(v.getPK());%>">
-        </table>
-    </form>
+<main class="cart-page">
+    <div class="box">
+        <div class="inner-box">
+
+                <div class="item-image">
+                    <img src="<%=application.getContextPath()+ v.getUrl()%>">
+                </div>
+                <div class="item-info">
+                    <div class="item-info-form">
+                            <form action="AddItem">
+                                <h1><%=v.getTitolo()%></h1>
+                                <h2><%=v.getArtista()%></h2>
+                                <h3>Prezzo: <%=v.getPrezzo()%></h3>
+                                <h3>Quantita:<%
+                                    if (eq!=null){
+                                        if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0)
+                                            out.print(" ESAURITO");
+                                        else
+                                            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+(service.getMaxDispId(v.getPK())-eq.getQuantita())+"\">");
+                                    }
+                                    else{
+                                        if(service.getMaxDispId(v.getPK())!=0)
+                                            out.print("<input type=\"number\" name=\"quantita\" min=\"1\" value=\"1\" max=\""+service.getMaxDispId(v.getPK())+"\">");
+                                        else
+                                            out.print(" ESAURITO");
+                                    }
+                                %></h3>
+                                <input type="hidden" name="id" value="<%=v.getPK()%>">
+                                <input type="submit" value="aggiungi al carrello">
+                            </form>
+                    </div>
+                    <div class="item-info-tag">
+                        <%
+                            if(v.getTags()!=null){
+                                if(v.getTags().size()>0){%>
+                                <div class="item-info-tag-name">
+                                    <h2>Tag:</h2>
+                                </div>
+                                <div class="item-info-tag-element">
+                                    <%for(int i=0;i<v.getTags().size();i++){%>
+                                        <div class="tag"><h2><%=v.getTags().get(i).getNome()%></h2></div>
+                                 <% }%>
+                                </div>
+                                <%}
+                            }%>
+                    </div>
+                </div>
+        </div>
+    </div>
 </main>
 <footer class="footer">
     <div class="footer-info">
