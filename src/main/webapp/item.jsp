@@ -114,7 +114,7 @@
                     <div class="item-info-form">
                             <form action="AddItem">
                                 <h1><%=v.getTitolo()%></h1>
-                                <h2><%=v.getArtista()%></h2>
+                                <sub><%=v.getArtista()%></sub>
                                 <h3>Prezzo: <%=v.getPrezzo()%></h3>
                                 <h3>Quantita:<%
                                     if (eq!=null){
@@ -131,7 +131,7 @@
                                     }
                                 %></h3>
                                 <input type="hidden" name="id" value="<%=v.getPK()%>">
-                                <input type="submit" value="aggiungi al carrello">
+                                <input type="submit" value="aggiungi al carrello" class="button">
                             </form>
                     </div>
                     <div class="item-info-tag">
