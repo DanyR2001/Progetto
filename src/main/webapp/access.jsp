@@ -109,6 +109,14 @@ if(flag!=null)
 <%
             session.setAttribute("noLogArea",null);
         }
+    Boolean flag3= (Boolean) session.getAttribute("invalidMail");
+    if(flag3!=null)
+        if(flag3) {
+%>
+        <div id="snackbar">Mail non valida, riprova con altre credenziali.</div>
+<%
+            session.setAttribute("invalidMail",null);
+        }
 %>
 
 

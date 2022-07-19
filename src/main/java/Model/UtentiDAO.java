@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class UtentiDAO {
@@ -24,7 +25,8 @@ public class UtentiDAO {
         }
     }
 
-    public static void doSave(Utente u) {
+    public static boolean doSave(Utente u) throws IOException {
+        boolean status=true;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO Users (nome, cognome, mail, dat, passwordhash, admin_bool, via, cap, civico) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -40,7 +42,7 @@ public class UtentiDAO {
             ps.setInt(9,u.getCivico());
 
             if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("INSERT error.");
+                status=false;
             }
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
@@ -48,8 +50,9 @@ public class UtentiDAO {
             u.setID(id);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            status=false;
         }
+        return status;
     }
     public static Utente doRetrieveByUsernamePassword(String mail, String passw){
         try (Connection con = ConPool.getConnection()) {

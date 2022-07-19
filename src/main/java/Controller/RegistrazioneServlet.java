@@ -31,9 +31,16 @@ public class RegistrazioneServlet extends HttpServlet {
         utente.setCap(cap);
         Integer civico=Integer.parseInt(request.getParameter("civico"));
         utente.setCivico(civico);
-        UtentiDAO.doSave(utente);
-        request.getSession().setAttribute("utente", utente);
-        response.sendRedirect(".");
+        boolean result=UtentiDAO.doSave(utente);
+        if(result==true) {
+            request.getSession().setAttribute("utente", utente);
+            response.sendRedirect(".");
+
+        }
+        else{
+            request.getSession().setAttribute("invalidMail",true);
+            response.sendRedirect("./access.jsp");
+        }
     }
 
     @Override
