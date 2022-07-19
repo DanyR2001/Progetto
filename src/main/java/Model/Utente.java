@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Utente {
     private int ID;
@@ -20,10 +21,27 @@ public class Utente {
 
     public Utente(){};
 
+    static String CapitalizeName(String name){
+        String x[]=name.split(" ");
+        System.out.println("capName "+x.length+" "+name);
+        if(x.length==1){
+            return name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
+        }
+        else{
+            String returns ="";
+            for(int i=0;i<x.length;i++){
+                returns+=x[i].substring(0,1).toUpperCase()+x[i].substring(1,x[i].length()).toLowerCase();
+                if(i!=x.length-1)
+                    returns+=" ";
+            }
+            return returns;
+        }
+    }
+
     public Utente(int id, String name, String cognome, String email, Date dataNascita, String passwordhash, boolean admin_bool, String via, int cap, int civico) {
         ID = id;
-        Nome = name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
-        Cognome=cognome.substring(0,1).toUpperCase()+cognome.substring(1,cognome.length()).toLowerCase();
+        Nome = CapitalizeName(name);
+        Cognome=CapitalizeName(cognome);
         Mail = email.toLowerCase();
         DataNascita= dataNascita;
         this.Passwordhash=passwordhash;
@@ -46,7 +64,7 @@ public class Utente {
     }
 
     public void setNome(String name) {
-        Nome = name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
+        Nome = CapitalizeName(name);
     }
 
     public String getCognome() {
@@ -54,7 +72,7 @@ public class Utente {
     }
 
     public void setCognome(String cognome) {
-        Cognome = cognome.substring(0,1).toUpperCase()+cognome.substring(1,cognome.length()).toLowerCase();
+        Cognome = CapitalizeName(cognome);
     }
 
     public String getMail() {
@@ -118,5 +136,29 @@ public class Utente {
 
     public void setCivico(int civico) {
         Civico = civico;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utente)) return false;
+        Utente utente = (Utente) o;
+        return ID == utente.ID && admin_bool == utente.admin_bool && Cap == utente.Cap && Civico == utente.Civico && Nome.equals(utente.Nome) && Cognome.equals(utente.Cognome) && Mail.equals(utente.Mail) && Passwordhash.equals(utente.Passwordhash) && DataNascita.equals(utente.DataNascita) && Via.equals(utente.Via);
+    }
+
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "ID=" + ID +
+                ", Nome='" + Nome + '\'' +
+                ", Cognome='" + Cognome + '\'' +
+                ", Mail='" + Mail + '\'' +
+                ", Passwordhash='" + Passwordhash + '\'' +
+                ", DataNascita=" + DataNascita +
+                ", admin_bool=" + admin_bool +
+                ", Via='" + Via + '\'' +
+                ", Cap=" + Cap +
+                ", Civico=" + Civico +
+                '}';
     }
 }

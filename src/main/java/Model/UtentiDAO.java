@@ -4,6 +4,26 @@ import java.sql.*;
 
 public class UtentiDAO {
 
+    public static void doUpdate(Utente u){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "Update Users set nome=?, cognome = ?, dat = ? , passwordhash = ? , via = ? , cap = ?, civico = ? where id = ?");
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCognome());
+            ps.setDate(3, u.getDataNascita());
+            ps.setString(4, u.getPasswordhash());
+            ps.setString(5,u.getVia());
+            ps.setInt(6,u.getCap());
+            ps.setInt(7,u.getCivico());
+            ps.setInt(8,u.getID());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void doSave(Utente u) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(

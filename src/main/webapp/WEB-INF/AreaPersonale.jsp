@@ -37,8 +37,18 @@
   <script src="./lib/jquery-3.6.0.js"> </script>
 
   <script>
+    function myFunction() {
+      var x = document.getElementById("snackbar");
+      if(x!=null) {
+        x.className = "show";
+        setTimeout(function () {
+          x.className = x.className.replace("show", "");
+        }, 3000);
+      }
+    }
 
     $(document).ready(function(){
+      myFunction();
       $("#search-box").keyup(function(){
         $.ajax({
           type: "POST", //tipo di richiesta
@@ -73,9 +83,63 @@
         window.location.href = "./Search?String="+val;
     }
 
+    function show(x){
+      $(".margin").hide();
+      if(x==1){
+        $(".form-modify").show();
+        $(".pass-modify").hide();
+        $("#bt1").attr("disabled",true);
+        $("#bt2").attr("disabled",false);
+      }
+      else if(x==2){
+        $(".pass-modify").show();
+        $(".form-modify").hide();
+        $("#bt1").attr("disabled",false);
+        $("#bt2").attr("disabled",true);
+      }
+    }
+
+    function cancel(x){
+      $(".margin").show();
+      $("#bt1").attr("disabled",false);
+      $("#bt2").attr("disabled",false);
+      if(x==1) {
+        $(".form-modify").hide();
+      }else if(x==2){
+        $(".pass-modify").hide();
+      }
+    }
+
   </script>
 </head>
 <body>
+<%
+  Boolean flag= (Boolean) session.getAttribute("noModify");
+  if(flag!=null)
+    if(flag) {
+
+    %>
+      <div id="snackbar">Non ci sono state modifiche.</div>
+    <%
+      session.setAttribute("noModify",null);
+    }
+  Boolean flag1= (Boolean) session.getAttribute("noPassCorrect");
+  if(flag1!=null)
+    if(flag1) {
+    %>
+      <div id="snackbar">La password non coincide, riprova.</div>
+    <%
+      session.setAttribute("noPassCorrect",null);
+    }
+      Boolean flag2= (Boolean) session.getAttribute("modify");
+      if(flag2!=null)
+        if(flag2) {
+    %>
+        <div id="snackbar">Modifiche avvenute correttamente.</div>
+<%
+      session.setAttribute("modify",null);
+    }
+%>
   <header class="header">
   <img src="img/vynil.png" class="vinyl" alt="vinyl">
   <a href="index.jsp" class="logo">LostInTheLoop</a>
@@ -116,17 +180,76 @@
           <h2 >Mail: </h2><h2 class="normal"><%= u.getMail()%></h2>
           <h2 >Data di nascita:</h2><h2 class="normal"> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
           <h2 >Indirizzo di riferimento:</h2><h2 class="normal"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
+          <button id="bt1" onclick="show(1)" class="button">cambia info personali</button>
+          <button id="bt2" onclick="show(2)" class="button">cambia password</button>
         </div>
         <div class="order-info">
+          <div class="pass-modify">
+            <div class="input-wrap">
+              <button onclick="cancel(2)" class="button">Annulla</button>
+            </div>
+            <form method="post" action="UpdatePassUser">
+            <div class="input-wrap">
+              <label for="reg-pass">Inserisci la vecchia password:</label>
+              <input type="password" id="reg-pass-old" name="pass-old" class="input-field" required>
+            </div>
+            <div class="input-wrap">
+              <label for="reg-pass">Inserisci la nuova password:</label>
+              <input type="password" id="reg-pass-new" name="pass-new" class="input-field" required>
+            </div>
+              <div class="input-wrap">
+                <input type="submit" value="conferma cambiamenti" class="button">
+              </div>
+            </form>
+          </div>
+          <div class="form-modify">
+            <div class="input-wrap">
+              <button onclick="cancel(1)" class="button">Annulla</button>
+            </div>
+            <form action="UpdateUser" method="post">
+              <input type="hidden" name="id" value="<%=u.getID()%>">
+              <div class="input-wrap">
+                <label for="reg-nome">Nome</label>
+                <input type="text" id="reg-nome" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-cognome">Cognome</label>
+                <input type="text" id="reg-cognome" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-date">Data di nascita</label>
+                <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " value="<%=u.getDataNascita()%>" onfocus="(this.type='date')" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-via">Via</label>
+                <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-civico">Civico</label>
+                <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-cap">CAP</label>
+                <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
+              </div>
+              <div class="input-wrap">
+                <label for="reg-pass">Inserisci la password per conferma:</label>
+                <input type="password" id="reg-pass" name="pass" class="input-field" required>
+              </div>
+              <div class="input-wrap">
+                <input type="submit" value="conferma cambiamenti" class="button">
+              </div>
+            </form>
+          </div>
           <div class="margin">
         <%
         if(list!=null){
           for(Ordine x :list.getList()){%>
             <div class="order">
               <h3>Codice ordine:</h3><h3 class="normal"><%=x.getCodice()%> </h3>
-              <h3>Data evasione:</h3><h3 class="normal"><%=x.getDataEvasione()%>
+              <h3>Data evasione:</h3><h3 class="normal"><%=x.getDataEvasione()%></h3>
               <h3>Num Elementi Carrello:</h3><h3 class="normal"> <%=x.getNumItem()%></h3>
-              <h3>Indirizzo di spedizione:<h3 class="normal"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></h3>
+              <h3>Indirizzo di spedizione:</h3><h3 class="normal"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></h3>
                 <h3>Prezzo totale:</h3><h3 class="normal"> <%=x.getPrezzo()%> </h3>
             <caption>
                     <p>Elementi ordine:</p>
