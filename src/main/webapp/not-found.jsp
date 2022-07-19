@@ -21,7 +21,7 @@
 %>
 
 <head>
-    <title>Error Page - LP</title>
+    <title>Not Found Page - LP</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,10 +113,10 @@
             </div>
             <div class="err-desc">
                 <div>
-                    <img src="img/error.jpeg" class="image">
+                    <img src="img/not-found.png" class="image">
                 </div>
                 <div>
-                    <h1>Ops... Qualcosa è andato storto</h1>
+                    <h1>Ops... Risorsa non trovata</h1>
                 </div>
             </div>
         </div>
