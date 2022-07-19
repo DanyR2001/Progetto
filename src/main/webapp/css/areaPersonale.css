@@ -76,16 +76,18 @@ main .user-info{
     height: 100%;
     width: 50%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: column;
-    margin: 0 35px 0 35px;
+    margin: 30px 35px 0 35px;
 }
 
- main .order-info{
+main .orders {
+    max-height: 100%;
     width: 40%;
-    margin-top: 30px;
-   border-radius: 10px;
+}
+
+main .order-info {
+    height: 90%;
+    border-radius: 10px;
     overflow: auto;
     box-shadow: inset 1px 1px 6px 4px rgb(0 0 0 / 27%);
 }
@@ -101,7 +103,9 @@ main .user-info{
 .button {
     box-shadow: 1px 3px 4px 1px #545454;
     display: inline-block;
-    width: 80%;
+    min-width: 150px;
+    width: 45%;
+    max-width: 300px;
     height: 43px;
     background-color: #151111;
     color: #fff;
@@ -114,16 +118,7 @@ main .user-info{
 
 .button:disabled{
     box-shadow: none;
-    display: inline-block;
-    width: 80%;
-    height: 43px;
     background-color: #bbbbbb;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.8rem;
-    margin-top: 20px;
-    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -181,9 +176,10 @@ main .user-info{
 }
 
 main .user-information {
+    margin-top: 30px;
     width: 90%;
     border-radius: 8px;
-    border: 1px solid #545454;
+    border: 1px solid #bbbbbb;
 }
 
 main .welcome {
@@ -193,4 +189,27 @@ main .welcome {
 main legend {
     margin: 0 20px;
     padding: 0 5px;
+}
+
+main .title {
+    font-size: 0.8rem;
+    margin: 10px 10px 2px;
+    font-weight: bold;
+}
+
+main .data {
+ margin: 2px 25px 10px;
+}
+
+main .buttons {
+    width: 90%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+main .title-order {
+    line-height: 30px;
+    text-align: center;
+    background-color: black;
 }
