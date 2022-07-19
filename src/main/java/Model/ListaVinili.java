@@ -174,4 +174,12 @@ public class ListaVinili {
             }
         return flag;
     }
+
+    public boolean isPresent(Vinile vin){
+        boolean flag= false;
+        for(Vinile v: list)
+            if(v.equals(vin))
+                flag=true;
+        return flag;
+    }
 }

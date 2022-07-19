@@ -70,6 +70,21 @@ public class TagsDAO {
         }
     }
 
+    public static void remeveTagVinilByID(Integer id){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("delete FROM vinil_tag where id_tag=?");
+            ps.setInt(1,id);
+            int rs = ps.executeUpdate();
+            if(rs>=1)
+                System.out.println("bene");
+            else
+                System.out.println("no bene");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void removeTagByID(Integer id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -83,18 +98,7 @@ public class TagsDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps =
-                    con.prepareStatement("delete FROM vinil_tag where id_tag=?");
-            ps.setInt(1,id);
-            int rs = ps.executeUpdate();
-            if(rs>=1)
-                System.out.println("bene");
-            else
-                System.out.println("no bene");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        remeveTagVinilByID(id);
     }
 
     public static Tag insertTag(String name){

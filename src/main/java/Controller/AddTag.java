@@ -22,17 +22,17 @@ public class AddTag extends HttpServlet {
             ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
             if (nome != null && cheackbox != null && tags!=null) {
                 System.out.println("p3");
+                Tag t = TagsDAO.insertTag(nome);
                 if (cheackbox.length >= 1) {
                     System.out.println("p4");
-                    Tag t = TagsDAO.insertTag(nome);
                     for (String s : cheackbox) {
                         int x = Integer.parseInt(s);
                         TagsDAO.insertTagForVinil(x, t.getId_tag());
                     }
-                    tags.add(t);
-                    snn.setAttribute("tags",tags);
-                    response.sendRedirect("./Admin?src=adminTag");
                 }
+                tags.add(t);
+                snn.setAttribute("tags",tags);
+                response.sendRedirect("./Admin?src=adminTag");
             }
         }
     }

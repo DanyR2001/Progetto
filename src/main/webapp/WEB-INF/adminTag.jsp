@@ -26,9 +26,7 @@
             Tag t=lib.get(i);
 %>
     <tr>
-        <form action="RemoveTag">
-            <td><%=t.getNome()%></td><td><%=t.getId_tag()%></td><td><input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>"><input type="submit" value="Elimina tag"></td>
-        </form>
+        <td><%=t.getNome()%></td><td><%=t.getId_tag()%></td><td><a href="RedirectTo?src=Tag&id=<%=t.getId_tag()%>">Modifica tag</a></td>
     </tr>
 <% }
 }
