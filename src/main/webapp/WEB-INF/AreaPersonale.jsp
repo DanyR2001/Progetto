@@ -2,6 +2,7 @@
 <%@ page import="Model.Ordine" %>
 <%@ page import="Model.Prodotto" %>
 <%@ page import="Model.Utente" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%
@@ -266,17 +267,20 @@
                 <th>Titolo</th>
                 <th>Quantità</th>
                 <th>Prezzo</th>
+                <th>Sub totale</th>
               <tr>
             <%
+            DecimalFormat dr=new DecimalFormat("0.00");
               for(Prodotto p: x.getCarrello()){%>
                 <tr>
                     <td class='riga'><%=p.getArticolo().getTitolo()%></td>
                     <td class='riga'><%=p.getQuantita()%></td>
+                    <td class='riga'><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
                     <td class='riga'><%=p.getPrezzo()%></td>
-                </tr>
+            </tr>
               <%}%>
             <tr>
-              <td colspan='2'><h2>Totale:</h2></td>
+              <td colspan='3'><h2>Totale:</h2></td>
               <td><%=x.getPrezzo()%></td>
             </tr>
             </table>
