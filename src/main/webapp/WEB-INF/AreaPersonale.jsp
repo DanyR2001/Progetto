@@ -177,20 +177,28 @@
       <div class="inner-box">
         <div class="user-info">
 
-            <h1 class="inline">Bentornato <%=u.getNome()%></h1>
+            <h1 class="welcome">Bentornato <%=u.getNome()%></h1>
 
-          <div class="user-information">
-            <h2 >Mail </h2>
-            <h2 class="normal"><%= u.getMail()%></h2>
-            <h2 >Data di nascita</h2>
-            <h2 class="normal"> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
-            <h2 >Indirizzo di riferimento</h2>
-            <h2 class="normal"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
-          </div>
+          <fieldset class="user-information">
+            <legend>Dati personali</legend>
+            <div class="info">
+              <p>Mail</p>
+              <p><%= u.getMail()%></p>
+            </div>
+            <div class="info">
+              <p>Data di nascita</p>
+              <p> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></p>
+            </div>
+            <div class="info">
+              <p>Indirizzo</p>
+              <p> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></p>
+            </div>
+          </fieldset>
 
           <button id="bt1" onclick="show(1)" class="button">cambia info personali</button>
           <button id="bt2" onclick="show(2)" class="button">cambia password</button>
         </div>
+
         <div class="order-info">
           <div class="pass-modify">
             <div class="input-wrap">
