@@ -18,16 +18,6 @@
 <head>
 
   <title>Area Personale - LP</title>
-  <style>
-    table, th, tr {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-    .riga{
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-  </style>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,12 +78,14 @@
     function show(x){
       $(".margin").hide();
       if(x==1){
+        $(".title-order p").text("Modifica info");
         $(".form-modify").show();
         $(".pass-modify").hide();
         $("#bt1").attr("disabled",true);
         $("#bt2").attr("disabled",false);
       }
       else if(x==2){
+        $(".title-order p").text("Cambia password");
         $(".pass-modify").show();
         $(".form-modify").hide();
         $("#bt1").attr("disabled",false);
@@ -103,6 +95,7 @@
 
     function cancel(x){
       $(".margin").show();
+      $(".title-order p").text("I miei ordini");
       $("#bt1").attr("disabled",false);
       $("#bt2").attr("disabled",false);
       if(x==1) {
@@ -203,7 +196,10 @@
         </div>
 
         <div class="orders">
-          <p class="title-order">I tuoi ordini</p>
+          <div class="title-order">
+            <p>I miei ordini</p>
+          </div>
+
           <div class="order-info">
 
             <div class="pass-modify">
@@ -270,52 +266,48 @@
                 if(list!=null){
                   for(Ordine x :list.getList()){%>
               <div class="order">
-                <fieldset>
-                  <legend>Info</legend>
-                  <div class="info">
-                    <p class="title">Codice ordine</p>
-                    <p class="data"><%=x.getCodice()%></p>
-                  </div>
+                <fieldset class="order-info-table">
+                  <legend>Codice ordine <%=x.getCodice()%></legend>
                   <div class="info">
                     <p class="title">Data evasione</p>
                     <p class="data"><%=x.getDataEvasione().getDay()%>/<%=x.getDataEvasione().getMonth()+1%>/<%=x.getDataEvasione().getYear()%></p>
                   </div>
                   <div class="info">
-                    <p class="title">Numero Prodotti</p>
-                    <p class="data"><%=x.getNumItem()%></p>
-                  </div>
-                  <div class="info">
                     <p class="title">Indirizzo di spedizione</p>
                     <p class="data"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></p>
                   </div>
-                </fieldset>
+                  <table >
 
-                <table >
-                  <tr>
-                    <th>Titolo</th>
-                    <th>Quantità</th>
-                    <th>Prezzo</th>
-                    <th>Sub totale</th>
-                  <tr>
-                      <%
+                    <tr>
+                      <td><h4>Prodotto</h4></td>
+                      <td class="al"><h4>Quantità</h4></td>
+                      <td class="al"><h4>Prezzo</h4></td>
+                      <td class="al"><h4>Subtotale</h4></td>
+                    <tr>
+                        <%
             DecimalFormat dr=new DecimalFormat("0.00");
               for(Prodotto p: x.getCarrello()){%>
-                  <tr>
-                    <td class='riga'><%=p.getArticolo().getTitolo()%></td>
-                    <td class='riga'><%=p.getQuantita()%></td>
-                    <td class='riga'><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
-                    <td class='riga'><%=p.getPrezzo()%></td>
-                  </tr>
-                  <%}%>
-                  <tr>
-                    <td colspan='3'><h2>Totale:</h2></td>
-                    <td><%=x.getPrezzo()%></td>
-                  </tr>
-                </table>
+                    <tr>
+                      <td><%=p.getArticolo().getTitolo()%></td>
+                      <td class="quant"><%=p.getQuantita()%></td>
+                      <td class="prezzo"><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
+                      <td class="subtotale"><%=p.getPrezzo()%></td>
+                    </tr>
+                    <%}%>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td class="al"><h4>Totale</h4></td>
+                      <td class="al"><h4><%=x.getPrezzo()%></h4></td>
+                    </tr>
+                  </table>
+                </fieldset>
+
+
               </div>
-              <%}
-              }
-              else{
+              <%
+                  }
+              } else {
               %>
               <h1>Ancora nessun ordine effettuato</h1>
               <%

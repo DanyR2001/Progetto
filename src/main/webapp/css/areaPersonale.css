@@ -26,9 +26,10 @@ main .inner-box {
 }
 
 table {
-    margin-top: 60px;
+    width: 100%;
+    margin-top: 40px;
     border-collapse: collapse;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 tr:not(:last-child) {
@@ -87,7 +88,7 @@ main .orders {
 
 main .order-info {
     height: 90%;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: auto;
     box-shadow: inset 1px 1px 6px 4px rgb(0 0 0 / 27%);
 }
@@ -101,7 +102,6 @@ main .order-info {
 }
 
 .button {
-    box-shadow: 1px 3px 4px 1px #545454;
     display: inline-block;
     min-width: 150px;
     width: 45%;
@@ -111,12 +111,23 @@ main .order-info {
     color: #fff;
     border: none;
     cursor: pointer;
-    border-radius: 0.8rem;
+    border-radius: 20px;
     margin-top: 20px;
+    font-size: 0.9rem;
     margin-bottom: 10px;
 }
 
+
+
+.button:hover {
+   background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
 .button:disabled{
+    color: white;
+    border: none;
     box-shadow: none;
     background-color: #bbbbbb;
     text-align: center;
@@ -178,38 +189,47 @@ main .order-info {
 main .user-information {
     margin-top: 30px;
     width: 90%;
-    border-radius: 8px;
+    border-radius: 15px;
     border: 1px solid #bbbbbb;
 }
-
 main .welcome {
     align-self: flex-start;
 }
-
 main legend {
     margin: 0 20px;
     padding: 0 5px;
 }
-
 main .title {
     font-size: 0.8rem;
     margin: 10px 10px 2px;
     font-weight: bold;
 }
-
 main .data {
  margin: 2px 25px 10px;
 }
-
 main .buttons {
     width: 90%;
     margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
 }
-
 main .title-order {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+main .title-order p {
     line-height: 30px;
+    width: 50%;
     text-align: center;
+    color:white;
     background-color: black;
+    border-radius: 15px;
+}
+main .order-info-table {
+    border-radius: 14px;
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    margin-bottom: 40px;
 }
