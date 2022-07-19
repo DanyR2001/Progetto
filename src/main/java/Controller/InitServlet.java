@@ -155,8 +155,10 @@ public class InitServlet extends HttpServlet {
                 session.setAttribute("libreria",libreria);
             }
         }
-        if(dispatcher==null)
+        if(dispatcher==null){
+            System.out.println("--(disp)--");
             dispatcher = request.getRequestDispatcher("/index.jsp");
+        }
         dispatcher.forward(request, response);
     }
 }

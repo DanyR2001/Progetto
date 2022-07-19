@@ -23,7 +23,9 @@ public class LoginServlet extends HttpServlet {
             snn.setAttribute("failLogin",true);
             path+="/access.jsp";
         }
-        request.getSession().setAttribute("utente", x);
+        else {
+            snn.setAttribute("utente", x);
+        }
         response.sendRedirect("."+path);
     }
 

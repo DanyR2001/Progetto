@@ -3,10 +3,20 @@
 <html>
 
 <%
-    int Id = Integer.parseInt(request.getParameter("id"));
+    Integer Id = null;
+    try {
+        Id = Integer.parseInt(request.getParameter("id"));
+    }catch (NumberFormatException e){
+        RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+        dispatcher.forward(request, response);
+    }
     HttpSession snn = request.getSession();
     ListaVinili service = (ListaVinili) snn.getAttribute("libreria");
     Vinile v = service.findViniliFromId(Id);
+    if(v==null) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+        dispatcher.forward(request, response);
+    }
     Ordine carrello = (Ordine) snn.getAttribute("carrello");
     Prodotto eq = null;
     Utente u = (Utente) snn.getAttribute("utente");

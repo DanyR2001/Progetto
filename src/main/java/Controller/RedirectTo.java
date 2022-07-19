@@ -13,7 +13,7 @@ public class RedirectTo extends HttpServlet {
         String src=request.getParameter("src");
         if(src!=null){
             if(src.equals("Tag")||src.equals("Vinile")){
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/add"+src+".jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/add" + src + ".jsp");
                 dispatcher.forward(request, response);
             }
         }
