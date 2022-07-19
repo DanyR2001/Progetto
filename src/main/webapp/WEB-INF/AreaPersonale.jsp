@@ -15,6 +15,7 @@
     }
 %>
 <head>
+
   <title>Area Personale - LP</title>
   <style>
     table, th, tr {
@@ -174,12 +175,18 @@
     <div class="box">
       <div class="inner-box">
         <div class="user-info">
-          <div>
-            <h1 class="inline">Bentornato </h1><h1 class="normal"><%=u.getNome()%>:</h1>
+
+            <h1 class="inline">Bentornato <%=u.getNome()%></h1>
+
+          <div class="user-information">
+            <h2 >Mail </h2>
+            <h2 class="normal"><%= u.getMail()%></h2>
+            <h2 >Data di nascita</h2>
+            <h2 class="normal"> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
+            <h2 >Indirizzo di riferimento</h2>
+            <h2 class="normal"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
           </div>
-          <h2 >Mail: </h2><h2 class="normal"><%= u.getMail()%></h2>
-          <h2 >Data di nascita:</h2><h2 class="normal"> <%=u.getDataNascita().getDate()%>/<%=u.getDataNascita().getMonth()+1%>/<%=u.getDataNascita().getYear()+1900%></h2>
-          <h2 >Indirizzo di riferimento:</h2><h2 class="normal"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></h2>
+
           <button id="bt1" onclick="show(1)" class="button">cambia info personali</button>
           <button id="bt2" onclick="show(2)" class="button">cambia password</button>
         </div>
