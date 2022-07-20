@@ -2,6 +2,7 @@
     align-items: center;
     justify-content: center;
 }
+
 main .box {
     margin: 10px;
     display: flex;
@@ -40,24 +41,6 @@ td {
     padding: 10px;
 }
 
-main .product-img {
-    border-radius: 6px;
-    width: 100px;
-    height: 100px;
-}
-
-td a img {
-    box-sizing: content-box;
-    width: 20px;
-    height: 20px;
-    border-radius: 3px;
-    padding: 5px;
-}
-
-td a img:hover {
-    background-color: #eae7e7;
-}
-
 td.prezzo, td.subtotale, td.al, td.quant {
     text-align: center;
 }
@@ -92,6 +75,7 @@ main .order-info {
     overflow: auto;
     box-shadow: inset 1px 1px 6px 4px rgb(0 0 0 / 27%);
 }
+
 .order{
     display: flex;
     flex-direction: column;
@@ -103,7 +87,7 @@ main .order-info {
 
 .button {
     display: inline-block;
-    min-width: 150px;
+    min-width: 100px;
     width: 45%;
     max-width: 300px;
     height: 43px;
@@ -112,12 +96,8 @@ main .order-info {
     border: none;
     cursor: pointer;
     border-radius: 20px;
-    margin-top: 20px;
     font-size: 0.9rem;
-    margin-bottom: 10px;
 }
-
-
 
 .button:hover {
    background-color: white;
@@ -136,11 +116,12 @@ main .order-info {
 .margin{
     margin: 20px;
 }
-.form-modify{
+
+.form-modify, .pass-modify{
+    margin: 0 20px;
     display: none;
-}
-.pass-modify{
-    display: none;
+    flex-direction: column;
+    align-items: center;
 }
 
 #snackbar {
@@ -192,33 +173,41 @@ main .user-information {
     border-radius: 15px;
     border: 1px solid #bbbbbb;
 }
+
 main .welcome {
     align-self: flex-start;
 }
+
 main legend {
     margin: 0 20px;
     padding: 0 5px;
+    font-weight: bold;
 }
+
 main .title {
     font-size: 0.8rem;
     margin: 10px 10px 2px;
     font-weight: bold;
 }
+
 main .data {
  margin: 2px 25px 10px;
 }
+
 main .buttons {
     width: 90%;
     margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
 }
+
 main .title-order {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 30px;
 }
+
 main .title-order p {
     line-height: 30px;
     width: 50%;
@@ -227,9 +216,44 @@ main .title-order p {
     background-color: black;
     border-radius: 15px;
 }
+
 main .order-info-table {
     border-radius: 14px;
     border: 1px solid #bbbbbb;
     width: 100%;
     margin-bottom: 40px;
+}
+
+main .input-field {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #bbb;
+    padding: 0;
+    font-size: 0.95rem;
+    color: #151111;
+    font-family: ".SF NS Mono", sans-serif;
+}
+
+main label {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-size: 0.95rem;
+    color: #bbb;
+    pointer-events: none;
+}
+
+main .input-wrap {
+    position: relative;
+    height: 37px;
+    margin-bottom: 1rem;
+}
+
+#UpUser, #UpPass {
+    width: 90%;
+    margin-top: 30px;
 }

@@ -76,17 +76,17 @@
     }
 
     function show(x){
-      $(".margin").hide();
+      $(".order-frame").hide();
       if(x==1){
         $(".title-order p").text("Modifica info");
-        $(".form-modify").show();
+        $(".form-modify").css("display", "flex");
         $(".pass-modify").hide();
         $("#bt1").attr("disabled",true);
         $("#bt2").attr("disabled",false);
       }
       else if(x==2){
         $(".title-order p").text("Cambia password");
-        $(".pass-modify").show();
+        $(".pass-modify").css("display", "flex");
         $(".form-modify").hide();
         $("#bt1").attr("disabled",false);
         $("#bt2").attr("disabled",true);
@@ -94,7 +94,7 @@
     }
 
     function cancel(x){
-      $(".margin").show();
+      $(".order-frame").show();
       $(".title-order p").text("I miei ordini");
       $("#bt1").attr("disabled",false);
       $("#bt2").attr("disabled",false);
@@ -202,117 +202,121 @@
 
           <div class="order-info">
 
-            <div class="pass-modify">
-              <div class="input-wrap">
-                <button onclick="cancel(2)" class="button">Annulla</button>
-              </div>
-              <form method="post" action="UpdatePassUser">
-                <div class="input-wrap">
-                  <label for="reg-pass">Inserisci la vecchia password:</label>
-                  <input type="password" id="reg-pass-old" name="pass-old" class="input-field" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-pass">Inserisci la nuova password:</label>
-                  <input type="password" id="reg-pass-new" name="pass-new" class="input-field" required>
-                </div>
-                <div class="input-wrap">
-                  <input type="submit" value="conferma cambiamenti" class="button">
-                </div>
-              </form>
-            </div>
-
-            <div class="form-modify">
-              <div class="input-wrap">
-                <button onclick="cancel(1)" class="button">Annulla</button>
-              </div>
-              <form action="UpdateUser" method="post">
-                <input type="hidden" name="id" value="<%=u.getID()%>">
-                <div class="input-wrap">
-                  <label for="reg-nome">Nome</label>
-                  <input type="text" id="reg-nome" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-cognome">Cognome</label>
-                  <input type="text" id="reg-cognome" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-date">Data di nascita</label>
-                  <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " value="<%=u.getDataNascita()%>" onfocus="(this.type='date')" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-via">Via</label>
-                  <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-civico">Civico</label>
-                  <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-cap">CAP</label>
-                  <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
-                </div>
-                <div class="input-wrap">
-                  <label for="reg-pass">Inserisci la password per conferma:</label>
-                  <input type="password" id="reg-pass" name="pass" class="input-field" required>
-                </div>
-                <div class="input-wrap">
-                  <input type="submit" value="conferma cambiamenti" class="button">
-                </div>
-              </form>
-            </div>
-
             <div class="margin">
-              <%
-                if(list!=null){
-                  for(Ordine x :list.getList()){%>
-              <div class="order">
-                <fieldset class="order-info-table">
-                  <legend>Codice ordine <%=x.getCodice()%></legend>
-                  <div class="info">
-                    <p class="title">Data evasione</p>
-                    <p class="data"><%=x.getDataEvasione().getDay()%>/<%=x.getDataEvasione().getMonth()+1%>/<%=x.getDataEvasione().getYear()%></p>
-                  </div>
-                  <div class="info">
-                    <p class="title">Indirizzo di spedizione</p>
-                    <p class="data"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></p>
-                  </div>
-                  <table >
 
-                    <tr>
-                      <td><h4>Prodotto</h4></td>
-                      <td class="al"><h4>Quantità</h4></td>
-                      <td class="al"><h4>Prezzo</h4></td>
-                      <td class="al"><h4>Subtotale</h4></td>
-                    <tr>
-                        <%
+              <div class="pass-modify">
+                <form method="post" action="UpdatePassUser" id="UpPass">
+                  <div class="input-wrap">
+                    <label for="reg-pass">Inserisci la vecchia password:</label>
+                    <input type="password" id="reg-pass-old" name="pass-old" class="input-field" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-pass">Inserisci la nuova password:</label>
+                    <input type="password" id="reg-pass-new" name="pass-new" class="input-field" required>
+                  </div>
+                </form>
+
+                <div class="buttons">
+                  <input type="submit" value="Conferma" class="button" form="UpPass">
+                  <button onclick="cancel(2)" class="button">Annulla</button>
+                </div>
+              </div>
+
+              <div class="form-modify">
+
+                <form action="UpdateUser" id="UpUser" method="post">
+                  <input type="hidden" name="id" value="<%=u.getID()%>">
+                  <div class="input-wrap">
+                    <label for="reg-nome">Nome</label>
+                    <input type="text" id="reg-nome" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-cognome">Cognome</label>
+                    <input type="text" id="reg-cognome" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-date">Data di nascita</label>
+                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " value="<%=u.getDataNascita()%>" onfocus="(this.type='date')" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-via">Via</label>
+                    <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-civico">Civico</label>
+                    <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-cap">CAP</label>
+                    <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="reg-pass">Inserire password per conferma</label>
+                    <input type="password" id="reg-pass" name="pass" class="input-field" required>
+                  </div>
+                </form>
+
+                <div class="buttons">
+                    <input type="submit" value="Conferma" class="button" form="UpUser">
+                    <button onclick="cancel(1)" class="button">Annulla</button>
+                </div>
+
+              </div>
+
+              <div class="order-frame">
+                <%
+                  if(list!=null){
+                    for(Ordine x :list.getList()){%>
+                <div class="order">
+                  <fieldset class="order-info-table">
+                    <legend>Codice ordine <%=x.getCodice()%></legend>
+                    <div class="info">
+                      <p class="title">Data evasione</p>
+                      <p class="data"><%=x.getDataEvasione().getDay()%>/<%=x.getDataEvasione().getMonth()+1%>/<%=x.getDataEvasione().getYear()%></p>
+                    </div>
+                    <div class="info">
+                      <p class="title">Indirizzo di spedizione</p>
+                      <p class="data"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></p>
+                    </div>
+                    <table >
+
+                      <tr>
+                        <td><h4>Prodotto</h4></td>
+                        <td class="al"><h4>Quantità</h4></td>
+                        <td class="al"><h4>Prezzo</h4></td>
+                        <td class="al"><h4>Subtotale</h4></td>
+                      <tr>
+                          <%
             DecimalFormat dr=new DecimalFormat("0.00");
               for(Prodotto p: x.getCarrello()){%>
-                    <tr>
-                      <td><%=p.getArticolo().getTitolo()%></td>
-                      <td class="quant"><%=p.getQuantita()%></td>
-                      <td class="prezzo"><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
-                      <td class="subtotale"><%=p.getPrezzo()%></td>
-                    </tr>
-                    <%}%>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td class="al"><h4>Totale</h4></td>
-                      <td class="al"><h4><%=x.getPrezzo()%></h4></td>
-                    </tr>
-                  </table>
-                </fieldset>
+                      <tr>
+                        <td><%=p.getArticolo().getTitolo()%></td>
+                        <td class="quant"><%=p.getQuantita()%></td>
+                        <td class="prezzo"><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
+                        <td class="subtotale"><%=p.getPrezzo()%></td>
+                      </tr>
+                      <%}%>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="al"><h4>Totale</h4></td>
+                        <td class="al"><h4><%=x.getPrezzo()%></h4></td>
+                      </tr>
+                    </table>
+                  </fieldset>
 
 
-              </div>
-              <%
+                </div>
+                <%
                   }
-              } else {
-              %>
-              <h1>Ancora nessun ordine effettuato</h1>
-              <%
-                }
-              %>
+                } else {
+                %>
+                <h1>Ancora nessun ordine effettuato</h1>
+                <%
+                  }
+                %>
+              </div>
+
             </div>
           </div>
         </div>

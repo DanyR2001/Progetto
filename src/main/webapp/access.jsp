@@ -200,8 +200,6 @@ if(flag!=null)
                         <button class="reg-btn" type="button" onclick="showRegistration()">Registrati</button>
                     </section>
 
-
-
                 </div>
 
                 <div class="registration-wrap">
