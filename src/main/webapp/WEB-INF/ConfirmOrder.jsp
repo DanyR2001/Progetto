@@ -1,12 +1,7 @@
 <%@ page import="Model.Ordine" %>
 <%@ page import="Model.Prodotto" %>
-<%@ page import="Model.Utente" %><%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 13/06/22
-  Time: 11:16
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Model.Utente" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%
@@ -95,31 +90,79 @@
     </nav>
 
     </header>
-    <main class="login">
+    <main class="confirm-order">
         <div class="box">
             <div class="inner-box">
-                <div class="login-wrap">
-                    <table style="border: 1px black">
-                        <%
-                            if(carrello!=null&&u!=null){
-                                if(carrello.getCarrello()!=null)
-                                    if(carrello.getCarrello().size()>0){
-                                        for(Prodotto p :carrello.getCarrello()){
-                        %>
-                        <tr><td><%=p.getArticolo().getTitolo()%></td><td><%=p.getQuantita()%></td><td><%=p.getPrezzo()%></td></tr>
-                        <% }
-                        %>
-                        </table>
+                <div class="orders">
+                    <div class="title-order">
+                        <p>Riepilogo Ordine</p>
+                    </div>
+                    <div class="order-info">
+
+                        <div class="margin">
+
+                            <div class="order-frame">
+
+                                <table>
+                                    <%
+                                        if(carrello!=null && u!=null){
+                                            if(carrello.getCarrello()!=null)
+                                                if(carrello.getCarrello().size()>0){
+                                    %>
+                                    <tr>
+                                        <td><h4>Prodotto</h4></td>
+                                        <td class="al"><h4>Quantità</h4></td>
+                                        <td class="al"><h4>Prezzo</h4></td>
+                                        <td class="al"><h4>Subtotale</h4></td>
+                                    <tr>
+                                    <%
+                                                    DecimalFormat dr=new DecimalFormat("0.00");
+                                                    for(Prodotto p :carrello.getCarrello()){
+                                    %>
+                                    <tr>
+                                    <td><%=p.getArticolo().getTitolo()%></td>
+                                    <td class="quant"><%=p.getQuantita()%></td>
+                                    <td class="prezzo"><%=dr.format(p.getPrezzo()/p.getQuantita())%></td>
+                                    <td class="subtotale"><%=p.getPrezzo()%></td>
+                                    </tr>
+                                    <%
+                                                    }
+                                    %>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="al"><h4>Totale</h4></td>
+                                        <td class="al"><h4><%=carrello.getPrezzo()%></h4></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
                 <div class="register-option">
                     <form action="CompleteOrder" >
-                        <table>
-                            <tr><th colspan="2">Conferma l'indirizzo di spedizione:</th></tr>
-                            <tr><td>Via:</td><td><input type="text" value="<%= u.getVia()%>" name="via" id="via" required /></td></tr>
-                            <tr><td>Civico:</td><td><input type="number" value="<%= u.getCivico()%>" name="civico" required /> </td></tr>
-                            <tr><td>Cap:</td><td><input type="number" value="<%= u.getCap()%>" name="cap" required /></td></tr>
-                            <tr><td colspan="2"><input type="submit"></td> </tr>
-                        </table>
+                        <p>Conferma l'indirizzo di spedizione</p>
+                        <div class="input-wrap">
+                            <label for="reg-via">Via</label>
+                            <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
+                        </div>
+                        <div class="input-wrap">
+                            <label for="reg-civico">Civico</label>
+                            <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
+                        </div>
+                        <div class="input-wrap">
+                            <label for="reg-cap">CAP</label>
+                            <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
+                        </div>
+                        <div class="buttons">
+                            <input type="submit" value="Conferma acquisto" class="button">
+                        </div>
+
                     </form>
 
                     <%
@@ -130,6 +173,7 @@
             </div>
         </div>
     </main>
+
     <footer class="footer">
         <div class="footer-info">
             <a href="index.jsp" class="footer-link" >Home</a>
