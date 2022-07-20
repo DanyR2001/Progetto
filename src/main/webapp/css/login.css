@@ -139,7 +139,7 @@ main .input-field {
 main label {
     position: absolute;
     left: 0;
-    top: -10px;
+    top: -20px;
     font-size: 0.95rem;
     color: #bbb;
     pointer-events: none;
