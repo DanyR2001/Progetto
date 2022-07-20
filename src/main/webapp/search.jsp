@@ -154,51 +154,55 @@
             </div>
         </div>
 
-        <div class="show-item">
+        <div class="show">
+
                 <%
                     if(result != null) {
                         String choose = null;
                         String[] selected =null;
                         String testo=null;
-                       Enumeration<String> name=request.getParameterNames();
-                       while(name.hasMoreElements()){
-                           String parameter=name.nextElement();
-                           if(parameter.equals("search")||parameter.equals("cheackbox")||parameter.equals("choose")||parameter.equals("String")){
+                        Enumeration<String> name=request.getParameterNames();
+                        while(name.hasMoreElements()){
+                            String parameter=name.nextElement();
+                            if(parameter.equals("search")||parameter.equals("cheackbox")||parameter.equals("choose")||parameter.equals("String")){
                                 if(parameter.equals("choose"))
                                     choose=request.getParameter(parameter);
-                               if(parameter.equals("cheackbox"))
-                                   selected = request.getParameterValues(parameter);
-                               if(parameter.equals("search")||parameter.equals("String")) {
-                                   if(parameter.equals("String"))
-                                       choose="Testo";
-                                   testo = request.getParameter(parameter);
-                               }
-                               System.out.println(parameter);
-                           }
-                       }
-                       if(choose!=null){
-                           if(choose.equals("Tag")){
-                               %>
-                                <h3>Risultati ricerca per Tag: </h3>
-                                <%
-                               if(selected!=null){
-                                   for(int i=0;i<selected.length;i++){
-                                       %>
-                                        <h3> <%=selected[i]%> </h3>
-                                        <%
-                                   }
-                               }
-                           }
-                           else if(choose.equals("Testo")){
-                                %>
-                            <div>
-                                <h3>Risultati ricerca per Testo: <%=testo%></h3>
-                            </div>
+                                if(parameter.equals("cheackbox"))
+                                    selected = request.getParameterValues(parameter);
+                                if(parameter.equals("search")||parameter.equals("String")) {
+                                    if(parameter.equals("String"))
+                                        choose="Testo";
+                                    testo = request.getParameter(parameter);
+                                }
+                                System.out.println(parameter);
+                            }
+                        }
+                        if(choose!=null){
+                            if(choose.equals("Tag")){
+                %>
+                <h3>Risultati ricerca per Tag: </h3>
+                <%
+                    if(selected!=null){
+                        for(int i=0;i<selected.length;i++){
+                %>
+                <h3> <%=selected[i]%> </h3>
+                <%
+                        }
+                %>
+                    <div class="show-item">
+                <%
+                    }
+                }
+                else if(choose.equals("Testo")){
+                %>
 
-                                <%
-                           }
-                       }
-                        for(int i = 0; i < result.size(); i++){
+                    <h3>Risultati ricerca per Testo: <%=testo%></h3>
+                    <div class="show-item">
+
+                <%
+                        }
+                    }
+                    for(int i = 0; i < result.size(); i++){
                 %>
 
                 <a href="item.jsp?id=<%=result.get(i).getPK()%>" class="item-reference">
@@ -220,7 +224,9 @@
                 <%
                     }
                 %>
+            </div>
         </div>
+
     </main>
 
     <footer class="footer">

@@ -6,12 +6,11 @@ div.show-item {
 }
 
 div.search-panel {
-    width: 40%;
+    width: 35%;
 }
 
 div.panel {
-    position: fixed;
-    padding: 30px 50px;
+    padding: 30px 40px;
     border-radius: 6px;
     background-color: white;
 }
