@@ -121,35 +121,45 @@
                     <img src="<%=application.getContextPath()+ v.getUrl()%>">
                 </div>
                 <div class="item-info">
-                    <div class="item-info-form">
-                            <form action="AddItem">
-                                <h1><%=v.getTitolo()%></h1>
-                                <sub><%=v.getArtista()%></sub>
-                                <h3>Prezzo: <%=v.getPrezzo()%></h3>
-                                <h3 class="inline">Quantita:</h3><%
-                                    if (eq!=null){
-                                        if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0) {%>
-                                            <h3 class="inline">ESAURITO</h3>
-                                            <input value="aggiungi al carrello" class="button" disabled>
-                                        <%}
-                                        else {%>
-                                            <input type="number" name="quantita" min="1" value="1" max="<%=(service.getMaxDispId(v.getPK()) - eq.getQuantita())%>" >
-                                            <input type="submit" value="aggiungi al carrello" class="button">
-                                    <%}
-                                    } else{
-                                        if(service.getMaxDispId(v.getPK())!=0){%>
-                                            <input type="number" name="quantita" min="1" value="1" max="<%=service.getMaxDispId(v.getPK())%>">
-                                             <input type="submit" value="aggiungi al carrello" class="button">
-                                    <%}
-                                        else {%>
-                                            <h3 class="inline">ESAURITO</h3>
-                                            <input value="aggiungi al carrello" class="button" disabled>
-                                        <%}
-                                    }
-                                %>
-                                <input type="hidden" name="id" value="<%=v.getPK()%>">
-                            </form>
-                    </div>
+
+                    <form action="AddItem" class="item-info-form">
+
+                        <h1><%=v.getTitolo()%></h1>
+                        <sub><%=v.getArtista()%></sub>
+
+                        <h2 class="prezzo"><%=v.getPrezzo()%>€</h2>
+
+                        <div class="quantita">
+                            <h3 class="inline">Quantit&#224;</h3>
+                            <%
+                                if (eq!=null){
+                                    if(service.getMaxDispId(v.getPK())-eq.getQuantita()==0) {%>
+                            <h3 class="inline">ESAURITO</h3>
+                        </div >
+                        <input value="Aggiungi al carrello" class="button" disabled>
+                            <%}
+                            else {%>
+                            <input type="number" name="quantita" min="1" value="1" max="<%=(service.getMaxDispId(v.getPK()) - eq.getQuantita())%>" >
+                        </div>
+                            <input type="submit" value="Aggiungi al carrello" class="button">
+                            <%}
+                            } else{
+                                if(service.getMaxDispId(v.getPK())!=0){%>
+                            <input type="number" name="quantita" min="1" value="1" max="<%=service.getMaxDispId(v.getPK())%>">
+                        </div>
+                            <input type="submit" value="Aggiungi al carrello" class="button">
+                            <%}
+                            else {%>
+                            <h3 class="inline">ESAURITO</h3>
+                        </div>
+                            <input value="Aggiungi al carrello" class="button" disabled>
+                            <%}
+                            }
+                            %>
+
+                        <input type="hidden" name="id" value="<%=v.getPK()%>">
+                    </form>
+
                     <div class="item-info-tag">
                         <%
                             if(v.getTags()!=null){
@@ -159,7 +169,11 @@
                                 </div>
                                 <div class="item-info-tag-element">
                                     <%for(int i=0;i<v.getTags().size();i++){%>
-                                    <div class="tag"><a href="Search?search=&cheackbox=<%=v.getTags().get(i).getNome()%>&choose=Tag"><h2><%=v.getTags().get(i).getNome()%></h2></a></div>
+                                    <div class="tag">
+                                        <a href="Search?search=&cheackbox=<%=v.getTags().get(i).getNome()%>&choose=Tag">
+                                            <h4><%=v.getTags().get(i).getNome()%></h4>
+                                        </a>
+                                    </div>
                                  <% }%>
                                 </div>
                                 <%}

@@ -60,8 +60,9 @@ public class Ordine {
     }
 
     public int join(Ordine p, ListaVinili service){
-        int count=0;
-        ArrayList<Prodotto> op=p.getCarrello();
+
+        int count = 0;
+        ArrayList<Prodotto> op = p.getCarrello();
         if(codice==null&&p.getCodice()!=null)
             codice=p.getCodice();
         int i,j;

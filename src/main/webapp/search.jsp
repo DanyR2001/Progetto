@@ -191,7 +191,10 @@
                            }
                            else if(choose.equals("Testo")){
                                 %>
+                            <div>
                                 <h3>Risultati ricerca per Testo: <%=testo%></h3>
+                            </div>
+
                                 <%
                            }
                        }
