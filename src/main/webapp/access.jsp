@@ -214,11 +214,11 @@ if(flag!=null)
                             <div class="part1">
                                 <div class="input-wrap">
                                     <label for="reg-nome">Nome</label>
-                                    <input type="text" id="reg-nome" name="nome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z]{1,}" title="Il nome puo contere solo lettere" id="reg-nome" name="nome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cognome">Cognome</label>
-                                    <input type="text" id="reg-cognome" name="cognome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z]{1,}" title="Il cognome puo contere solo lettere" id="reg-cognome" name="cognome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-date">Data di nascita</label>
@@ -226,26 +226,26 @@ if(flag!=null)
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-email">Email</label>
-                                    <input type="email" id="reg-email" name="email" class="input-field" required>
+                                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Mail non valida" id="reg-email" name="email" class="input-field" required>
                                 </div>
                             </div>
 
                             <div class="part2">
                                 <div class="input-wrap">
                                     <label for="reg-pass">Password</label>
-                                    <input type="password" id="reg-pass" name="pass" class="input-field" required>
+                                    <input type="password" pattern=".{8,}" id="reg-pass" title="La password deve essere di almeno 8 caratteri" name="pass" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-via">Via</label>
-                                    <input type="text" name="via" id="reg-via" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z]{1,}" title="La via puo contere solo lettere" name="via" id="reg-via" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-civico">Civico</label>
-                                    <input type="number" name="civico" id="reg-civico" class="input-field" required>
+                                    <input type="number" pattern="[1-9]{1}/d"name="civico" min="1" max="999" title="Il civico puo contere solo numeri" id="reg-civico" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cap">CAP</label>
-                                    <input type="number" name="cap" id="reg-cap" class="input-field" required>
+                                    <input type="number" pattern="[1-9]{5,5}" min="9999" max="99999" title="Il cap puo contere solo 5 numeri" name="cap" id="reg-cap" class="input-field" required>
                                 </div>
                             </div>
                         </div>

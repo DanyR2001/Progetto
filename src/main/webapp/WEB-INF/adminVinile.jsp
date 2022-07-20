@@ -9,11 +9,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
-
+    <link rel="stylesheet" href="css/iframe.css" type="text/css"/>
 </head>
 <body>
-<a href="RedirectTo?src=Vinile" >Aggiungi un nuovo vinile</a>
+<div class="allign">
+    <a href="RedirectTo?src=Vinile" ><img src="img/add.png" class="image"><p>Aggiungi un nuovo vinile</p></a>
+</div>
+<table class="vin">
+    <tr>
+        <td class="al"><h2>Titolo:</h2></td>
+        <td class="al"><h2>Quanità:</h2></td>
+        <td class="al"><h2>Prezzo:</h2></td>
+        <td class="al"><h2>Artista</h2></td>
+        <td></td>
+    </tr>
 <%
 ListaVinili lib= (ListaVinili) session.getAttribute("libreria");
 if(lib!=null)
@@ -22,10 +31,16 @@ if(lib!=null)
         %>
         <form action="UploadItem">
         <input type="hidden" name="index" value="<%=i%>">
-        <tr><td><h2><%=v.getTitolo()%></h2></td><td>Quantita:<input type="number" name="quantita"  min="0" value="<%=lib.getQuantitaVin(v)%>" ></td><td>Prezzo:<input type="number" step=".01" name="prezzo" value="<%=v.getPrezzo()%>"></td><td>Artista:<input type="text" name="nameArtist" value="<%=v.getArtista()%>"></td><td><input type="submit" value="applica modifiche"></td></tr>
-</form>
+            <tr>
+                <td><h2><%=v.getTitolo()%></h2></td>
+                <td><input type="number" name="quantita"  min="0" value="<%=lib.getQuantitaVin(v)%>" ></td>
+                <td><input type="number" step=".01" name="prezzo" value="<%=v.getPrezzo()%>"></td>
+                <td><input type="text" name="nameArtist" value="<%=v.getArtista()%>"></td>
+                <td><input type="submit" value="Applica"></td>
+            </tr>
+        </form>
    <% }
 %>
-
+</table>
 </body>
 </html>
