@@ -27,8 +27,6 @@ main .inner-box {
 }
 
 main .empty-cart {
-    position: relative;
-    height: 90%;
     width: 90%;
     display: flex;
     flex-direction: row;
@@ -176,5 +174,12 @@ td a.product-titolo {
 
 td a.product-titolo:hover {
     background-color: #eae7e7;
+}
+
+@media screen and (max-width: 780px) {
+
+    main .empty-cart {
+        flex-direction: column-reverse;
+    }
 }
 
