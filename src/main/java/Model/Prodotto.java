@@ -9,9 +9,6 @@ public class Prodotto {
 
     public Prodotto(){}
 
-    public Prodotto(Vinile v){
-        articolo=v;
-    }
     public Vinile getArticolo() {
         return articolo;
     }

@@ -4,6 +4,8 @@ public class Tag {
     private int id_tag;
     private String Nome;
 
+    public Tag(){}
+
     public int getId_tag() {
         return id_tag;
     }

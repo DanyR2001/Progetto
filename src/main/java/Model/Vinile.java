@@ -10,16 +10,6 @@ public class Vinile {
     private String artista;
     private ArrayList<Tag> Tags;
 
-
-
-    public Vinile(int PK, String titolo, double prezzo, String url, String artista) {
-        this.PK = PK;
-        this.titolo = titolo;
-        this.prezzo = prezzo;
-        this.url = url;
-        this.artista = artista;
-    }
-
     public Vinile(){
     }
 

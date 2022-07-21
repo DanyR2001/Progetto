@@ -19,8 +19,6 @@ public class Utente {
     private int Cap;
     private int Civico;
 
-    public Utente(){};
-
     static String CapitalizeName(String name){
         String x[]=name.split(" ");
         System.out.println("capName "+x.length+" "+name);
@@ -38,17 +36,7 @@ public class Utente {
         }
     }
 
-    public Utente(int id, String name, String cognome, String email, Date dataNascita, String passwordhash, boolean admin_bool, String via, int cap, int civico) {
-        ID = id;
-        Nome = CapitalizeName(name);
-        Cognome=CapitalizeName(cognome);
-        Mail = email.toLowerCase();
-        DataNascita= dataNascita;
-        this.Passwordhash=passwordhash;
-        this.admin_bool = admin_bool;
-        Via=via.substring(0,1).toUpperCase()+via.substring(1,via.length()).toLowerCase();
-        Cap=cap;
-        Civico=civico;
+    public Utente() {
     }
 
     public int getID() {
@@ -103,7 +91,7 @@ public class Utente {
         this.admin_bool = admin_bool;
     }
 
-    public void setPassword(String password) { // password è inserita dall’utente
+    public void setPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.reset();
@@ -114,6 +102,11 @@ public class Utente {
             throw new RuntimeException(e);
         }
     }
+
+    public void setPasswordFromDB(String password) {
+        Passwordhash=password;
+    }
+
     public String getVia() {
         return Via;
     }

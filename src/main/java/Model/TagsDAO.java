@@ -122,4 +122,18 @@ public class TagsDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static void uploadTagByID(Integer id, String newName) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE tags set nome=? where id_tag=?");
+            ps.setString(1, newName);
+            ps.setInt(2, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

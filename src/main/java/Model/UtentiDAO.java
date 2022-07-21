@@ -63,7 +63,18 @@ public class UtentiDAO {
             ResultSet rs = ps.executeQuery();
             if(!rs.next())
                 return null;
-            return new Utente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getString(6),rs.getBoolean(7),rs.getString(8),rs.getInt(9),rs.getInt(10));
+            Utente u=new Utente();
+            u.setID(rs.getInt(1));
+            u.setNome(rs.getString(2));
+            u.setCognome(rs.getString(3));
+            u.setMail(rs.getString(4));
+            u.setDataNascita(rs.getDate(5));
+            u.setPasswordFromDB(rs.getString(6));
+            u.setAdmin_bool(rs.getBoolean(7));
+            u.setVia(rs.getString(8));
+            u.setCap(rs.getInt(9));
+            u.setCivico(rs.getInt(10));
+            return u;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

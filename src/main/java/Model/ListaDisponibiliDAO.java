@@ -3,6 +3,7 @@ package Model;
 import java.sql.*;
 
 public class ListaDisponibiliDAO {
+
      public ListaVinili getAll(){
          System.out.println(" inizio lista vinili da db");
          boolean flag=false;
