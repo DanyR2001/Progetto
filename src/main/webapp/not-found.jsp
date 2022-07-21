@@ -99,18 +99,18 @@
 <main class="cart-page">
     <div class="box">
         <div class="inner-box">
-            <div class="err-ret">
-                <div class="aling">
-                    <a class="back" href="index.jsp"> <img src="img/back-button.png" class="back-image">Torna alla home</a>
-                </div>
-            </div>
+            <a class="back" href="index.jsp">
+                <img src="img/back-button.png" class="back-image" alt="back-button">
+                <p>Home</p>
+            </a>
             <div class="err-desc">
-                <div>
-                    <img src="img/not-found.png" class="image">
+                <div class="err-wrap">
+                    <div class="err-text">
+                        <h1>Ops... <br> Risorsa non trovata</h1>
+                    </div>
+                    <img src="img/not-found.png" class="image" alt="not-found">
                 </div>
-                <div>
-                    <h1>Ops... Risorsa non trovata</h1>
-                </div>
+
             </div>
         </div>
     </div>

@@ -99,18 +99,18 @@
 <main class="cart-page">
     <div class="box">
         <div class="inner-box">
-            <div class="err-ret">
-                <div class="aling">
-                    <a class="back" href="index.jsp"> <img src="img/back-button.png" class="back-image">Torna alla home</a>
-                </div>
-            </div>
+            <a class="back" href="index.jsp">
+                <img src="img/back-button.png" class="back-image" alt="back-button">
+                <p>Home</p>
+            </a>
             <div class="err-desc">
-                <div>
-                    <img src="img/error.jpeg" class="image">
+                <div class="err-wrap">
+                    <div class="err-text">
+                        <h1>Ops... <br> Qualcosa è andato storto</h1>
+                    </div>
+                    <img src="img/error.jpeg" class="image" alt="error">
                 </div>
-                <div>
-                    <h1>Ops... Qualcosa è andato storto</h1>
-                </div>
+
             </div>
         </div>
     </div>
