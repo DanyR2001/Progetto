@@ -22,12 +22,19 @@ public class Ordine {
         this.codice=null;
     }
 
+    /**
+     * Questo metodo verifica se un prodotto è contenuto in una lista di prodotti
+     * @param l lista di prodotti
+     * @param pr prodotto
+     * @return true se pr è contenuto in l, altirmenti false
+     */
     static boolean isPresent(ArrayList<Prodotto> l, Prodotto pr){
+
         boolean flag = false;
-        if(l!=null)
+        if(l != null) //se la lista dei prodotti non è vuota
             for(Prodotto p: l)
-                if(p.equals(pr))
-                    flag = true;
+                if(p.equals(pr)) //se il prodotto pr è nella lista
+                    flag = true; //restituisco true
         return flag;
     }
 
@@ -59,66 +66,72 @@ public class Ordine {
         this.codice = codice;
     }
 
+    /**
+     * questo metodo fa il join tra il carrello del database, passato come primo parametro
+     * e quello della sessione, su cui è chiamato il metodo, controllando se i prodotti sono
+     * disponibili
+     * @param p carrello del database
+     * @param service lista dei vinili disponibili
+     * @return il numero di vinili non più disponibili che vengono rimossi dal carrello
+     */
     public int join(Ordine p, ListaVinili service){
 
-        int count = 0;
-        ArrayList<Prodotto> op = p.getCarrello();
-        if(codice==null&&p.getCodice()!=null)
-            codice=p.getCodice();
+        int count = 0; //inizializzo costante per contare i vinili non più disponibili
+        ArrayList<Prodotto> op = p.getCarrello(); //prendo il carrello del DB
+        if(codice == null && p.getCodice() != null)  //se il carrello della sessione no ha un codice, mentre quello del DB si
+            codice=p.getCodice();   // setto il codice del carrello della sessione a quello del DB
         int i,j;
-        if(list!=null&&op!=null) {
-            System.out.println("join");
-            for (i = 0; i < this.list.size(); i++) {
-                System.out.println("join 1");
-                Prodotto prodottoLoc = list.get(i);
-                System.out.println("join 2");
-                if(service.isAvable(list.get(i).getArticolo())) {
-                    System.out.println("join 3");
-                    for (j = 0; j < op.size(); j++) {
-                        System.out.println("join 4");
-                        Prodotto prodottoVar = op.get(j);
-                            if (prodottoLoc.getArticolo().equals(prodottoVar.getArticolo())) {
-                                System.out.println("join 5");
-                                System.out.println("loc q " + prodottoLoc.getQuantita() + " var q " + prodottoVar.getQuantita());
-                                if (prodottoLoc.getQuantita() + prodottoVar.getQuantita() > service.getQuantitaVin(prodottoLoc.getArticolo())) {
-                                    System.out.println("join 6");
-                                    prodottoLoc.setQuantita(service.getQuantitaVin(prodottoLoc.getArticolo()));
-                                } else {
-                                    System.out.println("join 7");
-                                    prodottoLoc.fusion(prodottoVar);
-                                }
+        if(list!=null && op!=null) { //se ho dei prodotti nel carrello della sessione e in quello del DB
+
+            for (i = 0; i < this.list.size(); i++) { //per ogni prodotto nel carrello della sessione
+
+                Prodotto prodottoLoc = list.get(i); //prendo il prodotto(1)
+
+                if(service.isAvailable(list.get(i).getArticolo())) { //se il prodotto(1) è nella lista dei vinili disponibili
+
+                    for (j = 0; j < op.size(); j++) { // per ogni prodotto(2) nel carrello del DB
+
+                        Prodotto prodottoVar = op.get(j); //prendo il prodotto(2)
+                        if (prodottoLoc.getArticolo().equals(prodottoVar.getArticolo())) { //se i due prodotti (sessione e DB) corrispondono
+
+                            if (prodottoLoc.getQuantita() + prodottoVar.getQuantita() > service.getQuantitaVin(prodottoLoc.getArticolo())) { //se la somma delle due quantità è maggiore rispetto alla quantità totale disponibile del vinile
+
+                                prodottoLoc.setQuantita(service.getQuantitaVin(prodottoLoc.getArticolo())); //setto la quantità del prodotto della sessione alla massima disponibilità
+                            } else {
+
+                                prodottoLoc.fusion(prodottoVar); //altrimenti unisco le due quantità
                             }
                         }
                     }
-                else{
-                    System.out.println("join 8");
-                    count++;
-                    list.remove(i);
-                    }
+                } else { //se invece il prodotto non è nella lista dei vinili disponibili
+                    count++; //incremento count
+                    list.remove(i); //e lo rimuovo dal carrello
+                }
             }
-            if (p.getCarrello() != null) {
-                System.out.println("join 9");
-                for (Prodotto pr : p.getCarrello()) {
-                    System.out.println("join 10");
-                    if (!isPresent(list, pr)) {
-                        System.out.println("join 11");
-                        if(service.isAvable(pr.getArticolo())) {
-                            if (pr.getQuantita() > service.getQuantitaVin(pr.getArticolo()))
-                                pr.setQuantita(service.getQuantitaVin(pr.getArticolo()));
-                            list.add(pr);
-                        }
-                        else{
+
+            if (p.getCarrello() != null) { //se il carrello del DB non è vuoto
+
+                for (Prodotto pr : p.getCarrello()) { //per ogni prodotto nel carrello del DB
+
+                    if (!isPresent(list, pr)) { //se il prodotto non è presente nei prodotti del carrello della sessione
+
+                        if(service.isAvailable(pr.getArticolo())) { //se il prodotto è nella lista dei vinili disponibili
+                            if (pr.getQuantita() > service.getQuantitaVin(pr.getArticolo())) // ma la sua quantità è maggiore rispetto a quella disponibile
+                                pr.setQuantita(service.getQuantitaVin(pr.getArticolo())); //setto la sua quantità alla massima quantità disponibile
+                            list.add(pr); //lo aggiungo il prodotto alla lista dei prodotti della sessione
+
+                        } else{ //se non è disponibile incremento count
                             count++;
                         }
                     }
                 }
-                refreshCost();
+                refreshCost(); //aggiorno il prezzo totale dell'ordine
             }
         }
-        if(list==null&&p.getCarrello()!=null){
-            System.out.println("join 12");
-            list=p.getCarrello();
-            refreshCost();
+        if(list==null && p.getCarrello()!=null){ //se il carrello della sessione è vuoto mentre quello del database no
+
+            list = p.getCarrello(); //setto la liste dei prodotti della sessione a quella del DB
+            refreshCost(); //aggiorno il prezzo totale
         }
         return count;
     }
@@ -157,8 +170,6 @@ public class Ordine {
         return null;
     }
 
-
-
     public ArrayList<Prodotto> getCarrello(){
         return list;
     }
@@ -166,7 +177,6 @@ public class Ordine {
     public int getNumItem(){
         return this.list.size();
     }
-
 
     public double getPrezzo() {
         DecimalFormat dr=new DecimalFormat("0.00");
@@ -177,11 +187,14 @@ public class Ordine {
         this.prezzo = prezzo;
     }
 
+    /**
+     * questo metodo aggiorna il prezzo totale dell'ordine
+     */
     public void refreshCost(){
-        double prezzo=0;
+        double prezzo = 0;
         for(Prodotto p: list)
-            prezzo+=p.getPrezzo();
-        this.prezzo=prezzo;
+            prezzo += p.getPrezzo();
+        this.prezzo = prezzo;
     }
 
     public ArrayList<Vinile> check(){

@@ -60,7 +60,7 @@ public class ListaVinili {
         size.add(disponibilita);
     }
 
-    public boolean isAvable(Vinile v){
+    public boolean isAvailable(Vinile v){
         if(list.size()>0)
             for (int i=0;i<list.size();i++) {
                 System.out.println("ciao 2");
@@ -126,7 +126,7 @@ public class ListaVinili {
         for(int i=0;i<list.size()&&name.length()>0;i++){
             Vinile v=list.get(i);
             if((v.getTitolo().toLowerCase()+" "+v.getArtista().toLowerCase()).contains(name.toLowerCase())){
-                if(isAvable(v))
+                if(isAvailable(v))
                     ret.add(v);
             }
         }
@@ -149,7 +149,7 @@ public class ListaVinili {
                     }
                 }
             }
-            if(flag==false&&isAvable(v))
+            if(flag==false&& isAvailable(v))
                 ret.add(v);
         }
         if(ret.size()>0)
