@@ -1,8 +1,8 @@
 div.show-item {
     margin-left: 20px;
-    width: inherit;
     display: flex;
     flex-wrap: wrap;
+    grid-gap: 10px;
 }
 
 div.search-panel {
@@ -58,4 +58,74 @@ img.item-img {
     height: 200px;
     border-radius: 7px;
     box-shadow: 0 1px 4px 1px #545454;
+}
+
+#search {
+    border: 2px solid black;
+    width: 100%;
+    font-size: 17px;
+    border-radius: 7px;
+    background-color: #FFFFFF;
+    padding: 6px;
+    grid-gap: 10px;
+    margin-top: 8px;
+}
+
+#search:focus {
+    outline: none;
+}
+
+#search ::placeholder{
+    color:black;
+}
+
+main .show {
+    margin-left: 10px;
+    width: inherit;
+}
+
+main .tags {
+    margin-top: 20px;
+    border: 2px solid #252525;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+main .tags legend {
+    text-align: center;
+    padding: 0 5px;
+}
+
+.button {
+    width: 50%;
+    height: 35px;
+    background-color: #151111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+#form1 {
+    display: flex;
+    justify-content: center;
+}
+
+h3.tag {
+    display: inline;
+}
+
+.filter-label {
+    cursor: pointer;
+}
+
+.filter {
+    width: 25%;
 }

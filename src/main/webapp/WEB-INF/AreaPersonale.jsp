@@ -147,7 +147,7 @@
 
   <nav class="header-right" id="myLinks">
     <div class = "Search">
-      <input type="text" class="c" id="search-box" placeholder="Search.." onkeypress="search()" >
+      <input type="text" class="c" id="search-box" placeholder="Cerca.." onkeypress="search()" >
       <div id="suggestion-box" class="c"></div>
     </div>
     <a href="index.jsp" ><p>Home</p><img src="img/home.png" alt="homepage" tooltip="Home"></a>
