@@ -20,16 +20,17 @@ public class AddTag extends HttpServlet {
         if(snn!=null) {
             System.out.println("p2");
             ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
-            if (nome != null && cheackbox != null && tags!=null) {
+            if (nome != null && tags!=null) {
                 System.out.println("p3");
                 Tag t = TagsDAO.insertTag(nome);
-                if (cheackbox.length >= 1) {
-                    System.out.println("p4");
-                    for (String s : cheackbox) {
-                        int x = Integer.parseInt(s);
-                        TagsDAO.insertTagForVinil(x, t.getId_tag());
+                if(cheackbox != null)
+                    if (cheackbox.length >= 1) {
+                        System.out.println("p4");
+                        for (String s : cheackbox) {
+                            int x = Integer.parseInt(s);
+                            TagsDAO.insertTagForVinil(x, t.getId_tag());
+                        }
                     }
-                }
                 tags.add(t);
                 snn.setAttribute("tags",tags);
                 response.sendRedirect("./Admin?src=adminTag");
@@ -39,6 +40,6 @@ public class AddTag extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+
     }
 }

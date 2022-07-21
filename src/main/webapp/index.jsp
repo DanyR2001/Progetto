@@ -158,9 +158,11 @@
             <%
                 ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
                 ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
-                for (int j = 0; j< tags.size(); j++) {
+                int index=0;
+                for (int j = 0; j< tags.size()&&index<tags.size()/2; j++) {
                     ListaVinili list = list1.getAvailableVinili().getFromTag(tags.get(j));
                     if (list.size() > 0 && list.toShow(carrello)) {
+                        index++;
             %>
 
         <section class="slider">
