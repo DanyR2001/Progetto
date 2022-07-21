@@ -9,26 +9,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="css/iframe.css" type="text/css"/>
 </head>
 <body>
-
-<form method="post" action="NewVinil" enctype="multipart/form-data">
-    Titolo:<input type="text" name="Titolo">
-    Prezzo:<input type="number" step=".01" name="Prezzo">
-    Quantita:<input type="number"  name="Quantita">
-    Artista:<input type="text" name="Artista">
-    Immgaine:<input type="file" name="Upload" />
-    <%
-        ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("Tags");
-        if(list!=null)
-            for(int i=0;i<list.size();i++) {
-                out.print("<input type='checkbox' id='"+list.get(i).getNome()+"' name='" + list.get(i).getNome() + "' value='" + list.get(i).getId_tag() + "'>");
-                out.print("<lable for ='"+list.get(i).getNome()+"'>"+list.get(i).getNome()+"</lable>");
-            }
-    %>
-    <input type="submit" name="carica">
-</form>
-
+<main>
+    <div class="fix">
+        <a href="Admin?src=adminVinile"><img src="img/back-button.png" class="image"><p>Pagina precedenete</p></a>
+    </div>
+    <div class="box">
+        <form method="post" action="NewVinil" enctype="multipart/form-data">
+            <div class="input-wrap center">
+                <h1>Aggiunta vinile:</h1>
+            </div>
+            <div class="input-wrap">
+                <label for="titolo">Titolo: </label>
+                <input type="text" id="titolo" name="Titolo">
+            </div>
+            <div class="input-wrap">
+                <label for="Prezzo">Prezzo:</label>
+                <input type="number" id="Prezzo" step=".01" name="Prezzo">
+            </div>
+            <div class="input-wrap">
+                <label for="Quantita">Quantita:</label>
+                <input type="number" id="Quantita" name="Quantita">
+            </div>
+            <div class="input-wrap">
+                <label for="Artista">Artista:</label>
+                <input type="text" id="Artista" name="Artista">
+            </div>
+            <div class="input-wrap">
+                <label for="Upload">Immagine:</label>
+                <input type="file" id="Upload" name="Upload" />
+            </div>
+            <%
+                ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("Tags");
+                if(list!=null)
+                    for(int i=0;i<list.size();i++) {
+                        %>
+                        <div class="input-wrap">
+                            <lable for="<%=list.get(i).getNome()%>"><%=list.get(i).getNome()%></lable>
+                            <input type="checkbox" id="<%=list.get(i).getNome()%>" name="<%=list.get(i).getNome()%>" value="<%=list.get(i).getId_tag()%>">
+                        </div>
+                        <%
+                    }
+            %>
+            <div class="input-wrap center">
+                <input type="submit" class="button" name="carica">
+            </div>
+        </form>
+    </div>
+</main>
 </body>
 </html>

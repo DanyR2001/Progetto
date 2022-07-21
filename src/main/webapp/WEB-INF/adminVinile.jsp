@@ -20,7 +20,7 @@
         <td class="al"><h2>Titolo:</h2></td>
         <td class="al"><h2>Quanità:</h2></td>
         <td class="al"><h2>Prezzo:</h2></td>
-        <td class="al"><h2>Artista</h2></td>
+        <td class="al"><h2>Artista:</h2></td>
         <td></td>
     </tr>
 <%
@@ -33,10 +33,10 @@ if(lib!=null)
         <input type="hidden" name="index" value="<%=i%>">
             <tr>
                 <td><h2><%=v.getTitolo()%></h2></td>
-                <td><input type="number" name="quantita"  min="0" value="<%=lib.getQuantitaVin(v)%>" ></td>
-                <td><input type="number" step=".01" name="prezzo" value="<%=v.getPrezzo()%>"></td>
-                <td><input type="text" name="nameArtist" value="<%=v.getArtista()%>"></td>
-                <td><input type="submit" value="Applica"></td>
+                <td class="center"><input type="number" name="quantita"  min="0" value="<%=lib.getQuantitaVin(v)%>" ></td>
+                <td class="center"><input type="number" step=".01" name="prezzo" value="<%=v.getPrezzo()%>"></td>
+                <td class="center"><input type="text" name="nameArtist" value="<%=v.getArtista()%>"></td>
+                <td><input type="submit" class="button" value="Applica"></td>
             </tr>
         </form>
    <% }
