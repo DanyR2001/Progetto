@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 19/07/22
-  Time: 18:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="Model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -84,7 +77,7 @@
 
     <nav class="header-right" id="myLinks">
         <div class = "Search">
-            <input type="text" class="c" id="search-box" placeholder="Search.." onkeypress="search()" >
+            <input type="text" class="c" id="search-box" placeholder="Cerca.." onkeypress="search()" >
             <div id="suggestion-box" class="c"></div>
         </div>
         <a href="index.jsp" ><p>Home</p><img src="img/home.png" alt="homepage" tooltip="Home"></a>

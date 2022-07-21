@@ -93,7 +93,7 @@
 
     <nav class="header-right" id="myLinks">
         <div class = "Search">
-            <input type="text" class="c" id="search-box" placeholder="Search.." onkeypress="search()" >
+            <input type="text" class="c" id="search-box" placeholder="Cerca.." onkeypress="search()" >
             <div id="suggestion-box" class="c"></div>
         </div>
         <a href="index.jsp" ><p>Home</p><img src="img/home.png" alt="homepage" tooltip="Home"></a>
@@ -116,11 +116,10 @@
         <div class="search-panel" id="search-panel">
             <div class="panel">
                 <div class="search">
-                    <p>Ricerca</p>
-                    <input type="text" id="search" name="search" value="<%=val%>" form="form1">
+                    <input type="text" id="search" name="search" value="<%=val%>" form="form1" placeholder="Cerca..">
                 </div>
-                <div  class="tags">
-                    <p>Tag</p>
+                <fieldset  class="tags">
+                    <legend>Tag</legend>
                     <%
                         if(lista!=null)
                             for(Tag x: lista) {
@@ -131,25 +130,18 @@
                     <%
                             }
                     %>
-                </div>
+                </fieldset>
 
-                <table>
+                <fieldset class="tags">
+                    <legend>Filtri</legend>
+                    <input  class="filter" type="radio" id="testo" name="choose" value="Testo" form="form1" required>
+                    <label for="testo" class="filter-label">Testo</label>
+                    <input class="filter" type="radio" id="tag" name="choose" value="Tag" form="form1">
+                    <label for="tag" class="filter-label">Tag</label>
+                </fieldset>
 
-                    <tr>
-                        <td>Filtra per:</td>
-                        <td></td>
-                    </tr>
-                    <tr><td>
-                        <input type="radio" id="testo" name="choose" value="Testo" form="form1" required>
-                        <label for="testo">Casella di testo</label>
-                    </td><td>
-                        <input type="radio" id="tag" name="choose" value="Tag" form="form1">
-                        <label for="tag">Tag</label>
-                    </td>
-                    </tr>
-                </table>
                 <form action="Search" id="form1">
-                    <input type="submit" value="Cerca">
+                    <input type="submit" value="Cerca" class="button">
                 </form>
             </div>
         </div>
@@ -180,50 +172,54 @@
                         if(choose!=null){
                             if(choose.equals("Tag")){
                 %>
-                <h3>Risultati ricerca per Tag: </h3>
+                <h3 class="tag">Tag ricercati: </h3>
                 <%
-                    if(selected!=null){
+                    if(selected!=null) {
                         for(int i=0;i<selected.length;i++){
                 %>
-                <h3> <%=selected[i]%> </h3>
+                <h3 class="tag"> <%=selected[i]%> </h3>
                 <%
                         }
-                %>
-                    <div class="show-item">
-                <%
                     }
+                %>
+                    <div class="show-item-wrap">
+                        <div class="show-item">
+                <%
                 }
                 else if(choose.equals("Testo")){
                 %>
 
-                    <h3>Risultati ricerca per Testo: <%=testo%></h3>
-                    <div class="show-item">
+                <h3>Risultati ricerca per Testo: <%=testo%></h3>
+                    <div class="show-item-wrap">
+                        <div class="show-item">
 
-                <%
+                    <%
+                            }
                         }
-                    }
-                    for(int i = 0; i < result.size(); i++){
-                %>
+                        for(int i = 0; i < result.size(); i++){
+                    %>
 
-                <a href="item.jsp?id=<%=result.get(i).getPK()%>" class="item-reference">
-                    <div class="item-container">
-                        <div class="item">
-                            <img class="item-img" src="<%=application.getContextPath()%><%=result.get(i).getUrl()%>" alt="<%=result.get(i).getTitolo()%>">
-                            <div class="item-info">
-                                <p class="item-titolo"><%=result.get(i).getTitolo()%></p>
-                                <p class="item-artista"><%=result.get(i).getArtista()%></p>
+                    <a href="item.jsp?id=<%=result.get(i).getPK()%>" class="item-reference">
+                        <div class="item-container">
+                            <div class="item">
+                                <img class="item-img" src="<%=application.getContextPath()%><%=result.get(i).getUrl()%>" alt="<%=result.get(i).getTitolo()%>">
+                                <div class="item-info">
+                                    <p class="item-titolo"><%=result.get(i).getTitolo()%></p>
+                                    <p class="item-artista"><%=result.get(i).getArtista()%></p>
+                                </div>
                             </div>
                         </div>
+                    </a>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <p>Nessun Risultato</p>
+                    <%
+                        }
+                    %>
+                </div>
                     </div>
-                </a>
-                <%
-                    }
-                } else {
-                %>
-                <p>Nessun Risultato</p>
-                <%
-                    }
-                %>
             </div>
         </div>
 
