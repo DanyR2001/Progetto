@@ -151,8 +151,14 @@
                             <tr class="table-item">
 
                                 <td><img src="<%=application.getContextPath()%><%=p.getArticolo().getUrl()%>" alt="<%=p.getArticolo().getTitolo()%>" class="product-img"></td>
-                                <td><a href="item.jsp?id=<%=p.getArticolo().getPK()%>" class="product-titolo"><%=p.getArticolo().getTitolo()%></a></td>
+                                <td class="to-hide"><a href="item.jsp?id=<%=p.getArticolo().getPK()%>" class="product-titolo"><%=p.getArticolo().getTitolo()%></a></td>
                                 <td class="quant">
+                                    <div class="to-show">
+                                        <a href="item.jsp?id=<%=p.getArticolo().getPK()%>" class="product-titolo"><%=p.getArticolo().getTitolo()%></a>
+                                        <p><%=p.getArticolo().getPrezzo()%></p>
+                                        <p><%=p.getPrezzo()%></p>
+                                        <a href="UpdateCarrello?index=<%=i%>" class="remove"><img src="img/delete.png" alt="delete"></a>
+                                    </div>
                                     <select name="quantita" onchange="submit(<%=i%>)">
                                         <%
                                             for(int j=0;j<=service.getQuantitaVin(p.getArticolo());j++){
@@ -166,18 +172,18 @@
                                 %>
                                     </select>
                                 </td>
-                                <td class="prezzo"><%=p.getArticolo().getPrezzo()%></td>
-                                <td class="subtotale"><%=p.getPrezzo()%></td>
-                                <td><a href="UpdateCarrello?index=<%=i%>" class="remove"><img src="img/delete.png" alt="delete"></a></td>
+                                <td class="to-hide" id="prezzo"><%=p.getArticolo().getPrezzo()%></td>
+                                <td class="to-hide" id="subtotale"><%=p.getPrezzo()%></td>
+                                <td class="to-hide"><a href="UpdateCarrello?index=<%=i%>" class="remove"><img src="img/delete.png" alt="delete"></a></td>
                             </tr>
                         </form>
                         <%
                         }
                         %>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class = "empty-td"></td>
+                            <td class = "empty-td"></td>
+                            <td class = "empty-td"></td>
                             <td class="al"><h2>Totale</h2></td>
                             <td class="al"><h2><%=carrello.getPrezzo()%></h2></td>
                             <td></td>

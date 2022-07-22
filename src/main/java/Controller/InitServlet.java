@@ -68,7 +68,7 @@ public class InitServlet extends HttpServlet {
                     System.out.println("--(u -> Admin)--");
                     dispatcher = request.getRequestDispatcher("/Admin"); //se l'utente è amministratore lo reindirizzo alla pagina dell'amministratore
                 } else {
-                    //qua non ci possiamo mai entrare esistera sempre una libreria ---
+                    //qua non ci possiamo mai entrare perchè ci sarà sempre una libreria
                     System.out.println("--(u -> NotAdmin)--");
                     ListaDisponibiliDAO service = new ListaDisponibiliDAO();
                     libreria = service.getAll();

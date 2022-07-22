@@ -13,7 +13,7 @@ public class Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession snn=request.getSession();
-        Utente u= (Utente) snn.getAttribute("utente");
+        Utente u= (Utente) snn.getAttribute("utente"); //prendo l'utente dalla sessione
         System.out.println("1");
         ListaDisponibiliDAO service = new ListaDisponibiliDAO();
         ArrayList<Tag> lista = TagsDAO.getAll();

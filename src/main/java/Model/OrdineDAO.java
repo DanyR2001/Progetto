@@ -6,12 +6,16 @@ import java.util.List;
 
 public class OrdineDAO {
 
+    /**
+     * Questo metodo cancella un ordine dal DataBase dato il codice dell'ordine
+     * @param codice_ordine è il codice dell'ordine da eliminare
+     */
     public static void deleteAllPorductByOrder(int codice_ordine){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "delete from comporre  where code_ordine=?");
             ps.setInt(1,codice_ordine);
-            int num=ps.executeUpdate();
+            int num = ps.executeUpdate();
             System.out.println("----(numero di tuple eliminate da comporre "+num+")----");
             if ( num < 1) {
                 throw new RuntimeException("delete error.");
@@ -22,6 +26,11 @@ public class OrdineDAO {
         }
     }
 
+    /**
+     * questo metodo inserisce un prodotto nell'ordine (in comporre)
+     * @param p è il prodotto da inserire
+     * @param codice_ordine è il codice dell'ordine
+     */
     public static void insertProductByOrder(Prodotto p, int codice_ordine){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -38,20 +47,25 @@ public class OrdineDAO {
         }
     }
 
+    /**
+     *
+     * @param u
+     * @param temp
+     * @param service
+     * @return
+     */
     public static ArrayList<Vinile> uploadOrdine(Utente u, Ordine temp, ListaVinili service) {
-        Ordine old=getCarrelloFromDb(u,service);
-        System.out.println("-----(aggiorno il carrello "+temp.getCodice()+" nel DB)----");
+        Ordine old = getCarrelloFromDb(u, service);
+        System.out.println("-----(aggiorno il carrello " + temp.getCodice() + " nel DB)----"); //prendo il carrello dell'utente dal DB
         if(old!=null) {
-            if(old.getCarrello()!=null) {
-                if (old.getCarrello().size() > 0) {
+            if (old.getCarrello() != null) {
+                if (old.getCarrello().size() > 0) { //e non è vuoto
                     System.out.println("----(elimino le vecchie occorrenze in comporre)----");
-                    if(temp.getCodice()==null) {
+                    if (temp.getCodice() == null) {
                         deleteAllPorductByOrder(old.getCodice());
-                    }
-                    else if(temp.getCodice()==old.getCodice()) {
+                    } else if (temp.getCodice() == old.getCodice()) {
                         deleteAllPorductByOrder(temp.getCodice());
-                    }
-                    else
+                    } else
                         System.out.println("other problem");
                 }
             }
@@ -69,7 +83,7 @@ public class OrdineDAO {
             throw new RuntimeException(e);
         }
         for(Prodotto p: temp.getCarrello()) {
-            System.out.println("----(Insersco un nuovo prodotto nel DB in comporre)----");
+            System.out.println("----(Inserisco un nuovo prodotto nel DB in comporre)----");
             insertProductByOrder(p, temp.getCodice());
         }
         ArrayList<Vinile> ret=new ArrayList<>();
@@ -140,19 +154,24 @@ public class OrdineDAO {
         }
     }
 
-
-
-
-//ok
+    /**
+     * Questo metodo prende il carrello di un utente dal DB
+     * @param u è l'id dell'utente
+     * @param service è la lista dei vinili disponibili
+     * @return il carrello dell'utente se esiste nel Db, altrimenti null
+     */
     public static Ordine getCarrelloFromDb(Utente u, ListaVinili service){
+
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso FROM ordine WHERE id_user=? and evaso=false");
             ps.setInt(1,u.getID());
             ResultSet rs = ps.executeQuery();
-            if(!rs.next())
+
+            if(!rs.next()) //se la query non restituisce nulla significa che non c'era un carrello del DB relativo all'utente
                 return null;
-            Ordine tmp = new Ordine();
+
+            Ordine tmp = new Ordine(); //altrimenti restituisco il carrello
             tmp.setCodice(rs.getInt(1));
             tmp.setPrezzo(rs.getDouble(2));
             tmp.setEvaso(rs.getBoolean(3));

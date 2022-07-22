@@ -145,3 +145,62 @@ td {
 td.prezzo, td.subtotale, td.al, td.quant {
     text-align: center;
 }
+
+@media screen and (max-width: 870px) {
+
+    main .inner-box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    main .box {
+        height: unset;
+        margin: unset;
+    }
+
+    main .orders {
+        width: 90%;
+    }
+
+    main .register-option {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    main .register-option form {
+        width: 90%;
+    }
+}
+
+@media screen  and (max-width: 520px){
+
+    main .orders {
+        margin: unset;
+        width: 100%;
+    }
+
+    main .register-option {
+        width: 100%;
+    }
+
+    .margin {
+        margin: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 410px){
+
+    table {
+        margin-top: 20px;
+        font-size: 3.4vw;
+    }
+
+    main .title-order p {
+        font-size: 4vw;
+    }
+
+    .button {
+        font-size: 4vw;
+        height: 5vh;
+    }
+}

@@ -95,16 +95,6 @@ public class ListaVinili {
                 }
     }
 
-
-
-    /*public int numDispVinil(vinile v){
-        int size=0;
-        if(list.size()>0)
-            for(vinile a: list)
-                if(v.equals(a))
-                    size=a.getQuantita();
-        return size;
-    }*/
     public Vinile get(int index){
         return list.get(index);
     }

@@ -10,8 +10,8 @@ import java.io.IOException;
 public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //salvo le modichie al carrello
-        HttpSession snn=request.getSession();
+        //salvo le modidiche nel carrello
+        HttpSession snn = request.getSession();
         snn.invalidate();
         response.sendRedirect(".");
     }

@@ -60,6 +60,10 @@ main .empty-cart-text{
     margin: 0 60px 0 60px;
 }
 
+main div.to-show {
+    display: none;
+}
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -161,7 +165,7 @@ td a img:hover {
     background-color: #eae7e7;
 }
 
-td.prezzo, td.subtotale, td.al, td.quant {
+td#prezzo, td#subtotale, td.al, td.quant {
     text-align: center;
 }
 
@@ -181,5 +185,103 @@ td a.product-titolo:hover {
     main .empty-cart {
         flex-direction: column-reverse;
     }
+
+    main .empty-cart {
+        flex-direction: column-reverse;
+    }
+
+    main .empty-cart img {
+        width: 60%;
+        max-width: none;
+        max-height: none;
+        margin-top: 30px;
+    }
+
+    main .empty-cart-text {
+        font-size: 0.8rem;
+    }
+
+    main {
+        min-height: unset;
+    }
+
+    main .cart-text {
+        text-align: center;
+    }
+
+    main .submit-order {
+        text-align: center;
+        position: unset;
+    }
+
 }
+
+@media screen and (max-width: 860px) {
+     main .cart {
+         width: 100%;
+     }
+
+    main .column-name h2 {
+        font-size: 0.9rem;
+    }
+
+    main .box {
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    main .column-name {
+        display: none;
+    }
+
+    main td.to-hide {
+        display: none;
+    }
+
+    main div.to-show {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main .empty-td {
+        display: none;
+    }
+
+    tbody {
+        display: flex;
+        flex-direction: column;
+    }
+
+    td {
+        padding: 10px 10px 10px 0;
+    }
+
+    main .product-img {
+        width: unset;
+        height: 18vh;
+    }
+
+    td.quant, td.al {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+
+    main .empty-cart-text {
+        margin: unset;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    main .empty-cart img {
+        width: 80%;
+    }
+
+}
+
 
