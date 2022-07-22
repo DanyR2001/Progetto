@@ -61,17 +61,18 @@ public class ListaVinili {
     }
 
     public boolean isAvailable(Vinile v){
+        System.out.println("----(il vinilie "+v.getTitolo()+" e disponibili? controllo)----");
         if(list.size()>0)
             for (int i=0;i<list.size();i++) {
-                System.out.println("ciao 2");
                 if (list.get(i).equals(v)) {
-                    System.out.println("ciao 1");
                     if (size.get(i) > 0) {
-                        System.out.println("ciao");
+                        System.out.println("----("+v.getTitolo()+" si)----");
                         return true;
                     }
-                    else
+                    else {
+                        System.out.println("----("+v.getTitolo()+" no)----");
                         return false;
+                    }
                 }
             }
         return false;

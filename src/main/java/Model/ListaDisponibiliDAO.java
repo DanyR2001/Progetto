@@ -5,7 +5,7 @@ import java.sql.*;
 public class ListaDisponibiliDAO {
 
      public ListaVinili getAll(){
-         System.out.println(" inizio lista vinili da db");
+         System.out.println("---(inizio lista vinili da db)---");
          boolean flag=false;
          ListaVinili retun= new ListaVinili();
          try (Connection con = ConPool.getConnection()) {
@@ -13,7 +13,7 @@ public class ListaDisponibiliDAO {
                      con.prepareStatement("SELECT * FROM vinilidisp");
              ResultSet rs = ps.executeQuery();
              while(rs.next()){
-                 System.out.println(" prova 12 ");
+                 System.out.println("---(Vinil added)--- ");
                  Vinile v=new Vinile();
                  v.setPK(rs.getInt(1));
                  v.setTitolo(rs.getString(2));
@@ -29,7 +29,7 @@ public class ListaDisponibiliDAO {
              throw new RuntimeException(e);
          }
          if(flag==false) {
-             System.out.println("haha 1212");
+             System.out.println("Nessun vinilie nel DB");
              return null;
          }
          else{

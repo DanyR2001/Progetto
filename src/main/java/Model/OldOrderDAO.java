@@ -10,19 +10,17 @@ import java.util.List;
 public class OldOrderDAO {
 
     public static List<Prodotto> listaTupleDbOldOrder(Ordine o, ListaVinili service){
-        System.out.println("2 inizio lista da db");
+        System.out.println("------(Leggo comporre per il vecchio ordine)------");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT id_vinile,quantita, prezzo FROM comporre WHERE code_ordine=?");
             ps.setInt(1,o.getCodice());
-            System.out.println("2 ha2 "+o.getCodice());
             ResultSet rs = ps.executeQuery();
             boolean flag=false;
             List<Prodotto> listaDB=new ArrayList<>();
-            System.out.println("2 ha3 ");
             while(rs.next()){
                 flag=true;
-                System.out.println("2 ha1ha ");
+                System.out.println("------(Prodotto aggiunto)------ ");
                 Prodotto pr=new Prodotto();
                 pr.setArticolo(service.findViniliFromId(rs.getInt(1)));
                 pr.setPrezzo(rs.getDouble(3));
@@ -30,7 +28,7 @@ public class OldOrderDAO {
                 listaDB.add(pr);
             }
             if(!flag) {
-                System.out.println("2 haha 1212");
+                System.out.println("------(Ordine vuoto)-----");
                 return null;
             }
             return listaDB;
@@ -40,6 +38,7 @@ public class OldOrderDAO {
     }
 
     public static OldOrder doRetriveById(Utente u, ListaVinili service){
+        System.out.println("------(Inizio lettura dei vecchi ordini da DB)------");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico,citta FROM ordine WHERE id_user=? and evaso=true order by dataev desc");
@@ -56,7 +55,7 @@ public class OldOrderDAO {
                 tmp.setCap(rs.getInt(6));
                 tmp.setCivico(rs.getInt(7));
                 tmp.setCitta(rs.getString(8));
-                System.out.println("2 code oldOrder " + tmp.getCodice());
+                System.out.println("------(Ordine num "+tmp.getCodice()+" aggiunto)------");
                 tmp.setList((ArrayList<Prodotto>) listaTupleDbOldOrder(tmp, service));
                 ret.add(tmp);
             }

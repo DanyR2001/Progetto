@@ -30,12 +30,13 @@ public class Ordine {
      * @return true se pr è contenuto in l, altirmenti false
      */
     static boolean isPresent(ArrayList<Prodotto> l, Prodotto pr){
-
+        System.out.println("-----(è presente il prodotto "+ pr.getArticolo().getTitolo()+" nel carrello?)----");
         boolean flag = false;
         if(l != null) //se la lista dei prodotti non è vuota
             for(Prodotto p: l)
                 if(p.equals(pr)) //se il prodotto pr è nella lista
                     flag = true; //restituisco true
+        System.out.println("-----("+flag+")----");
         return flag;
     }
 
@@ -130,7 +131,6 @@ public class Ordine {
             }
         }
         if(list==null && p.getCarrello()!=null){ //se il carrello della sessione è vuoto mentre quello del database no
-
             list = p.getCarrello(); //setto la liste dei prodotti della sessione a quella del DB
             refreshCost(); //aggiorno il prezzo totale
         }

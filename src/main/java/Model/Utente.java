@@ -30,7 +30,6 @@ public class Utente {
 
     static String CapitalizeName(String name){
         String x[]=name.split(" ");
-        System.out.println("capName "+x.length+" "+name);
         if(x.length==1){
             return name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
         }

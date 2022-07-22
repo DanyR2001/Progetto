@@ -46,6 +46,7 @@ public class TagsDAO {
     }
 
     public static ArrayList<Tag> getAll(){
+        System.out.println("---(inizio lista Tag da db)---");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT * FROM tags");
@@ -53,6 +54,7 @@ public class TagsDAO {
             boolean flag=false;
             ArrayList<Tag> ret=new ArrayList<>();
             while(rs.next()){
+                System.out.println("---(Tag added)---");
                 flag=true;
                 Tag tag_retrun=new Tag();
                 tag_retrun.setId_tag(rs.getInt(1));

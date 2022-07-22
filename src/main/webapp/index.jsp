@@ -5,8 +5,14 @@
 <!DOCTYPE html>
 <html>
 <%
-        HttpSession snn = request.getSession();
+        HttpSession snn = request.getSession(false);
+        ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
+        ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
         Ordine carrello = (Ordine) session.getAttribute("carrello");
+        if(snn==null||carrello==null||list1==null||tags==null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/index");
+                dispatcher.forward(request, response);
+        }
         Utente u = (Utente) snn.getAttribute("utente");
         Integer num= (Integer) snn.getAttribute("numRemoved");
         if(u!=null)
@@ -156,8 +162,6 @@
     <div class="slider-wrap">
 
             <%
-                ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
-                ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
                 int index=0;
                 for (int j = 0; j< tags.size()&&index<tags.size()/2; j++) {
                     ListaVinili list = list1.getAvailableVinili().getFromTag(tags.get(j));

@@ -12,7 +12,7 @@ public class OrdineDAO {
                     "delete from comporre  where code_ordine=?");
             ps.setInt(1,codice_ordine);
             int num=ps.executeUpdate();
-            System.out.println("numero di eliminazioni "+num);
+            System.out.println("----(numero di tuple eliminate da comporre "+num+")----");
             if ( num < 1) {
                 throw new RuntimeException("delete error.");
             }
@@ -40,26 +40,23 @@ public class OrdineDAO {
 
     public static ArrayList<Vinile> uploadOrdine(Utente u, Ordine temp, ListaVinili service) {
         Ordine old=getCarrelloFromDb(u,service);
+        System.out.println("-----(aggiorno il carrello "+temp.getCodice()+" nel DB)----");
         if(old!=null) {
-            System.out.println("2 size "+temp.getNumItem());
             if(old.getCarrello()!=null) {
-                System.out.println("2 ciao pero ");
                 if (old.getCarrello().size() > 0) {
-                    System.out.println(" 2x cod ordine temp" + temp.getCodice() + " cod ordine old " + old.getCodice());
+                    System.out.println("----(elimino le vecchie occorrenze in comporre)----");
                     if(temp.getCodice()==null) {
-                        System.out.println(" 2ciaoooo5678");
                         deleteAllPorductByOrder(old.getCodice());
                     }
                     else if(temp.getCodice()==old.getCodice()) {
-                        System.out.println("2 ciaoooo1234");
                         deleteAllPorductByOrder(temp.getCodice());
                     }
                     else
                         System.out.println("other problem");
-
                 }
             }
         }
+        System.out.println("----(aggiorno il prezzo nel DB)----");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "UPDATE ordine set prezzo = ? where codice=?");
@@ -72,6 +69,7 @@ public class OrdineDAO {
             throw new RuntimeException(e);
         }
         for(Prodotto p: temp.getCarrello()) {
+            System.out.println("----(Insersco un nuovo prodotto nel DB in comporre)----");
             insertProductByOrder(p, temp.getCodice());
         }
         ArrayList<Vinile> ret=new ArrayList<>();
@@ -114,19 +112,18 @@ public class OrdineDAO {
 
 //ok
     public static List<Prodotto> listaTupleDB(Ordine o, ListaVinili service){
-        System.out.println("2 inizio lista da db");
+        System.out.println("---(inizio lettura dei componenti del carrello da db)---");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT id_vinile,quantita, prezzo FROM comporre WHERE code_ordine=?");
             ps.setInt(1,o.getCodice());
-            System.out.println("2 ha2 "+o.getCodice());
+            System.out.println("---(Lettura oldine "+o.getCodice()+" )---");
             ResultSet rs = ps.executeQuery();
             boolean flag=false;
             List<Prodotto> listaDB=new ArrayList<>();
-            System.out.println("2 ha3 ");
             while(rs.next()){
                 flag=true;
-                System.out.println("2 ha1ha ");
+                System.out.println("---(Prodotto aggiunto)---");
                 Prodotto pr=new Prodotto();
                 pr.setArticolo(service.findViniliFromId(rs.getInt(1)));
                 pr.setPrezzo(rs.getDouble(3));
@@ -134,7 +131,7 @@ public class OrdineDAO {
                 listaDB.add(pr);
             }
             if(!flag) {
-                System.out.println("2 haha 1212");
+                System.out.println("---(Lista comporre vuota)---");
                 return null;
             }
             return listaDB;
@@ -159,7 +156,7 @@ public class OrdineDAO {
             tmp.setCodice(rs.getInt(1));
             tmp.setPrezzo(rs.getDouble(2));
             tmp.setEvaso(rs.getBoolean(3));
-            System.out.println("2 code "+tmp.getCodice());
+            System.out.println("---(Inzio lettuta carrella dal DB codice ordine "+tmp.getCodice()+")---");
             tmp.setList((ArrayList<Prodotto>) listaTupleDB(tmp,service));
             return tmp;
         } catch (SQLException e) {
