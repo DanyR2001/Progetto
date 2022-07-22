@@ -4,7 +4,6 @@ import Model.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,151 +12,148 @@ import java.util.ArrayList;
 public class InitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         ListaVinili libreria;
         Ordine carrello;
         Utente user;
         ArrayList<Tag> Tags= TagsDAO.getAll();
-        HttpSession session=request.getSession();
-        session.setAttribute("tags",Tags);
-        RequestDispatcher dispatcher=null;
-        System.out.println("--Inizio servlet--");
-        System.out.println("--if(1;2)--");
+        HttpSession session = request.getSession();
+        session.setAttribute("tags",Tags); //metto i tag nella sessione
+        RequestDispatcher dispatcher = null;
 
         if(session.isNew()){
-            System.out.println("--(1)--");
-            ListaDisponibiliDAO service=new ListaDisponibiliDAO();      //se la sessione è nuova, prendo i vinili disponibili dal dd, creo un
-            libreria=service.getAll();                                  //nuovo carrello e metto tutto nella nuova sessione
-            carrello=new Ordine();
+
+            ListaDisponibiliDAO service = new ListaDisponibiliDAO();      //se la sessione è nuova, prendo i vinili disponibili dal DB, creo un
+            libreria = service.getAll();                                  //nuovo carrello e metto tutto nella nuova sessione
+            carrello = new Ordine();
             session.setAttribute("libreria",libreria);
             session.setAttribute("carrello",carrello);
-        }
-        else{                                                           //la sessione esiste
-            System.out.println("--(2)--");
+
+        } else {                                                           //la sessione esiste
+
             libreria= (ListaVinili) session.getAttribute("libreria");
             carrello= (Ordine) session.getAttribute("carrello");
             user= (Utente) session.getAttribute("utente");
-            System.out.println("--if(3;4;5;6;7;8;9;10)--");
-            if(libreria==null&&carrello==null&&user==null){             //la sessione c'è ma non ho la lista di vinili, nè il carrello nè l'utente
-                System.out.println("--(3)--");
-                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
-                libreria=service.getAll();
-                carrello=new Ordine();
-                session.setAttribute("libreria",libreria);
+
+            if(libreria == null && carrello == null && user == null){       //se nella sessione non ho la lista di vinili, nè il carrello, nè l'utente
+
+                ListaDisponibiliDAO service  = new ListaDisponibiliDAO();
+                libreria = service.getAll();                                //prendo la lista dei vinili disponibili nel database
+                carrello = new Ordine();                                    //creo un nuovo carrello
+                session.setAttribute("libreria",libreria);              //metto tutto in sessione
                 session.setAttribute("carrello",carrello);
-            }
-            else if(libreria==null&&carrello==null&&user!=null){
-                if(user.isAdmin_bool()){
-                    dispatcher = request.getRequestDispatcher("/Admin");
-                }
-                else {
-                    System.out.println("--(4)--");
+
+            } else if(libreria == null && carrello == null && user != null) {  //se nella sessione ho l'utente ma non ho il carrello nè la lista di vinili disponibili
+
+                if(user.isAdmin_bool()){                                    //se l'utente è l'amministratore
+                    dispatcher = request.getRequestDispatcher("/Admin"); //lo reindirizzo alla pagina dell'amministratore
+
+                } else { //altrimenti
+
                     ListaDisponibiliDAO service = new ListaDisponibiliDAO();
-                    libreria = service.getAll();
-                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria);
-                    System.out.println("--if(4.1)--");
-                    if (carrelloDb == null) {
-                        System.out.println("--(4.1)--");
-                        carrelloDb = new Ordine();
+                    libreria = service.getAll();                            //prendo i vinili disponibili dal database
+                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria); //prendo il carrello dal DB associato all'utente attuale
+
+                    if (carrelloDb == null) { //se il carrello nel DB è vuoto
+                        carrelloDb = new Ordine(); //creo un nuovo carrello
                     }
+
                     session.setAttribute("libreria", libreria);
-                    session.setAttribute("carrello", carrelloDb);
+                    session.setAttribute("carrello", carrelloDb); //inserisco lista vinili e carrello nella sessione
                 }
-            }
-            else if(libreria==null&&carrello!=null&&user!=null){
+
+            } else if(libreria == null && carrello != null && user != null) { //se nella sessione c'è l'utente e il carrello ma non la lista dei prodotti disponibili
                 if(user.isAdmin_bool()){
-                    dispatcher = request.getRequestDispatcher("/Admin");
-                }
-                else {
-                    //qua non ci possiamo mai entrare esistera sempre una libreria
-                    System.out.println("--(5)--");
+                    dispatcher = request.getRequestDispatcher("/Admin"); //se l'utente è amministratore lo reindirizzo alla pagina dell'amministratore
+
+                } else {
+                    //qua non ci possiamo mai entrare esistera sempre una libreria ---
+
                     ListaDisponibiliDAO service = new ListaDisponibiliDAO();
                     libreria = service.getAll();
                     Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria);
-                    System.out.println("--if(5.1;5.2)--");
+
                     if (carrelloDb == null) {
-                        System.out.println("--(5.1)--");
-                        //inserire quello della sessione nel db
-                        //ordineDAO.insertOrdine(user,carrello);
+
+                        //inserire quello della sessione nel db ---
+                        //ordineDAO.insertOrdine(user,carrello); ---
                     } else {
-                        System.out.println("--(5.2)--");
+
                         if (carrelloDb.getCarrello() != null) {
-                            System.out.println("--(5.3)--");
+
                             int num=carrello.join(carrelloDb, libreria);
                             if(num>0)
                                 session.setAttribute("numRemoved",num);
-                            //devo aggiornare il DB
-                            //ordineDAO.uploadOrdine(user,carrello,libreria);
+                            //devo aggiornare il DB ---
+                            //ordineDAO.uploadOrdine(user,carrello,libreria); ---
                         }
                     }
                     session.setAttribute("libreria", libreria);
                     session.setAttribute("carrello", carrello);
                 }
-            }
-            else if(libreria!=null&&carrello==null&&user!=null){
+            } else if(libreria != null && carrello == null && user != null) { // se nella sessione ho l'utente, la lista dei vinili ma non il carrello
+
                 if(user.isAdmin_bool()){
-                     dispatcher = request.getRequestDispatcher("/Admin");
-                }
-                else {
-                    System.out.println("--(6)--");
-                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria);
-                    if (carrelloDb == null) {
-                        System.out.println("--(6.1)--");
-                        carrello = new Ordine();
+                     dispatcher = request.getRequestDispatcher("/Admin"); //se l'utente è amministratore lo reindirizzo alla pagina dell'amministratore
+
+                } else {
+
+                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria); //prendo il carrello dal DB associato all'utente
+                    if (carrelloDb == null) { //se il carrello del DB è vuoto
+
+                        carrello = new Ordine(); //ne creo uno nuovo
                         ListaDisponibiliDAO service = new ListaDisponibiliDAO();
-                        libreria = service.getAll();
-                        //devo creare nel db un nuovo ordine
+                        libreria = service.getAll(); //prendo la lista dei vinili disponibili dal DB
+
+                        //devo creare nel db un nuovo ordine ---
                         OrdineDAO.insertOrdine(user, carrello);
                     }
-                    session.setAttribute("libreria", libreria);
+                    session.setAttribute("libreria", libreria); //metto nella sessione
                     session.setAttribute("carrello", carrello);
                 }
             }
-            else if(libreria!=null&&carrello!=null&&user!=null){
-                System.out.println("--(7)--");
+            else if(libreria!=null && carrello!=null && user!=null){ // se ho utente, carrello e lista vinili
+
                 if(user.isAdmin_bool()){
-                     dispatcher = request.getRequestDispatcher("/Admin");
-                }
-                else {
-                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria);
-                    //carrello.join(carrelloDb,libreria);
-                    if (carrelloDb == null) {
-                        System.out.println("--(7.1)--");
-                        OrdineDAO.insertOrdine(user, carrello);
-                        //Funziona
-                    } else {
-                        System.out.println("--(7.2)--");
+                     dispatcher = request.getRequestDispatcher("/Admin"); //se l'utente è amministratore lo reindirizzo alla pagina dell'amministratore
+
+                } else {
+
+                    Ordine carrelloDb = OrdineDAO.getCarrelloFromDb(user, libreria); //prendo il carrelo dal DB
+
+                    if (carrelloDb == null) { //se non ho un carrello nel DB
+                        OrdineDAO.insertOrdine(user, carrello); //inserisco quello della sessione
+
+                    } else { //se c'è il carrello nel database
+
                         carrello.toPrint();
-                        System.out.println("--DB--");
                         carrelloDb.toPrint();
-                        int num=carrello.join(carrelloDb, libreria);
+                        int num = carrello.join(carrelloDb, libreria); //faccio il join dei due carrelli e prendo il numero di vinili rimossi
                         if(num>0)
-                            session.setAttribute("numRemoved",num);
+                            session.setAttribute("numRemoved",num); //so ho rimosso qualche vinile, metto il loro numero nella sessione
                         OrdineDAO.uploadOrdine(user, carrello, libreria);
-                        //funziona
+
                     }
-                    session.setAttribute("libreria", libreria);
+                    session.setAttribute("libreria", libreria); //metto nella sessione
                     session.setAttribute("carrello", carrello);
                 }
-            }
-            else if(libreria!=null&&carrello!=null&&user==null){
-                System.out.println("--(8)--");
+
+            } else if(libreria != null && carrello != null && user==null) { //se ho il carrello e i vinili ma non ho l'utente
                 //do nothig
-            }
-            else if(libreria!=null&&carrello==null&&user==null){
-                System.out.println("--(9)--");
-                carrello=new Ordine();
-                session.setAttribute("carrello",carrello);
-            }
-            else if(libreria==null&&carrello!=null&&user==null){
-                System.out.println("--(10)--");
-                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
-                libreria=service.getAll();
-                session.setAttribute("libreria",libreria);
+            } else if(libreria != null && carrello == null && user==null) { //se ho la libreria ma non ho il carrello nè l'utente
+
+                carrello = new Ordine();
+                session.setAttribute("carrello",carrello); //creo un nuovo carrello e lo metto nella sessione
+
+            } else if(libreria==null && carrello != null && user == null) { //se ho solo il carrello
+
+                ListaDisponibiliDAO service = new ListaDisponibiliDAO();
+                libreria = service.getAll();
+                session.setAttribute("libreria",libreria); //prendo i vinili disponibili dal DB e li metto nella sessione
             }
         }
-        if(dispatcher==null){
-            System.out.println("--(disp)--");
-            dispatcher = request.getRequestDispatcher("/index.jsp");
+        if(dispatcher == null){
+            dispatcher = request.getRequestDispatcher("/index.jsp"); //renderizzo alla homepage se l'utente non è un amministratore
         }
         dispatcher.forward(request, response);
     }
