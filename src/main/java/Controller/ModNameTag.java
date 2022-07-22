@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ModNameTag extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession snn=request.getSession(false);
+        HttpSession snn=request.getSession();
         Utente u = (Utente) snn.getAttribute("utente");
         String newName=request.getParameter("Nome");
         ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
@@ -22,15 +22,22 @@ public class ModNameTag extends HttpServlet {
         Integer id=null;
         if(ID!=null)
             id=Integer.parseInt(ID);
-        if(snn != null && u != null && newName != null && id!=null && tags!= null)   {
-            if(u.isAdmin_bool()){
-                for(Tag t: tags)
-                    if(t.getId_tag()==id)
+        if(!snn.isNew() && u != null && newName != null && id!=null && tags!= null) {
+            if (u.isAdmin_bool()) {
+                for (Tag t : tags)
+                    if (t.getId_tag() == id)
                         t.setNome(newName);
-                TagsDAO.uploadTagByID(id,newName);
+                TagsDAO.uploadTagByID(id, newName);
                 response.sendRedirect("./Admin?src=adminTag");
-                }
+            } else {
+                snn.invalidate();
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/InitServlet");
+                dispatcher.forward(request, response);
             }
+        }
+        else{
+            response.sendError(500);
+        }
     }
 
     @Override

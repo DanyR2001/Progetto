@@ -11,24 +11,39 @@ import java.io.IOException;
 public class AddItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id= Integer.parseInt(request.getParameter("id"));
-        int quantita=Integer.parseInt(request.getParameter("quantita"));
-        HttpSession snn=request.getSession();
+        Integer id= null;
+        String id_s=request.getParameter("id");
+        if(id_s!=null)
+            id=Integer.parseInt(id_s);
+        Integer quantita=null;
+        String quantita_s=request.getParameter("quantita");
+        if(quantita_s!=null)
+            quantita=Integer.parseInt(quantita_s);
+        HttpSession snn=request.getSession(false);
         ListaVinili servise= (ListaVinili) snn.getAttribute("libreria");
         Ordine carrello= (Ordine) snn.getAttribute("carrello");
-        Vinile act=servise.findViniliFromId(id);
-        Prodotto p=new Prodotto();
-        p.setArticolo(act);
-        p.setQuantita(quantita);
-        carrello.addProdotto(p,servise);
-        Utente u= (Utente) snn.getAttribute("utente");
-        if(u!=null){
-            OrdineDAO.uploadOrdine(u,carrello,servise);
+        if(snn!=null&&servise!=null&&carrello!=null&&quantita!=null&&id!=null) {
+            if(!snn.isNew()) {
+                Vinile act = servise.findViniliFromId(id);
+                Prodotto p = new Prodotto();
+                p.setArticolo(act);
+                p.setQuantita(quantita);
+                carrello.addProdotto(p, servise);
+                Utente u = (Utente) snn.getAttribute("utente");
+                if (u != null) {
+                    OrdineDAO.uploadOrdine(u, carrello, servise);
+                }
+                snn.setAttribute("carrello", carrello);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+            else{
+                response.sendError(500);
+            }
         }
-        snn.setAttribute("carrello",carrello);
-        snn.setAttribute("refresh",true);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
+        else{
+            response.sendError(500);
+        }
     }
 
     @Override

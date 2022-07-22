@@ -12,31 +12,44 @@ import java.util.ArrayList;
 public class UpdateCarrello extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int index= Integer.parseInt( request.getParameter("index"));
+        String index_s=request.getParameter("index");
         String qt=request.getParameter("quantita");
-        Integer quantita = 0;
+        Integer index= null;
+        if(index_s!=null){
+            index=Integer.parseInt(index_s);
+        }
+        Integer quantita = null;
         if(qt!=null)
             quantita = Integer.parseInt(qt);
         HttpSession snn=request.getSession();
         ListaVinili service= (ListaVinili) snn.getAttribute("libreria");
         Ordine carrello= (Ordine) snn.getAttribute("carrello");
-        Vinile v=carrello.getCarrello().get(index).getArticolo();
-        int actual=carrello.getCarrello().get(index).getQuantita();
-        int remain=service.getQuantitaVin(v)-actual;
-        int total=service.getQuantitaVin(v);
-        carrello.getCarrello().get(index).setQuantita(quantita);
-        carrello.refreshCost();
-        ArrayList<Vinile> removed= carrello.check();
-        Utente u= (Utente) snn.getAttribute("utente");
-        if(u!=null){
-            ArrayList<Vinile> lista = OrdineDAO.uploadOrdine(u,carrello,service);
-            snn.setAttribute("removedVinil",lista);
+        if(snn!=null&&quantita!=null&&index!=null&&service!=null&&carrello!=null){
+            if(!snn.isNew()) {
+                Vinile v = carrello.getCarrello().get(index).getArticolo();
+                int actual = carrello.getCarrello().get(index).getQuantita();
+                int remain = service.getQuantitaVin(v) - actual;
+                int total = service.getQuantitaVin(v);
+                carrello.getCarrello().get(index).setQuantita(quantita);
+                carrello.refreshCost();
+                ArrayList<Vinile> removed = carrello.check();
+                Utente u = (Utente) snn.getAttribute("utente");
+                if (u != null) {
+                    ArrayList<Vinile> lista = OrdineDAO.uploadOrdine(u, carrello, service);
+                    snn.setAttribute("removedVinil", lista);
+                } else {
+                    snn.setAttribute("removedVinil", removed);
+                }
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
+                dispatcher.forward(request, response);
+            }
+            else{
+                response.sendError(500);
+            }
         }
         else{
-            snn.setAttribute("removedVinil",removed);
+            response.sendError(500);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
-        dispatcher.forward(request, response);
     }
 
     @Override

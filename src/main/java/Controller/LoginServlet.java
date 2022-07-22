@@ -17,16 +17,24 @@ public class LoginServlet extends HttpServlet {
         String password=request.getParameter("pass");
         Utente x= new UtentiDAO().doRetrieveByUsernamePassword(username,password);
         HttpSession snn=request.getSession();
-        String path="";
-        if (x == null) {
-            //se l'utente non esiste
-            snn.setAttribute("failLogin",true);
-            path+="/access.jsp";
+        if(snn!=null&&username!=null&&password!=null) {
+            if(!snn.isNew()) {
+                String path = "";
+                if (x == null) {
+                    //se l'utente non esiste
+                    snn.setAttribute("failLogin", true);
+                    path += "/access.jsp";
+                } else {
+                    snn.setAttribute("utente", x);
+                }
+                response.sendRedirect("." + path);
+            }
+            else{
+                response.sendError(500);
+            }
+        }else{
+            response.sendError(500);
         }
-        else {
-            snn.setAttribute("utente", x);
-        }
-        response.sendRedirect("."+path);
     }
 
     @Override

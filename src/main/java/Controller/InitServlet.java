@@ -18,6 +18,7 @@ public class InitServlet extends HttpServlet {
         Utente user;
         ArrayList<Tag> Tags= TagsDAO.getAll();
         HttpSession session = request.getSession();
+        //session.setMaxInactiveInterval(10);
         session.setAttribute("tags",Tags); //metto i tag nella sessione
         RequestDispatcher dispatcher = null;
         if(session.isNew()){

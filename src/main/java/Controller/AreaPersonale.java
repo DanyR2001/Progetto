@@ -18,19 +18,26 @@ public class AreaPersonale extends HttpServlet {
         if(!snn.isNew()){
             Utente u= (Utente) snn.getAttribute("utente");
             ListaVinili lib= (ListaVinili) snn.getAttribute("libreria");
-            if(u!=null&&lib!=null){
-                System.out.println("------(Area presonale - Log)------");
-                OldOrder old= OldOrderDAO.doRetriveById(u,lib);
-                snn.setAttribute("OldOrdini",old);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
-                dispatcher.forward(request, response);
+            if(lib!=null) {
+                if (u != null) {
+                    System.out.println("------(Area presonale - Log)------");
+                    OldOrder old = OldOrderDAO.doRetriveById(u, lib);
+                    snn.setAttribute("OldOrdini", old);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                    System.out.println("------(Area presonale - NoLog)------");
+                    snn.setAttribute("noLogArea", false);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
+                    dispatcher.forward(request, response);
+                }
             }
             else{
-                System.out.println("------(Area presonale - NoLog)------");
-                snn.setAttribute("noLogArea",false);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
-                dispatcher.forward(request, response);
+                response.sendError(500);
             }
+        }
+        else{
+            response.sendError(500);
         }
     }
 

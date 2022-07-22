@@ -15,41 +15,44 @@ public class Admin extends HttpServlet {
         HttpSession snn=request.getSession();
         Utente u= (Utente) snn.getAttribute("utente");
         System.out.println("1");
-        if(u!=null){
-            if(u.isAdmin_bool()){
-                System.out.println("11");
-                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
-                ListaVinili libreria= service.getAll();
-                snn.setAttribute("libreria",libreria);
-                ArrayList<Tag> lista= TagsDAO.getAll();
-                snn.setAttribute("tags",lista);
-                RequestDispatcher dispatcher = null;
-                String src=request.getParameter("src");
-                if(src==null)
-                    dispatcher= request.getRequestDispatcher("/WEB-INF/gestione.jsp");
-                else{
-                    System.out.println("111");
-                    if(src.equals("adminVinile")||src.equals("adminTag")){
-                        System.out.println("11111");
-                        dispatcher=request.getRequestDispatcher("/WEB-INF/"+src+".jsp");
+        ListaDisponibiliDAO service = new ListaDisponibiliDAO();
+        ArrayList<Tag> lista = TagsDAO.getAll();
+        if(snn!=null&&lista!=null&&service!=null) {
+            if(!snn.isNew()) {
+                if (u != null) {
+                    if (u.isAdmin_bool()) {
+                        System.out.println("11");
+                        ListaVinili libreria = service.getAll();
+                        snn.setAttribute("libreria", libreria);
+                        snn.setAttribute("tags", lista);
+                        RequestDispatcher dispatcher = null;
+                        String src = request.getParameter("src");
+                        if (src == null)
+                            dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
+                        else {
+                            System.out.println("111");
+                            if (src.equals("adminVinile") || src.equals("adminTag")) {
+                                System.out.println("11111");
+                                dispatcher = request.getRequestDispatcher("/WEB-INF/" + src + ".jsp");
+                            } else {
+                                dispatcher = request.getRequestDispatcher("/Logout");
+                            }
+                        }
+                        System.out.println("111111");
+                        dispatcher.forward(request, response);
+                    } else {
+                        snn.invalidate();
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/InitServlet");
+                        dispatcher.forward(request, response);
                     }
-                    else{
-                        dispatcher=request.getRequestDispatcher("/Logout");
-                    }
+                } else {
+                    response.sendError(500);
                 }
-                System.out.println("111111");
-                dispatcher.forward(request, response);
+            }else{
+                response.sendError(500);
             }
-            else{
-                snn.invalidate();
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/InitServlet");
-                dispatcher.forward(request, response);
-            }
-        }
-        else{
-            snn.invalidate();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/InitServlet");
-            dispatcher.forward(request, response);
+        }else{
+            response.sendError(500);
         }
     }
 
