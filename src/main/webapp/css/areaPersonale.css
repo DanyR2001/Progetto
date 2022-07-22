@@ -38,7 +38,7 @@ tr:not(:last-child) {
 }
 
 td {
-    padding: 10px;
+    padding: 5px;
 }
 
 td.prezzo, td.subtotale, td.al, td.quant {
@@ -246,3 +246,67 @@ main .input-wrap {
     width: 90%;
     margin-top: 30px;
 }
+
+@media screen and (max-width: 500px) {
+
+    main .inner-box {
+        font-size: 4vw;
+    }
+
+}
+
+@media screen and (max-width: 1050px) {
+
+    main .inner-box {
+        flex-direction: column;
+    }
+
+    main .orders {
+        width: unset;
+        height: 50vh;
+        margin-bottom: 20px;
+    }
+
+    main .user-info {
+        margin: unset;
+        width: unset;
+        align-items: center;
+    }
+
+    main .welcome {
+        font-size: 5vw;
+        align-self: unset;
+    }
+
+    main .box {
+        width: 95%;
+        position: unset;
+    }
+
+    main .inner-box {
+        position: relative;
+    }
+
+    main {
+        padding: unset;
+    }
+
+}
+
+@media screen  and (max-width: 400px){
+    .button {
+        font-size: 3.5vw;
+        min-width: unset;
+        height: 35px;
+    }
+
+    main .user-information {
+        width: 95%;
+    }
+
+    td {
+        font-size: 3.8vw;
+        padding: 3px;
+    }
+}
+
