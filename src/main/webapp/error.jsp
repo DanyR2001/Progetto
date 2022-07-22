@@ -1,10 +1,13 @@
 <%@ page import="Model.*" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true"%>
 <html>
 
 <%
     HttpSession snn = request.getSession();
     Ordine carrello = (Ordine) snn.getAttribute("carrello");
+    if(carrello==null){
+        carrello=new Ordine();
+    }
     Utente u = (Utente) snn.getAttribute("utente");
     if(u != null)
         if(u.isAdmin_bool()) {
@@ -107,6 +110,7 @@
                 <div class="err-wrap">
                     <div class="err-text">
                         <h1>Ops... <br> Qualcosa è andato storto</h1>
+                        <h3>Codice errore <%=response.getStatus()%>, vai <a href="./InitServlet">QUI</a></h3>
                     </div>
                     <img src="img/error.jpeg" class="image" alt="error">
                 </div>

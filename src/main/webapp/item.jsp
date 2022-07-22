@@ -11,13 +11,17 @@
         dispatcher.forward(request, response);
     }
     HttpSession snn = request.getSession();
+    Ordine carrello = (Ordine) snn.getAttribute("carrello");
     ListaVinili service = (ListaVinili) snn.getAttribute("libreria");
+    if(snn==null||carrello==null||service==null) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+        dispatcher.forward(request, response);
+    }
     Vinile v = service.findViniliFromId(Id);
     if(v==null) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
         dispatcher.forward(request, response);
     }
-    Ordine carrello = (Ordine) snn.getAttribute("carrello");
     Prodotto eq = null;
     Utente u = (Utente) snn.getAttribute("utente");
     if(u != null)

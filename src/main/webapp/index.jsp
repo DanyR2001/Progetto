@@ -10,7 +10,7 @@
         ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
         Ordine carrello = (Ordine) session.getAttribute("carrello");
         if(snn==null||carrello==null||list1==null||tags==null) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/index");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
                 dispatcher.forward(request, response);
         }
         Utente u = (Utente) snn.getAttribute("utente");
