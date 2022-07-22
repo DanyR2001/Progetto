@@ -1,5 +1,8 @@
 <%@ page import="Model.Ordine" %>
 <%@ page import="Model.Utente" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -7,6 +10,8 @@
     HttpSession snn = request.getSession();
     Ordine carrello = (Ordine) session.getAttribute("carrello");
     Utente u = (Utente) snn.getAttribute("utente");
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = new Date();
     if(u!=null)
         if(u.isAdmin_bool()){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -164,7 +169,7 @@ if(flag!=null)
 
                         <div class="login-form">
                             <div class="input-wrap">
-                                <input id="login-mail" name="mail" type="email" class="input-field" required placeholder="Email"/>
+                                <input id="login-mail" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Mail non valida" type="email" class="input-field" required placeholder="Email"/>
                             </div>
 
                             <div class="input-wrap">
@@ -222,7 +227,7 @@ if(flag!=null)
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-date">Data di nascita</label>
-                                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " onfocus="(this.type='date')" required>
+                                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " max="<%=dateFormat.format(date)%>" onfocus="(this.type='date')" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-email">Email</label>
@@ -233,19 +238,19 @@ if(flag!=null)
                             <div class="part2">
                                 <div class="input-wrap">
                                     <label for="reg-pass">Password</label>
-                                    <input type="password" pattern=".{8,}" id="reg-pass" title="La password deve essere di almeno 8 caratteri" name="pass" class="input-field" required>
+                                    <input type="password" id="reg-pass" pattern=".{8,}" title="La password deve essere di almeno 8 caratteri" name="pass" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-via">Via</label>
-                                    <input type="text" pattern="[A-Za-z]{1,}" title="La via puo contere solo lettere" name="via" id="reg-via" class="input-field" required>
+                                    <input type="text" pattern="(?=.{3,45}$)^([a-zA-Z]{1,}){1}([a-zA-Z]{1,}\s)*[1-9]{1,3}$" title="La via deve contenere anche il civico" name="via" id="reg-via" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
-                                    <label for="reg-civico">Civico</label>
-                                    <input type="number" pattern="[1-9]{1}/d"name="civico" min="1" max="999" title="Il civico puo contere solo numeri" id="reg-civico" class="input-field" required>
+                                    <label for="reg-citta">Citta</label>
+                                    <input type="text" pattern="[A-Za-z ]{1,}" name="citta" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cap">CAP</label>
-                                    <input type="number" pattern="[1-9]{5,5}" min="9999" max="99999" title="Il cap puo contere solo 5 numeri" name="cap" id="reg-cap" class="input-field" required>
+                                    <input type="text" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" name="cap" id="reg-cap" class="input-field" required>
                                 </div>
                             </div>
                         </div>

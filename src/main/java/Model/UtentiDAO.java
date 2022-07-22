@@ -8,7 +8,7 @@ public class UtentiDAO {
     public static void doUpdate(Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "Update Users set nome=?, cognome = ?, dat = ? , passwordhash = ? , via = ? , cap = ?, civico = ? where id = ?");
+                    "Update Users set nome=?, cognome = ?, dat = ? , passwordhash = ? , via = ? , cap = ?, civico = ?, citta = ? where id = ?");
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
             ps.setDate(3, u.getDataNascita());
@@ -16,7 +16,8 @@ public class UtentiDAO {
             ps.setString(5,u.getVia());
             ps.setInt(6,u.getCap());
             ps.setInt(7,u.getCivico());
-            ps.setInt(8,u.getID());
+            ps.setString(8,u.getCitta());
+            ps.setInt(9,u.getID());;
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
@@ -29,7 +30,7 @@ public class UtentiDAO {
         boolean status=true;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO Users (nome, cognome, mail, dat, passwordhash, admin_bool, via, cap, civico) VALUES (?,?,?,?,?,?,?,?,?)",
+                    "INSERT INTO Users (nome, cognome, mail, dat, passwordhash, admin_bool, via, cap, civico, citta) VALUES (?,?,?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
@@ -40,6 +41,7 @@ public class UtentiDAO {
             ps.setString(7,u.getVia());
             ps.setInt(8,u.getCap());
             ps.setInt(9,u.getCivico());
+            ps.setString(10,u.getCitta());
 
             if (ps.executeUpdate() != 1) {
                 status=false;
@@ -57,7 +59,7 @@ public class UtentiDAO {
     public static Utente doRetrieveByUsernamePassword(String mail, String passw){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico FROM Users WHERE mail=? AND passwordhash=SHA1(?)");
+                    con.prepareStatement("SELECT id, nome, cognome,mail,dat,passwordhash,admin_bool,via,cap,civico, citta FROM Users WHERE mail=? AND passwordhash=SHA1(?)");
             ps.setString(1,mail);
             ps.setString(2,passw);
             ResultSet rs = ps.executeQuery();
@@ -74,6 +76,7 @@ public class UtentiDAO {
             u.setVia(rs.getString(8));
             u.setCap(rs.getInt(9));
             u.setCivico(rs.getInt(10));
+            u.setCitta(rs.getString(11));
             return u;
         } catch (SQLException e) {
             throw new RuntimeException(e);

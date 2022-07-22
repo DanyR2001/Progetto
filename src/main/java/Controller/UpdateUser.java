@@ -20,22 +20,28 @@ public class UpdateUser extends HttpServlet {
             if(u!=null){
                 Integer id= null;
                 String idS=request.getParameter("id");
-                if(idS!=null)
-                    id=Integer.valueOf(idS);
                 String nome=request.getParameter("nome");
                 String cognome=request.getParameter("cognome");
-                Date data= Date.valueOf(request.getParameter("date"));
+                String data_s=request.getParameter("date");
                 String via=request.getParameter("via");
                 String capS=request.getParameter("cap");
+                String citta=request.getParameter("citta");
+                String pass=request.getParameter("pass");
+                if(idS!=null)
+                    id=Integer.valueOf(idS);
+                Date data=null;
+                if(data_s!=null)
+                    data = Date.valueOf(data_s);
                 Integer cap= null;
                 if(capS!=null)
                     cap= Integer.valueOf(capS);
-                String civicoS=request.getParameter("civico");
                 Integer civico= null;
-                if (civicoS!=null)
-                        civico=Integer.valueOf(civicoS);
-                String pass=request.getParameter("pass");
-                if(id!=null&&nome!=null&&cognome!=null&&data!=null&&via!=null&&cap!=null&&civico!=null&&pass!=null){
+                if (via!=null){
+                    String sub[]=via.split(" ");
+                    civico=Integer.valueOf(sub[sub.length-1]);
+                    via=via.replace(" "+sub[sub.length-1],"");
+                }
+                if(id!=null&&nome!=null&&cognome!=null&&data!=null&&via!=null&&cap!=null&&civico!=null&&pass!=null&&citta!=null){
                     Utente newUser = new Utente();
                     newUser.setPassword(pass);
                     if(newUser.getPasswordhash().equals(u.getPasswordhash())) {
@@ -47,6 +53,7 @@ public class UpdateUser extends HttpServlet {
                         newUser.setVia(via);
                         newUser.setCivico(civico);
                         newUser.setCap(cap);
+                        newUser.setCitta(citta);
                         System.out.println("odl " + u.toString());
                         System.out.println("new " + newUser.toString());
                         if (!newUser.equals(u)) {

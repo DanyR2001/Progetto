@@ -34,15 +34,21 @@ public class CompleteOrder extends HttpServlet {
                 System.out.println("complete 2.2");
                 //allora si conclude l'ordine
                 String via=request.getParameter("via");
-                Integer cap=Integer.parseInt(request.getParameter("cap"));
-                Integer civico=Integer.parseInt(request.getParameter("civico"));
-                carrello.setCivico(civico);
-                carrello.setVia(via);
-                carrello.setCap(cap);
-                OrdineDAO.completeOrdine(carrello);
+                String cap_s=request.getParameter("cap");
+                String citta=request.getParameter("citta");
+                if(via!=null&&cap_s!=null&&citta!=null){
+                    Integer cap=Integer.parseInt(cap_s);
+                    String sub[]=via.split(" ");
+                    Integer civico=Integer.parseInt(sub[sub.length-1]);
+                    via=via.replace(" "+sub[sub.length-1],"");
+                    carrello.setCivico(civico);
+                    carrello.setVia(via);
+                    carrello.setCap(cap);
+                    carrello.setCitta(citta);
+                    OrdineDAO.completeOrdine(carrello);
+                    session.removeAttribute("carrello");
+                }
                 //devo scalare la quantita dei presi dai vinili
-                carrello=null;
-                session.removeAttribute("carrello");
                 //session.setAttribute("carrello",carrello);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("InitServlet");
                 dispatcher.forward(request, response);

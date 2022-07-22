@@ -13,6 +13,7 @@ public class Ordine {
     private String via;
     private Integer cap;
     private Integer civico;
+    private String citta;
 
     public Ordine() {
         this.list = new ArrayList<>();
@@ -243,12 +244,20 @@ public class Ordine {
         this.civico = civico;
     }
 
+    public String getCitta() {
+        return citta;
+    }
+
     public void toPrint(){
         if(list!=null){
             for(Prodotto p :list) {
                 System.out.println(" " + p.getArticolo().getTitolo() + " " + p.getQuantita());
             }
         }
+    }
+
+    public void setCitta(String citta) {
+        this.citta=citta;
     }
 }
 

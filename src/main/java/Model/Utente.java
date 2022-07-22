@@ -18,6 +18,15 @@ public class Utente {
     private String Via;
     private int Cap;
     private int Civico;
+    private String Citta;
+
+    public String getCitta() {
+        return Citta;
+    }
+
+    public void setCitta(String citta) {
+        Citta = citta;
+    }
 
     static String CapitalizeName(String name){
         String x[]=name.split(" ");
@@ -136,7 +145,7 @@ public class Utente {
         if (this == o) return true;
         if (!(o instanceof Utente)) return false;
         Utente utente = (Utente) o;
-        return ID == utente.ID && admin_bool == utente.admin_bool && Cap == utente.Cap && Civico == utente.Civico && Nome.equals(utente.Nome) && Cognome.equals(utente.Cognome) && Mail.equals(utente.Mail) && Passwordhash.equals(utente.Passwordhash) && DataNascita.equals(utente.DataNascita) && Via.equals(utente.Via);
+        return ID == utente.ID && admin_bool == utente.admin_bool && Cap == utente.Cap && Civico == utente.Civico && Nome.equals(utente.Nome) && Cognome.equals(utente.Cognome) && Mail.equals(utente.Mail) && Passwordhash.equals(utente.Passwordhash) && DataNascita.equals(utente.DataNascita) && Via.equals(utente.Via) && Citta.equals(utente.getCitta());
     }
 
     @Override

@@ -3,12 +3,17 @@
 <%@ page import="Model.Prodotto" %>
 <%@ page import="Model.Utente" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%
   OldOrder list= (OldOrder) session.getAttribute("OldOrdini");
   Utente u= (Utente) session.getAttribute("utente");
   Ordine carrello = (Ordine) session.getAttribute("carrello");
+  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+  Date date = new Date();
   if(u!=null)
     if(u.isAdmin_bool()){
       RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
@@ -184,7 +189,7 @@
             </div>
             <div class="info">
               <p class="title">Indirizzo</p>
-              <p class="data"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%></p>
+              <p class="data"> Via <%=u.getVia()%> n°<%=u.getCivico()%>, <%=u.getCap()%>, <%=u.getCitta()%></p>
             </div>
           </fieldset>
 
@@ -212,7 +217,7 @@
                   </div>
                   <div class="input-wrap">
                     <label for="reg-pass">Inserisci la nuova password:</label>
-                    <input type="password" id="reg-pass-new" name="pass-new" class="input-field" required>
+                    <input type="password" id="reg-pass-new" pattern=".{8,}" title="La password deve essere di almeno 8 caratteri" name="pass-new" class="input-field" required>
                   </div>
                 </form>
 
@@ -228,27 +233,27 @@
                   <input type="hidden" name="id" value="<%=u.getID()%>">
                   <div class="input-wrap">
                     <label for="reg-nome">Nome</label>
-                    <input type="text" id="reg-nome" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
+                    <input type="text" id="reg-nome" pattern="[A-Za-z]{1,}" title="Il nome puo contere solo lettere" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-cognome">Cognome</label>
-                    <input type="text" id="reg-cognome" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
+                    <input type="text" id="reg-cognome" pattern="[A-Za-z]{1,}" title="Il cognome puo contere solo lettere" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-date">Data di nascita</label>
-                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " value="<%=u.getDataNascita()%>" onfocus="(this.type='date')" required>
+                    <input type="date" id="reg-date" name="date" class="input-field" placeholder="  " max="<%=dateFormat.format(date)%>" value="<%=u.getDataNascita()%>" onfocus="(this.type='date')" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-via">Via</label>
-                    <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
+                    <input type="text" name="via" pattern="(?=.{3,45}$)^([a-zA-Z]{1,}){1}([a-zA-Z]{1,}\s)*[1-9]{1,3}$" title="La via deve contenere anche il civico" id="reg-via" class="input-field" value="<%=u.getVia()+" "+u.getCivico()%>" required>
                   </div>
                   <div class="input-wrap">
-                    <label for="reg-civico">Civico</label>
-                    <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
+                    <label for="reg-citta">Citta</label>
+                    <input type="text" name="citta" pattern="[A-Za-z ]{1,}" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" value="<%=u.getCitta()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-cap">CAP</label>
-                    <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
+                    <input type="text" name="cap" id="reg-cap" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-pass">Inserire password per conferma</label>
@@ -276,7 +281,7 @@
                     </div>
                     <div class="info">
                       <p class="title">Indirizzo di spedizione</p>
-                      <p class="data"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%></p>
+                      <p class="data"><%=x.getVia()%> <%=x.getCivico()%> <%=x.getCap()%> , <%=x.getCitta()%></p>
                     </div>
                     <table >
 

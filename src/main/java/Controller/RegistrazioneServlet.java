@@ -15,31 +15,41 @@ public class RegistrazioneServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente utente = new Utente();
         String nome=request.getParameter("nome");
-        utente.setNome(nome);
         String cognome=request.getParameter("cognome");
-        utente.setCognome(cognome);
         String password=request.getParameter("pass");
-        utente.setPassword(password);
-        Date x= Date.valueOf(request.getParameter("date"));
-        utente.setDataNascita(x);
+        String data_s=request.getParameter("date");
         String email=request.getParameter("email");
-        utente.setMail(email);
-        utente.setAdmin_bool(false);
         String via=request.getParameter("via");
-        utente.setVia(via);
-        Integer cap=Integer.parseInt(request.getParameter("cap"));
-        utente.setCap(cap);
-        Integer civico=Integer.parseInt(request.getParameter("civico"));
-        utente.setCivico(civico);
-        boolean result=UtentiDAO.doSave(utente);
-        if(result==true) {
-            request.getSession().setAttribute("utente", utente);
-            response.sendRedirect(".");
-
+        String cap_s=request.getParameter("cap");
+        String citta=request.getParameter("citta");
+        if(nome!=null && cognome!=null && password!=null && data_s!=null && email!=null && via!=null && cap_s!=null && citta!=null){
+            Integer cap=Integer.parseInt(cap_s);
+            Date x= Date.valueOf(data_s);
+            String sub[]=via.split(" ");
+            Integer civico= Integer.valueOf(sub[sub.length-1]);
+            via=via.replace(" "+sub[sub.length-1],"");
+            utente.setMail(email);
+            utente.setAdmin_bool(false);
+            utente.setDataNascita(x);
+            utente.setPassword(password);
+            utente.setCognome(cognome);
+            utente.setNome(nome);
+            utente.setVia(via);
+            utente.setCivico(civico);
+            utente.setCap(cap);
+            utente.setCitta(citta);
+            boolean result=UtentiDAO.doSave(utente);
+            if(result==true) {
+                request.getSession().setAttribute("utente", utente);
+                response.sendRedirect(".");
+            }
+            else{
+                request.getSession().setAttribute("invalidMail",true);
+                response.sendRedirect("./access.jsp");
+            }
         }
         else{
-            request.getSession().setAttribute("invalidMail",true);
-            response.sendRedirect("./access.jsp");
+            response.sendRedirect("./error.jsp");
         }
     }
 

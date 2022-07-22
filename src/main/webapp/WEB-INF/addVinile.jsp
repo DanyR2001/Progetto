@@ -23,23 +23,23 @@
             </div>
             <div class="input-wrap">
                 <label for="titolo">Titolo: </label>
-                <input type="text" id="titolo" name="Titolo">
+                <input type="text" id="titolo" name="Titolo" required>
             </div>
             <div class="input-wrap">
                 <label for="Prezzo">Prezzo:</label>
-                <input type="number" id="Prezzo" step=".01" name="Prezzo">
+                <input type="number" min="0" id="Prezzo" step=".01" name="Prezzo" required>
             </div>
             <div class="input-wrap">
                 <label for="Quantita">Quantita:</label>
-                <input type="number" id="Quantita" name="Quantita">
+                <input type="number" min="0" id="Quantita" name="Quantita" required>
             </div>
             <div class="input-wrap">
                 <label for="Artista">Artista:</label>
-                <input type="text" id="Artista" name="Artista">
+                <input type="text" id="Artista" name="Artista" required>
             </div>
             <div class="input-wrap">
                 <label for="Upload">Immagine:</label>
-                <input type="file" id="Upload" name="Upload" />
+                <input type="file" id="Upload" accept=".png,.jpeg,.jpg,.svg" name="Upload" required />
             </div>
             <%
                 ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("Tags");

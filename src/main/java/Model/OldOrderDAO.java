@@ -42,7 +42,7 @@ public class OldOrderDAO {
     public static OldOrder doRetriveById(Utente u, ListaVinili service){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico FROM ordine WHERE id_user=? and evaso=true order by dataev desc");
+                    con.prepareStatement("SELECT codice, prezzo, evaso, dataev,via,cap,civico,citta FROM ordine WHERE id_user=? and evaso=true order by dataev desc");
             ps.setInt(1,u.getID());
             ResultSet rs = ps.executeQuery();
             OldOrder ret=new OldOrder();
@@ -55,6 +55,7 @@ public class OldOrderDAO {
                 tmp.setVia(rs.getString(5));
                 tmp.setCap(rs.getInt(6));
                 tmp.setCivico(rs.getInt(7));
+                tmp.setCitta(rs.getString(8));
                 System.out.println("2 code oldOrder " + tmp.getCodice());
                 tmp.setList((ArrayList<Prodotto>) listaTupleDbOldOrder(tmp, service));
                 ret.add(tmp);

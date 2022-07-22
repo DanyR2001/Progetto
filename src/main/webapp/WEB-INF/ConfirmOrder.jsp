@@ -149,15 +149,15 @@
                         <p>Conferma l'indirizzo di spedizione</p>
                         <div class="input-wrap">
                             <label for="reg-via">Via</label>
-                            <input type="text" name="via" id="reg-via" class="input-field" value="<%=u.getVia()%>" required>
+                            <input type="text" name="via" id="reg-via" pattern="(?=.{3,45}$)^([a-zA-Z]{1,}){1}([a-zA-Z]{1,}\s)*[1-9]{1,3}$" title="La via deve contenere anche il civico" class="input-field" value="<%=u.getVia()+" "+u.getCivico()%>" required>
                         </div>
                         <div class="input-wrap">
-                            <label for="reg-civico">Civico</label>
-                            <input type="number" name="civico" id="reg-civico" class="input-field" value="<%=u.getCivico()%>" required>
+                            <label for="reg-citta">Città</label>
+                            <input type="text" name="citta" id="reg-citta" pattern="^[a-zA-Z]{1,100}$" title="Il citta puo contenere solo lettere" class="input-field" value="<%=u.getCitta()%>" required>
                         </div>
                         <div class="input-wrap">
                             <label for="reg-cap">CAP</label>
-                            <input type="number" name="cap" id="reg-cap" class="input-field" value="<%=u.getCap()%>" required>
+                            <input type="number" name="cap" id="reg-cap" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
                         </div>
                         <div class="buttons">
                             <input type="submit" value="Conferma acquisto" class="button">

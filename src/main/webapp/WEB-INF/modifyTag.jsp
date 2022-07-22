@@ -34,7 +34,7 @@
             <legend>Modifica nome</legend>
             <form action="ModNameTag">
                 <label for="nome">Nome:</label>
-                <input type="text" value="<%=t.getNome()%>" id="Nome" name="Nome">
+                <input type="text" value="<%=t.getNome()%>" id="Nome" name="Nome" required>
                 <input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>">
                 <input type="submit" value="Modifica nome tag">
             </form>

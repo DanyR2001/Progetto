@@ -170,7 +170,7 @@ public class OrdineDAO {
     public static void completeOrdine(Ordine carrello){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE ordine set evaso = ?, dataev = ? , via=?,cap=?,civico=? where codice=?");
+                    "UPDATE ordine set evaso = ?, dataev = ? , via=?,cap=?,civico=?,citta=? where codice=?");
             carrello.setEvaso(true);
             ps.setBoolean(1, carrello.isEvaso());
             long millis=System.currentTimeMillis();
@@ -179,7 +179,8 @@ public class OrdineDAO {
             ps.setString(3,carrello.getVia());
             ps.setInt(4,carrello.getCap());
             ps.setInt(5,carrello.getCivico());
-            ps.setInt(6,carrello.getCodice());
+            ps.setString(6,carrello.getCitta());
+            ps.setInt(7,carrello.getCodice());
             ListaDisponibiliDAO service=new ListaDisponibiliDAO();
             if(carrello.getCarrello()!=null)
                 for(Prodotto p: carrello.getCarrello())
