@@ -10,6 +10,7 @@ div.search-panel {
 }
 
 div.panel {
+    min-width: 300px;
     padding: 30px 40px;
     border-radius: 6px;
     background-color: white;
@@ -128,4 +129,16 @@ h3.tag {
 
 .filter {
     width: 25%;
+}
+
+@media screen and (max-width: 870px) {
+
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    div.search-panel {
+        width: 95%;
+    }
 }
