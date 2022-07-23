@@ -21,7 +21,7 @@ public class RedirectTo extends HttpServlet {
                 if (src != null) {
                     if (src.equals("Tag") || src.equals("Vinile")) {
                         RequestDispatcher dispatcher = null;
-                        Utente u = (Utente) session.getAttribute("untete");
+                        Utente u = (Utente) session.getAttribute("utente");
                         if (u != null) {
                             if(u.isAdmin_bool()) {
                                 String id = request.getParameter("id");

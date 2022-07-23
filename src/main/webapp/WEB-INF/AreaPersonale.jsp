@@ -234,11 +234,11 @@
                   <input type="hidden" name="id" value="<%=u.getID()%>">
                   <div class="input-wrap">
                     <label for="reg-nome">Nome</label>
-                    <input type="text" id="reg-nome" pattern="[A-Za-z]{1,}" title="Il nome puo contere solo lettere" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
+                    <input type="text" id="reg-nome" pattern="[A-Za-z ]{1,}" title="Il nome puo contere solo lettere" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-cognome">Cognome</label>
-                    <input type="text" id="reg-cognome" pattern="[A-Za-z]{1,}" title="Il cognome puo contere solo lettere" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
+                    <input type="text" id="reg-cognome" pattern="[A-Za-z ]{1,}" title="Il cognome puo contere solo lettere" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-date">Data di nascita</label>

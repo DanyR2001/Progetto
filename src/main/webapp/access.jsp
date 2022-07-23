@@ -220,11 +220,11 @@ if(flag!=null)
                             <div class="part1">
                                 <div class="input-wrap">
                                     <label for="reg-nome">Nome</label>
-                                    <input type="text" pattern="[A-Za-z]{1,}" title="Il nome puo contere solo lettere" id="reg-nome" name="nome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z ]{1,}" title="Il nome puo contere solo lettere" id="reg-nome" name="nome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cognome">Cognome</label>
-                                    <input type="text" pattern="[A-Za-z]{1,}" title="Il cognome puo contere solo lettere" id="reg-cognome" name="cognome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z ]{1,}" title="Il cognome puo contere solo lettere" id="reg-cognome" name="cognome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-date">Data di nascita</label>
