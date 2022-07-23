@@ -65,20 +65,19 @@ public class UpdateUser extends HttpServlet {
                             session.setAttribute("noModify",true);
                             //facciamo stampare messaggio di nessuna modifica
                         }
-                    }
-                    else{
+                    } else{
                         session.setAttribute("noPassCorrect",true);
                         //password errata riprova
                     }
                     dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
+                } else{
+                    response.sendError(500);
                 }
-                else{
-                    //errore parametri
-                }
+            } else{
+                response.sendError(500);
             }
-            else{
-                dispatcher = request.getRequestDispatcher("/access.jsp");
-            }
+        } else{
+            response.sendError(500);
         }
         dispatcher.forward(request, response);
     }

@@ -16,10 +16,10 @@ public class InitServlet extends HttpServlet {
         ListaVinili libreria;
         Ordine carrello;
         Utente user;
-        ArrayList<Tag> Tags= TagsDAO.getAll();
         HttpSession session = request.getSession();
         //session.setMaxInactiveInterval(10);
-        session.setAttribute("tags",Tags); //metto i tag nella sessione
+        if(session.getAttribute("tags")==null)
+            session.setAttribute("tags",TagsDAO.getAll()); //metto i tag nella sessione
         RequestDispatcher dispatcher = null;
         if(session.isNew()){
             System.out.println("--(Sessione nuova)--");
@@ -143,14 +143,14 @@ public class InitServlet extends HttpServlet {
                 }
 
             } else if(libreria != null && carrello != null && user==null) { //se ho il carrello e i vinili ma non ho l'utente
+                System.out.println("--(libreria != null, carrello != null , utente = null)--");
                 //do nothig
             } else if(libreria != null && carrello == null && user==null) { //se ho la libreria ma non ho il carrello nè l'utente
-
+                System.out.println("--(libreria != null, carrello = null , utente = null)--");
                 carrello = new Ordine();
                 session.setAttribute("carrello",carrello); //creo un nuovo carrello e lo metto nella sessione
-
             } else if(libreria==null && carrello != null && user == null) { //se ho solo il carrello
-
+                System.out.println("--(libreria = null, carrello != null , utente = null)--");
                 ListaDisponibiliDAO service = new ListaDisponibiliDAO();
                 libreria = service.getAll();
                 session.setAttribute("libreria",libreria); //prendo i vinili disponibili dal DB e li metto nella sessione

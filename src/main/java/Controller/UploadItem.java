@@ -7,6 +7,7 @@ import Model.Vinile;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import sun.security.krb5.internal.APRep;
 
 import java.io.IOException;
 
@@ -16,28 +17,48 @@ public class UploadItem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession snn=request.getSession();
         Utente u= (Utente) snn.getAttribute("utente");
-        if(u!=null){
-            ListaVinili lib= (ListaVinili) snn.getAttribute("libreria");
-            if(lib!=null){
-                int Index=Integer.parseInt(request.getParameter("index"));
-                Vinile v=lib.get(Index);
-                int Quantita= Integer.parseInt(request.getParameter("quantita"));
-                double Prezzo=Double.parseDouble(request.getParameter("prezzo"));
-                String Artista= request.getParameter("nameArtist");
-                ListaDisponibiliDAO service=new ListaDisponibiliDAO();
-                v.setPrezzo(Prezzo);
-                v.setArtista(Artista);
-                lib.setQuantitaVin(v,Quantita);
-                service.changeById(v,Quantita);
-                System.out.println("aiuto");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
-                dispatcher.forward(request, response);
+        if(!snn.isNew()) {
+            if (u != null) {
+                if(u.isAdmin_bool()) {
+                    ListaVinili lib = (ListaVinili) snn.getAttribute("libreria");
+                    if (lib != null) {
+                        Integer Index = null;
+                        String index_s = request.getParameter("index");
+                        if (index_s != null)
+                            Index = Integer.parseInt(index_s);
+                        Integer Quantita = null;
+                        String quantita_s = request.getParameter("quantita");
+                        if (quantita_s != null)
+                            Quantita = Integer.parseInt(quantita_s);
+                        Double Prezzo = null;
+                        String prezzo_s=request.getParameter("prezzo");
+                        if(prezzo_s!=null)
+                            Prezzo=Double.parseDouble(prezzo_s);
+                        String Artista = request.getParameter("nameArtist");
+                        if(Index!=null&&Quantita!=null&&Prezzo!=null&&Artista!=null) {
+                            System.out.println("-------(Modifica articolo fatta)-------");
+                            Vinile v = lib.get(Index);
+                            ListaDisponibiliDAO service = new ListaDisponibiliDAO();
+                            v.setPrezzo(Prezzo);
+                            v.setArtista(Artista);
+                            lib.setQuantitaVin(v, Quantita);
+                            service.changeById(v, Quantita);
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin?src=adminVinile");
+                            dispatcher.forward(request, response);
+                        } else{
+                            response.sendError(500);
+                        }
+                    } else {
+                        response.sendError(500);
+                    }
+                } else{
+                    response.sendError(500);
+                }
+            } else {
+                response.sendError(500);
             }
-            else{
-                System.out.println("ciao");
-            }
-        }else{
-            System.out.println("ciao 1");
+        } else{
+            response.sendError(500);
         }
     }
 

@@ -40,8 +40,11 @@ public class UpdatePassUser extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
             }
             else{
-                //errore parametri
+                response.sendError(500);
             }
+        }
+        else{
+            response.sendError(500);
         }
         dispatcher.forward(request, response);
     }

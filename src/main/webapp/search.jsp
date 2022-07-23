@@ -63,12 +63,13 @@
                 $("#suggestion-box").show();
         })
 
-        //To select country name
+        //To suggest vinil name
         function selectSuggest(val) {
-            $("#search-box").val(val);
+            var id="#"+val;
+            var value=$(id).attr("value");
+            $("#search-box").val(value);
             $("#suggestion-box").hide();
-            var id=document.getElementById(val).getAttribute("value");
-            window.location.href = "./item.jsp?id="+id;
+            window.location.href = "./item.jsp?id="+val;
         }
         function search(){
             var val= document.getElementById("search-box").value;

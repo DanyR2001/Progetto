@@ -41,8 +41,9 @@
                 <label for="Upload">Immagine:</label>
                 <input type="file" id="Upload" accept=".png,.jpeg,.jpg,.svg" name="Upload" required />
             </div>
+            <div class="tags">
             <%
-                ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("Tags");
+                ArrayList<Tag> list= (ArrayList<Tag>) session.getAttribute("tags");
                 if(list!=null)
                     for(int i=0;i<list.size();i++) {
                         %>
@@ -53,6 +54,7 @@
                         <%
                     }
             %>
+            </div>
             <div class="input-wrap center">
                 <input type="submit" class="button" name="carica">
             </div>

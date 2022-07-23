@@ -22,13 +22,15 @@ public class SuggestName extends HttpServlet {
             if(snn!=null){
                 ListaVinili libreria= (ListaVinili) snn.getAttribute("libreria");
                 if(libreria!=null){
-                    List<Vinile> lib=libreria.getTitleContain(keyword);
-                    if(lib!=null)
-                        for(Vinile v: lib){
-                            out.println("<li class='c' value=\""+v.getPK()+"\" id=\""+v.getTitolo()+"\" onClick='selectSuggest(\""+v.getTitolo()+"\");'> <p>"+v.getTitolo()+"</p><sub>"+v.getArtista()+"</sub></li>");
-                        }
-                    /*else
-                        out.println("<li >Nessuna corrispondenza</li>");*/
+                    if(keyword.length()>0) {
+                        List<Vinile> lib = libreria.getTitleContain(keyword);
+                        if (lib != null) {
+                            for (Vinile v : lib) {
+                                out.println("<li class=\"c\" value=\"" + v.getTitolo() + "\" id=\"" + v.getPK() + "\" onClick=\"selectSuggest('" + v.getPK() + "');\"> <p>" + v.getTitolo() + "</p><sub>" + v.getArtista() + "</sub></li>");
+                            }
+                        } else
+                            out.println("<li class=\"c\" >Nessuna corrispondenza</li>");
+                    }
                 }
             }
             out.println("</ul>");

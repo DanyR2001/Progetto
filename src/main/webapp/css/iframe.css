@@ -275,3 +275,6 @@ p{
     position: relative;
     height: 37px;
 }
+.tags{
+    display: inline-flex
+}
