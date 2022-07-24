@@ -103,15 +103,11 @@
 <main class="cart-page">
     <div class="box">
         <div class="inner-box">
-            <a class="back" href="index.jsp">
-                <img src="img/back-button.png" class="back-image" alt="back-button">
-                <p>Home</p>
-            </a>
             <div class="err-desc">
                 <div class="err-wrap">
                     <div class="err-text">
                         <h1>Ops... <br> Qualcosa è andato storto</h1>
-                        <h3>Codice errore <%=response.getStatus()%>, vai <a href="./InitServlet">QUI</a></h3>
+                        <h5>Codice errore <%=response.getStatus()%>, vai <a href="./InitServlet">QUI</a></h5>
                     </div>
                     <img src="img/error.jpeg" class="image" alt="error">
                 </div>

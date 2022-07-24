@@ -1,44 +1,38 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.Tag" %><%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 24/05/22
-  Time: 11:37
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Model.Tag" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="css/iframe.css" type="text/css"/>
 </head>
 <body>
-<main>
+<main id ="mainV">
     <div class="fix">
         <a href="Admin?src=adminVinile"><img src="img/back-button.png" class="image"><p>Pagina precedenete</p></a>
     </div>
     <div class="box">
         <form method="post" action="NewVinil" enctype="multipart/form-data">
             <div class="input-wrap center">
-                <h1>Aggiunta vinile:</h1>
+                <h1>Aggiunta vinile</h1>
             </div>
             <div class="input-wrap">
-                <label for="titolo">Titolo: </label>
+                <label for="titolo">Titolo</label>
                 <input type="text" id="titolo" name="Titolo" required>
             </div>
             <div class="input-wrap">
-                <label for="Prezzo">Prezzo:</label>
+                <label for="Prezzo">Prezzo</label>
                 <input type="number" min="0" id="Prezzo" step=".01" name="Prezzo" required>
             </div>
             <div class="input-wrap">
-                <label for="Quantita">Quantita:</label>
+                <label for="Quantita">Quantita</label>
                 <input type="number" min="0" id="Quantita" name="Quantita" required>
             </div>
             <div class="input-wrap">
-                <label for="Artista">Artista:</label>
+                <label for="Artista">Artista</label>
                 <input type="text" id="Artista" name="Artista" required>
             </div>
             <div class="input-wrap">
-                <label for="Upload">Immagine:</label>
+                <label for="Upload">Immagine</label>
                 <input type="file" id="Upload" accept=".png,.jpeg,.jpg,.svg" name="Upload" required />
             </div>
             <div class="tags">

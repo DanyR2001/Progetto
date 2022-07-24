@@ -74,4 +74,5 @@ main .inner-box {
     display: flex;
     justify-content: center;
     width: inherit;
+    flex-direction: column;
 }

@@ -17,10 +17,10 @@
 </div>
 <table class="vin">
     <tr>
-        <td class="al"><h2>Titolo:</h2></td>
-        <td class="al"><h2>Quanità:</h2></td>
-        <td class="al"><h2>Prezzo:</h2></td>
-        <td class="al"><h2>Artista:</h2></td>
+        <td class="al"><h2>Titolo</h2></td>
+        <td class="al"><h2>Quanità</h2></td>
+        <td class="al"><h2>Prezzo</h2></td>
+        <td class="al"><h2>Artista</h2></td>
         <td></td>
     </tr>
 <%

@@ -1,13 +1,8 @@
 <%@ page import="Model.Tag" %>
 <%@ page import="Model.ListaVinili" %>
-<%@ page import="Model.Vinile" %><%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 19/07/22
-  Time: 23:36
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Model.Vinile" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="css/iframe.css" type="text/css"/>
@@ -22,11 +17,11 @@
     }
 %>
 
-<main>
+<main id="mainV">
     <div class="fix">
         <a href="Admin?src=adminTag"><img src="img/back-button.png" class="image"><p>Pagina precedenete</p></a>
     </div>
-    <div class="box">
+    <div class="box" id="box-tag">
         <div class="input-wrap">
             <h1>modifiche al tag <%=t.getNome()%> con id:<%=t.getId_tag()%></h1>
         </div>

@@ -1,30 +1,25 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Model.Tag" %>
 <%@ page import="Model.Vinile" %>
-<%@ page import="Model.ListaVinili" %><%--
-  Created by IntelliJ IDEA.
-  User: danielerusso
-  Date: 14/06/22
-  Time: 13:52
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Model.ListaVinili" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="css/iframe.css" type="text/css"/>
 </head>
 <body>
-<main>
-    <div class="fix">
-        <a href="Admin?src=adminTag"><img src="img/back-button.png" class="image"><p>Pagina precedenete</p></a>
-    </div>
-    <div class="box">
+    <main>
+        <div class="fix">
+            <a href="Admin?src=adminTag"><img src="img/back-button.png" class="image"><p>Pagina precedenete</p></a>
+        </div>
+        <div class="box">
             <form action="AddTag">
                 <div class="input-wrap center">
-                    <h1>Aggiunta tag:</h1>
+                    <h1>Aggiunta tag</h1>
                 </div>
                 <div class="input-wrap center">
-                        <label for="Nome">Inserisci il nome del tag</label>
+                        <label for="Nome">Nome Tag</label>
                         <input id="Nome" type="text" name="Nome" required>
                 </div>
                 <div class="input-wrap center">
@@ -55,6 +50,6 @@
                 </div>
             </form>
         </div>
-</main>
+    </main>
 </body>
 </html>
