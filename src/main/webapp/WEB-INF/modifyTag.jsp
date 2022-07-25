@@ -23,12 +23,12 @@
     </div>
     <div class="box" id="box-tag">
         <div class="input-wrap">
-            <h1>modifiche al tag <%=t.getNome()%> con id:<%=t.getId_tag()%></h1>
+            <h1>Modifiche al Tag "<%=t.getNome()%>"</h1>
         </div>
         <fieldset class="user-information">
-            <legend>Modifica nome</legend>
+            <legend>ID = <%=t.getId_tag()%></legend>
             <form action="ModNameTag">
-                <label for="nome">Nome:</label>
+                <label for="nome">Nome Tag:</label>
                 <input type="text" value="<%=t.getNome()%>" id="Nome" name="Nome" required>
                 <input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>">
                 <input type="submit" value="Modifica nome tag">
@@ -37,25 +37,26 @@
                 <input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>">
                 <input type="submit" value="rimuovi il tag">
             </form>
-        </fieldset>
-        <form action="UpdateTagList">
-        <%
-            ListaVinili lib= (ListaVinili) session.getAttribute("libreria");
-            ListaVinili lib_tag= (ListaVinili) session.getAttribute("List_tag_selected");
-            for(int i=0;i<lib.size();i++){
-                if(lib_tag.isPresent(lib.get(i))){
+            <form action="UpdateTagList" class="tag-list" id="list-tag">
+                <%
+                    ListaVinili lib= (ListaVinili) session.getAttribute("libreria");
+                    ListaVinili lib_tag= (ListaVinili) session.getAttribute("List_tag_selected");
+                    for(int i=0;i<lib.size();i++){
+                        if(lib_tag.isPresent(lib.get(i))){
                 %>
                 <input type="checkbox" name="vin" id="<%=lib.get(i).getPK()%>" value="<%=lib.get(i).getPK()%>" checked>
-                <label for="<%=lib.get(i).getPK()%>"><%=lib.get(i).getTitolo()%></label>
+                <label for="<%=lib.get(i).getPK()%>"><%=lib.get(i).getTitolo()%></label> <br>
                 <% }
                 else{%>
-                    <input type="checkbox" name="vin" id="<%=lib.get(i).getPK()%>" value="<%=lib.get(i).getPK()%>" >
-                    <label for="<%=lib.get(i).getPK()%>"><%=lib.get(i).getTitolo()%></label>
+                <input type="checkbox" name="vin" id="<%=lib.get(i).getPK()%>" value="<%=lib.get(i).getPK()%>" >
+                <label for="<%=lib.get(i).getPK()%>"><%=lib.get(i).getTitolo()%></label> <br>
                 <%}
-            }
-        %>
-            <input type="submit" value="Aggiorna la lista">
-        </form>
+                }
+                %>
+            </form>
+            <input type="submit" value="Aggiorna la lista" form="list-tag">
+        </fieldset>
+
     </div>
 </main>
 </body>

@@ -1,8 +1,8 @@
 div.show-item {
-    margin-left: 20px;
     display: flex;
     flex-wrap: wrap;
-    grid-gap: 10px;
+    column-gap: 10px;
+    row-gap: 20px;
 }
 
 div.search-panel {
@@ -24,9 +24,9 @@ div.panel {
 .item-container {
     margin: 12px 5px 0 5px;
     padding: 16px;
-    height: 320px;
+    height: 100%;
+    max-width: fit-content;
     background-color: white;
-    max-width: 232px;
     border-radius: 7px;
     box-shadow: 1px 4px 7px 1px #545454;
 }
@@ -55,8 +55,8 @@ div.panel {
 }
 
 img.item-img {
-    width: 200px;
-    height: 200px;
+    width: 12.5vw;
+    aspect-ratio: 1/1;
     border-radius: 7px;
     box-shadow: 0 1px 4px 1px #545454;
 }
@@ -81,7 +81,7 @@ img.item-img {
 }
 
 main .show {
-    margin-left: 10px;
+    margin-left: 4.7%;
     width: inherit;
 }
 
@@ -131,7 +131,33 @@ h3.tag {
     width: 25%;
 }
 
-@media screen and (max-width: 870px) {
+
+@media screen and (min-width:  1530px) {
+
+    main .show {
+        margin-left: 8%;
+    }
+}
+
+
+@media screen and (max-width: 1170px){
+
+    img.item-img {
+        width: 17.5vw;
+    }
+}
+
+@media screen and (max-width: 1087px){
+
+    main .show {
+        margin-left: 8%;
+    }
+    img.item-img {
+        width: 22vw;
+    }
+}
+
+@media screen and (max-width: 810px) {
 
     main {
         flex-direction: column;
@@ -140,5 +166,23 @@ h3.tag {
 
     div.search-panel {
         width: 95%;
+    }
+
+    main .show {
+        margin-top: 50px;
+    }
+
+    img.item-img {
+        width: 23.5vw;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    img.item-img {
+        width: 30vw;
+    }
+
+    main .show {
+        margin-left: 18%;
     }
 }

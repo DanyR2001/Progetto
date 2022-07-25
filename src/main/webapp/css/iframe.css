@@ -20,7 +20,6 @@ main .box {
 
 main .input-wrap {
     position: relative;
-    height: 37px;
     margin-bottom: 2rem;
 }
 
@@ -31,42 +30,6 @@ main .inner-box {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-main .empty-cart {
-    position: relative;
-    height: 90%;
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-main .cart {
-    position: relative;
-    height: 90%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-}
-
-main .cart-text {
-    margin-top: 10px;
-}
-
-
-main .empty-cart img {
-    max-width: 350px;
-    max-height: 350px;
-    width: 45%;
-}
-
-main .empty-cart-text{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 60px 0 60px;
 }
 
 #snackbar {
@@ -121,7 +84,7 @@ table{
     width: 100%;
 }
 .tag-table{
-    width: 100%;
+    width: 40%;
 }
 .tag{
     margin-top:35px;
@@ -185,10 +148,6 @@ td a img:hover, td a p:hover{
     background-color: #eae7e7;
 }
 
-.center{
-    text-align: center;
-}
-
 .center-link{
     justify-content: center;
     display: flex;
@@ -250,30 +209,10 @@ p{
     cursor: pointer;
     font-size: 0.9rem;
 }
-.riga{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    align-content: center;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.obj{
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    display: flex;
-    align-content: center;
-    flex-wrap: nowrap;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
+
 
 .margin{
-    margin-left: 5px;
-    margin-right: 5px;;
+    margin: 0 5px 2px 5px;
 }
 .set-tag{
     width: 100%;
@@ -293,6 +232,14 @@ input#titolo, input#Prezzo, input#Quantita, input#Artista {
 
 #box-tag {
     flex-direction: column;
-    align-items: unset;
     justify-content: unset;
+}
+
+.tag-list{
+    height: 200px;
+    overflow: auto;
+}
+
+.center {
+    text-align: center;
 }
