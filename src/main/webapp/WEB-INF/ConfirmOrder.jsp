@@ -154,11 +154,11 @@
                         </div>
                         <div class="input-wrap">
                             <label for="reg-citta">Città</label>
-                            <input type="text" name="citta" id="reg-citta" pattern="^[a-zA-Z]{1,100}$" title="Il citta puo contenere solo lettere" class="input-field" value="<%=u.getCitta()%>" required>
+                            <input type="text" name="citta" id="reg-citta" pattern="^[a-zA-Z ]{1,45}$" title="Il citta puo contenere solo lettere" class="input-field" value="<%=u.getCitta()%>" required>
                         </div>
                         <div class="input-wrap">
                             <label for="reg-cap">CAP</label>
-                            <input type="number" name="cap" id="reg-cap" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
+                            <input type="number" name="cap" id="reg-cap" pattern="^[0-9]{5}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
                         </div>
                         <div class="buttons">
                             <input type="submit" value="Conferma acquisto" class="button">

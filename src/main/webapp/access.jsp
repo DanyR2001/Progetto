@@ -220,11 +220,11 @@ if(flag!=null)
                             <div class="part1">
                                 <div class="input-wrap">
                                     <label for="reg-nome">Nome</label>
-                                    <input type="text" pattern="[A-Za-z ]{1,}" title="Il nome puo contere solo lettere" id="reg-nome" name="nome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z ]{1,30}" title="Il nome puo contere solo lettere" id="reg-nome" name="nome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cognome">Cognome</label>
-                                    <input type="text" pattern="[A-Za-z ]{1,}" title="Il cognome puo contere solo lettere" id="reg-cognome" name="cognome" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z ]{1,30}" title="Il cognome puo contere solo lettere" id="reg-cognome" name="cognome" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-date">Data di nascita</label>
@@ -239,7 +239,7 @@ if(flag!=null)
                             <div class="part2">
                                 <div class="input-wrap">
                                     <label for="reg-pass">Password</label>
-                                    <input type="password" id="reg-pass" pattern=".{8,}" title="La password deve essere di almeno 8 caratteri" name="pass" class="input-field" required>
+                                    <input type="password" id="reg-pass" pattern=".{8,100}" title="La password deve essere di almeno 8 caratteri" name="pass" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-via">Via</label>
@@ -247,11 +247,11 @@ if(flag!=null)
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-citta">Citta</label>
-                                    <input type="text" pattern="[A-Za-z ]{1,}" name="citta" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" required>
+                                    <input type="text" pattern="[A-Za-z ]{1,45}" name="citta" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" required>
                                 </div>
                                 <div class="input-wrap">
                                     <label for="reg-cap">CAP</label>
-                                    <input type="text" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" name="cap" id="reg-cap" class="input-field" required>
+                                    <input type="text" pattern="^[0-9]{5}$" title="Il cap puo contere solo 5 numeri" name="cap" id="reg-cap" class="input-field" required>
                                 </div>
                             </div>
                         </div>

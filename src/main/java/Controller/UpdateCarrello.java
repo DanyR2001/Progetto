@@ -18,14 +18,17 @@ public class UpdateCarrello extends HttpServlet {
         if(index_s!=null){
             index=Integer.parseInt(index_s);
         }
-        Integer quantita = null;
+        Integer quantita = 0;
         if(qt!=null)
             quantita = Integer.parseInt(qt);
         HttpSession snn=request.getSession();
         ListaVinili service= (ListaVinili) snn.getAttribute("libreria");
         Ordine carrello= (Ordine) snn.getAttribute("carrello");
-        if(snn!=null&&quantita!=null&&index!=null&&service!=null&&carrello!=null){
+        System.out.println("1");
+        if(snn!=null&&index!=null&&service!=null&&carrello!=null){
+            System.out.println("2");
             if(!snn.isNew()) {
+                System.out.println("3");
                 Vinile v = carrello.getCarrello().get(index).getArticolo();
                 int actual = carrello.getCarrello().get(index).getQuantita();
                 int remain = service.getQuantitaVin(v) - actual;
@@ -42,12 +45,10 @@ public class UpdateCarrello extends HttpServlet {
                 }
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
                 dispatcher.forward(request, response);
-            }
-            else{
+            } else{
                 response.sendError(500);
             }
-        }
-        else{
+        } else{
             response.sendError(500);
         }
     }

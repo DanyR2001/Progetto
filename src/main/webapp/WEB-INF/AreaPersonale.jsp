@@ -214,11 +214,11 @@
                 <form method="post" action="UpdatePassUser" id="UpPass">
                   <div class="input-wrap">
                     <label for="reg-pass">Inserisci la vecchia password:</label>
-                    <input type="password" id="reg-pass-old" name="pass-old" class="input-field" required>
+                    <input type="password" id="reg-pass-old" name="pass-old" pattern=".{1,100}" class="input-field" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-pass">Inserisci la nuova password:</label>
-                    <input type="password" id="reg-pass-new" pattern=".{8,}" title="La password deve essere di almeno 8 caratteri" name="pass-new" class="input-field" required>
+                    <input type="password" id="reg-pass-new" pattern=".{8,100}" title="La password deve essere di almeno 8 caratteri" name="pass-new" class="input-field" required>
                   </div>
                 </form>
 
@@ -234,11 +234,11 @@
                   <input type="hidden" name="id" value="<%=u.getID()%>">
                   <div class="input-wrap">
                     <label for="reg-nome">Nome</label>
-                    <input type="text" id="reg-nome" pattern="[A-Za-z ]{1,}" title="Il nome puo contere solo lettere" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
+                    <input type="text" id="reg-nome" pattern="[A-Za-z ]{1,30}" title="Il nome puo contere solo lettere" name="nome" class="input-field"  value="<%=u.getNome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-cognome">Cognome</label>
-                    <input type="text" id="reg-cognome" pattern="[A-Za-z ]{1,}" title="Il cognome puo contere solo lettere" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
+                    <input type="text" id="reg-cognome" pattern="[A-Za-z ]{1,30}" title="Il cognome puo contere solo lettere" name="cognome" class="input-field" value="<%=u.getCognome()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-date">Data di nascita</label>
@@ -250,11 +250,11 @@
                   </div>
                   <div class="input-wrap">
                     <label for="reg-citta">Citta</label>
-                    <input type="text" name="citta" pattern="[A-Za-z ]{1,}" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" value="<%=u.getCitta()%>" required>
+                    <input type="text" name="citta" pattern="[A-Za-z ]{1,45}" title="La citta puo contere solo lettere" id="reg-citta" class="input-field" value="<%=u.getCitta()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-cap">CAP</label>
-                    <input type="text" name="cap" id="reg-cap" pattern="^[1-9][0-9]{4}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
+                    <input type="text" name="cap" id="reg-cap" pattern="^[0-9]{5}$" title="Il cap puo contere solo 5 numeri" class="input-field" value="<%=u.getCap()%>" required>
                   </div>
                   <div class="input-wrap">
                     <label for="reg-pass">Inserire password per conferma</label>
