@@ -41,12 +41,10 @@ public class RedirectOrder extends HttpServlet {
                         }
                     }
                 }
-            }
-            else{
+            } else{
                 response.sendError(500);
             }
-        }
-        else{
+        } else{
             response.sendError(500);
         }
     }

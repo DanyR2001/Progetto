@@ -17,7 +17,7 @@ public class SuggestName extends HttpServlet {
         String keyword=request.getParameter("keyword");
         if(keyword!=null){
             PrintWriter out = response.getWriter();
-            HttpSession snn=request.getSession();
+            HttpSession snn = request.getSession();
             out.println("<ul id='country-list'>");
             if(snn!=null){
                 ListaVinili libreria= (ListaVinili) snn.getAttribute("libreria");

@@ -24,9 +24,11 @@ public class Search extends HttpServlet {
                     if (cont.length() >= 1)
                         vin = libreria.getTitleContain(cont);
                     else
-                        vin = libreria.getAvailableVinili().getAllVinili();
+                        vin = libreria.getAvailableVinili().getAllVinili(); //se ho premuto invio senza scrivere nulla prendo tutti i vinili disponibili
+
                     snn.setAttribute("listaResult", vin);
                     snn.setAttribute("String", cont);
+
                     if (snn.getAttribute("tags") == null)
                         snn.setAttribute("tags", TagsDAO.getAll());
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");

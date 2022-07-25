@@ -198,6 +198,7 @@ public class Ordine {
     }
 
     public ArrayList<Vinile> check(){
+
         ArrayList<Vinile> ret=new ArrayList<>();
         for(int i=0;i<list.size();i++) {
             Prodotto p = list.get(i);

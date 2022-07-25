@@ -48,14 +48,14 @@ public class OrdineDAO {
     }
 
     /**
-     *
-     * @param u
-     * @param temp
-     * @param service
-     * @return
+     * Questo metodo aggiorna il carrello nel database e restituisce i vinili tolti (nel caso in cui ci sia l'utente)
+     * @param u è l'utente
+     * @param temp è il carrello della sessione
+     * @param service è la lista dei vinili disponibili
+     * @return la lista dei vinili tolti dal carrello
      */
     public static ArrayList<Vinile> uploadOrdine(Utente u, Ordine temp, ListaVinili service) {
-        Ordine old = getCarrelloFromDb(u, service);
+        Ordine old = getCarrelloFromDb(u, service); //prendo carrello dal DB per tenere traccia di quello che ho tolto
         System.out.println("-----(aggiorno il carrello " + temp.getCodice() + " nel DB)----"); //prendo il carrello dell'utente dal DB
         if(old!=null) {
             if (old.getCarrello() != null) {
@@ -70,6 +70,7 @@ public class OrdineDAO {
                 }
             }
         }
+
         System.out.println("----(aggiorno il prezzo nel DB)----");
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -86,7 +87,7 @@ public class OrdineDAO {
             System.out.println("----(Inserisco un nuovo prodotto nel DB in comporre)----");
             insertProductByOrder(p, temp.getCodice());
         }
-        ArrayList<Vinile> ret=new ArrayList<>();
+        ArrayList<Vinile> ret = new ArrayList<>(); //vinili tolti
         int i=0,j=0;
         if(old.getCarrello()!=null)
             for(i=0;i<old.getCarrello().size();i++) {

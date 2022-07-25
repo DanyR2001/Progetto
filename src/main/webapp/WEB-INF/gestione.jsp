@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/admin.css" type="text/css"/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <title>Admin page - LP</title>

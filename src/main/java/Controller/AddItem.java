@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AddItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id= null;
+        Integer id = null;
         String id_s=request.getParameter("id");
         if(id_s!=null)
             id=Integer.parseInt(id_s);
