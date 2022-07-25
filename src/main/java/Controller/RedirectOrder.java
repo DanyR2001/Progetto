@@ -23,17 +23,22 @@ public class RedirectOrder extends HttpServlet {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
                     dispatcher.forward(request, response);
                 } else {
-                    System.out.println("complete 2");
-                    if (carrello.getCarrello() == null) {
-                        System.out.println("complete 2.1");
-                        //non si fa nulla
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                    if(user.isAdmin_bool()){
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
                         dispatcher.forward(request, response);
-                    } else if (carrello.getCarrello().size() > 0) {
-                        System.out.println("complete 2.2");
-                        //allora si conclude l'ordine
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ConfirmOrder.jsp");
-                        dispatcher.forward(request, response);
+                    }else {
+                        System.out.println("complete 2");
+                        if (carrello.getCarrello() == null) {
+                            System.out.println("complete 2.1");
+                            //non si fa nulla
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                            dispatcher.forward(request, response);
+                        } else if (carrello.getCarrello().size() > 0) {
+                            System.out.println("complete 2.2");
+                            //allora si conclude l'ordine
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ConfirmOrder.jsp");
+                            dispatcher.forward(request, response);
+                        }
                     }
                 }
             }
