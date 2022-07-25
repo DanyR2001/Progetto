@@ -135,9 +135,9 @@
 
                 <fieldset class="tags">
                     <legend>Filtri</legend>
-                    <input  class="filter" type="radio" id="testo" name="choose" value="Testo" form="form1" required>
+                    <input  class="filter" type="radio" id="testo" name="choose" value="Testo" form="form1" >
                     <label for="testo" class="filter-label">Testo</label>
-                    <input class="filter" type="radio" id="tag" name="choose" value="Tag" form="form1">
+                    <input class="filter" type="radio" id="tag" name="choose" value="Tag" form="form1" required>
                     <label for="tag" class="filter-label">Tag</label>
                 </fieldset>
 
