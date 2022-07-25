@@ -32,49 +32,6 @@ main .inner-box {
     align-items: center;
 }
 
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: white;
-    color: black;
-    text-align: center;
-    border-radius: 0.8rem;
-    padding: 16px;
-    position: fixed;
-    right: 30px;
-    top: 120px;
-    font-size: 0.8rem;
-    z-index: 1;
-    border: 2px solid black;
-}
-
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {right: 0; opacity: 0;}
-    to {right: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {right: 0; opacity: 0;}
-    to {right: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {right: 30px; opacity: 1;}
-    to {right: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {right: 30px; opacity: 1;}
-    to {right: 0; opacity: 0;}
-}
-
 table{
     border-collapse: collapse;
     margin-bottom: 100px;
@@ -198,6 +155,8 @@ p{
 }
 
 .button {
+    align-self: center;
+    text-align: center;
     display: inline-block;
     min-width: 100px;
     width: 45%;
@@ -208,6 +167,18 @@ p{
     border: none;
     cursor: pointer;
     font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.button:hover, ::-webkit-file-upload-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+.button-add-tag {
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -223,7 +194,14 @@ p{
     height: 37px;
 }
 .tags{
-    display: inline-flex
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow: auto;
+    padding: 3px;
+    border-radius: 10px;
+    border: 2px solid black;
 }
 
 input#titolo, input#Prezzo, input#Quantita, input#Artista {
@@ -236,10 +214,34 @@ input#titolo, input#Prezzo, input#Quantita, input#Artista {
 }
 
 .tag-list{
+    margin-bottom: 30px;
     height: 200px;
+    padding: 3px;
+    border-radius: 10px;
     overflow: auto;
+    border: 2px solid black;
 }
 
 .center {
     text-align: center;
+}
+
+.user-information {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#remove {
+    float: right;
+}
+
+::-webkit-file-upload-button {
+    text-align: center;
+    height: 30px;
+    background-color: #151111;
+    color: #fff;
+    border: 2px solid black;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 5px;
 }

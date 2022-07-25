@@ -58,6 +58,7 @@ iframe{
     border: none;
 }
 .main{
+    min-width: 510px;
     position:relative;
     overflow:auto;
     display:block;

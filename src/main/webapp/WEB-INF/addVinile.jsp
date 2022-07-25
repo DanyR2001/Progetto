@@ -41,10 +41,11 @@
                 if(list!=null)
                     for(int i=0;i<list.size();i++) {
                         %>
-                        <div class="input-wrap">
-                            <lable for="<%=list.get(i).getNome()%>"><%=list.get(i).getNome()%></lable>
-                            <input type="checkbox" id="<%=list.get(i).getNome()%>" name="<%=list.get(i).getNome()%>" value="<%=list.get(i).getId_tag()%>">
-                        </div>
+                            <div class="margin">
+                                <input type="checkbox" id="<%=list.get(i).getNome()%>" name="<%=list.get(i).getNome()%>" value="<%=list.get(i).getId_tag()%>">
+                                <lable for="<%=list.get(i).getNome()%>"><%=list.get(i).getNome()%></lable>
+                            </div>
+
                         <%
                     }
             %>

@@ -43,7 +43,7 @@
                                    }
                                 %>
                             </div>
-                <div class="button">
+                <div class="button-add-tag">
                     <input type="submit" class="button" value="Aggiungi">
                 </div>
             </form>

@@ -31,11 +31,10 @@
                 <label for="nome">Nome Tag:</label>
                 <input type="text" value="<%=t.getNome()%>" id="Nome" name="Nome" required>
                 <input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>">
-                <input type="submit" value="Modifica nome tag">
+                <input type="submit" value="Modifica nome tag" class="button">
             </form>
-            <form action="RemoveTag">
+            <form action="RemoveTag" id="remove-tag">
                 <input type="hidden" name="ID_tag" value="<%=t.getId_tag()%>">
-                <input type="submit" value="rimuovi il tag">
             </form>
             <form action="UpdateTagList" class="tag-list" id="list-tag">
                 <%
@@ -54,7 +53,11 @@
                 }
                 %>
             </form>
-            <input type="submit" value="Aggiorna la lista" form="list-tag">
+            <div>
+                <input type="submit" value="Aggiorna la lista" form="list-tag" class="button">
+                <input type="submit" value="Rimuovi il tag"  form="remove-tag" class="button" id="remove">
+            </div>
+
         </fieldset>
 
     </div>

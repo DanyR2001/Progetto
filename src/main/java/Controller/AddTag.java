@@ -31,7 +31,6 @@ public class AddTag extends HttpServlet {
                         for (String s : cheackbox) {
                             int x = Integer.parseInt(s);
                             TagsDAO.insertTagForVinil(x, t.getId_tag());
-                            //ciao
                         }
                     }
                 tags.add(t);
