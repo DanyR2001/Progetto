@@ -157,21 +157,23 @@
                                     <div class="to-show">
                                         <a href="item.jsp?id=<%=p.getArticolo().getPK()%>" class="product-titolo"><%=p.getArticolo().getTitolo()%></a>
                                         <p><%=p.getArticolo().getPrezzo()%></p>
-                                        <p><%=p.getPrezzo()%></p>
-                                        <a href="UpdateCarrello?index=<%=i%>" class="remove"><img src="img/delete.png" alt="delete"></a>
                                     </div>
-                                    <select name="quantita" onchange="submit(<%=i%>)">
-                                        <%
-                                            for(int j=0;j<=service.getQuantitaVin(p.getArticolo());j++){
-                                            if(j==p.getQuantita()){%>
-                                                <option selected="selected"><%=j%></option>
+                                    <div class="rem-qu">
+                                        <select name="quantita" onchange="submit(<%=i%>)">
+                                            <%
+                                                for(int j=0;j<=service.getQuantitaVin(p.getArticolo());j++){
+                                                    if(j==p.getQuantita()){%>
+                                            <option selected="selected"><%=j%></option>
                                             <%}
                                             else{%>
-                                                <option><%=j%></option>
-                                           <%}
-                                           }
-                                %>
-                                    </select>
+                                            <option><%=j%></option>
+                                            <%}
+                                            }
+                                            %>
+                                        </select>
+                                        <a href="UpdateCarrello?index=<%=i%>" class="remove to-show"><img src="img/delete.png" alt="delete"></a>
+                                    </div>
+
                                 </td>
                                 <td class="to-hide" id="prezzo"><%=p.getArticolo().getPrezzo()%></td>
                                 <td class="to-hide" id="subtotale"><%=p.getPrezzo()%></td>

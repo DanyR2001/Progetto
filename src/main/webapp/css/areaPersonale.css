@@ -310,3 +310,9 @@ main .input-wrap {
     }
 }
 
+@media screen and (max-width: 315px) {
+    .form-modify, .pass-modify {
+        margin: unset;
+    }
+}
+

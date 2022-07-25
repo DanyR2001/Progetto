@@ -76,3 +76,7 @@ main .inner-box {
     width: inherit;
     flex-direction: column;
 }
+
+div.err-text h1 {
+    font-size: 5vw;
+}

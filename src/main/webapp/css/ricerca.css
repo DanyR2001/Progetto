@@ -6,11 +6,11 @@ div.show-item {
 }
 
 div.search-panel {
+    min-width: 278px;
     width: 35%;
 }
 
 div.panel {
-    min-width: 300px;
     padding: 30px 40px;
     border-radius: 6px;
     background-color: white;
@@ -187,7 +187,7 @@ h3.tag {
     }
 }
 
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 380px) {
     img.item-img {
         width: 70vw;
     }

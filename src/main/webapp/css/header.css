@@ -8,6 +8,7 @@ html, body {
     font-family: ".SF NS Mono", sans-serif;
     font-size: 18px;
     background-color: white;
+    min-width: 309px;
 }
 
 main {
@@ -26,7 +27,7 @@ main {
     max-width: 100%;
     background-color: #FFFFFF;
     padding: 20px 10px;
-    min-width: 375px;
+    min-width: 309px;
     position: fixed;
     top: 0;
     width: 100%;
