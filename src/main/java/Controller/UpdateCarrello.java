@@ -38,8 +38,14 @@ public class UpdateCarrello extends HttpServlet {
                 ArrayList<Vinile> removed = carrello.check();
                 Utente u = (Utente) snn.getAttribute("utente");
                 if (u != null) {
-                    ArrayList<Vinile> lista = OrdineDAO.uploadOrdine(u, carrello, service);
-                    snn.setAttribute("removedVinil", lista);
+                    if(u.isAdmin_bool()){
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
+                        dispatcher.forward(request, response);
+                    }
+                    else {
+                        ArrayList<Vinile> lista = OrdineDAO.uploadOrdine(u, carrello, service);
+                        snn.setAttribute("removedVinil", lista);
+                    }
                 } else {
                     snn.setAttribute("removedVinil", removed);
                 }
