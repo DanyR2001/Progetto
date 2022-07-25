@@ -60,7 +60,7 @@ public class NewVinil extends HttpServlet {
                     String Titol = Titolo.replace(" ", "_");
                     String fileName = getFileName(image);
                     String[] arr = fileName.split("[.]");
-                    String estenzione = arr[1];
+                    String estenzione = arr[arr.length-1];
                     Titol = Titol + "." + estenzione;
                     fileName = Titol;
                     image.write(uploadPath + File.separator + fileName);

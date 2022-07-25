@@ -120,7 +120,7 @@ public class Utente {
     }
 
     public void setVia(String via) {
-        Via = via.substring(0,1).toUpperCase()+via.substring(1,via.length()).toLowerCase();
+        Via = CapitalizeName(via);
     }
 
     public int getCap() {

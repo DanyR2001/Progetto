@@ -21,10 +21,15 @@ public class AreaPersonale extends HttpServlet {
             if(lib!=null) {
                 if (u != null) {
                     System.out.println("------(Area presonale - Log)------");
-                    OldOrder old = OldOrderDAO.doRetriveById(u, lib);
-                    snn.setAttribute("OldOrdini", old);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
-                    dispatcher.forward(request, response);
+                    if(!u.isAdmin_bool()) {
+                        OldOrder old = OldOrderDAO.doRetriveById(u, lib);
+                        snn.setAttribute("OldOrdini", old);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AreaPersonale.jsp");
+                        dispatcher.forward(request, response);
+                    }else {
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 } else {
                     System.out.println("------(Area presonale - NoLog)------");
                     snn.setAttribute("noLogArea", false);

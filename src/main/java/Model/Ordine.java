@@ -154,8 +154,7 @@ public class Ordine {
                 list.add(p);
             }
             refreshCost();
-        }
-        else{
+        } else{
             list=new ArrayList<>();
             if(p.getQuantita()>service.getQuantitaVin(p.getArticolo()))
                 p.setQuantita(service.getQuantitaVin(p.getArticolo()));

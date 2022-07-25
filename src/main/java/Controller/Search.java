@@ -33,30 +33,35 @@ public class Search extends HttpServlet {
                     dispatcher.forward(request, response);
                 } else {
                     String radio = request.getParameter("choose");
-                    List resp = null;
-                    if (radio.equals("Testo")) {
-                        String testo = request.getParameter("search");
-                        if (testo != null) {
-                            if (testo.length() >= 1)
-                                resp = libreria.getTitleContain(testo);
-                            else
+                    if (radio != null) {
+                        List resp = null;
+                        if (radio.equals("Testo")) {
+                            String testo = request.getParameter("search");
+                            if (testo != null) {
+                                if (testo.length() >= 1)
+                                    resp = libreria.getTitleContain(testo);
+                                else
+                                    resp = libreria.getAvailableVinili().getAllVinili();
+                                snn.setAttribute("String", testo);
+                            }
+                        } else if (radio.equals("Tag")) {
+                            String[] selected = request.getParameterValues("cheackbox");
+                            if (selected != null) {
+                                if (selected.length > 0)
+                                    resp = libreria.getListFromTag(selected);
+                                else
+                                    resp = libreria.getAvailableVinili().getAllVinili();
+                            } else
                                 resp = libreria.getAvailableVinili().getAllVinili();
-                            snn.setAttribute("String", testo);
+                            snn.setAttribute("String", "");
                         }
-                    } else if (radio.equals("Tag")) {
-                        String[] selected = request.getParameterValues("cheackbox");
-                        if (selected != null) {
-                            if (selected.length > 0)
-                                resp = libreria.getListFromTag(selected);
-                            else
-                                resp = libreria.getAvailableVinili().getAllVinili();
-                        } else
-                            resp = libreria.getAvailableVinili().getAllVinili();
-                        snn.setAttribute("String", "");
+                        snn.setAttribute("listaResult", resp);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
+                        dispatcher.forward(request, response);
                     }
-                    snn.setAttribute("listaResult", resp);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
-                    dispatcher.forward(request, response);
+                    else{
+                        response.sendError(500);
+                    }
                 }
             } else {
                 response.sendError(500);

@@ -20,22 +20,32 @@ public class AddItem extends HttpServlet {
         if(quantita_s!=null)
             quantita=Integer.parseInt(quantita_s);
         HttpSession snn=request.getSession(false);
-        ListaVinili servise= (ListaVinili) snn.getAttribute("libreria");
-        Ordine carrello= (Ordine) snn.getAttribute("carrello");
-        if(snn!=null&&servise!=null&&carrello!=null&&quantita!=null&&id!=null) {
+        if(snn!=null&&quantita!=null&&id!=null) {
+            ListaVinili servise= (ListaVinili) snn.getAttribute("libreria");
+            Ordine carrello= (Ordine) snn.getAttribute("carrello");
             if(!snn.isNew()) {
-                Vinile act = servise.findViniliFromId(id);
-                Prodotto p = new Prodotto();
-                p.setArticolo(act);
-                p.setQuantita(quantita);
-                carrello.addProdotto(p, servise);
-                Utente u = (Utente) snn.getAttribute("utente");
-                if (u != null) {
-                    OrdineDAO.uploadOrdine(u, carrello, servise);
+                if(servise!=null&&carrello!=null) {
+                    Vinile act = servise.findViniliFromId(id);
+                    Prodotto p = new Prodotto();
+                    p.setArticolo(act);
+                    p.setQuantita(quantita);
+                    carrello.addProdotto(p, servise);
+                    Utente u = (Utente) snn.getAttribute("utente");
+                    if (u != null) {
+                        if(!u.isAdmin_bool()) {
+                            OrdineDAO.uploadOrdine(u, carrello, servise);
+                        }
+                        else{
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
+                            dispatcher.forward(request, response);
+                        }
+                    }
+                    snn.setAttribute("carrello", carrello);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                    dispatcher.forward(request, response);
+                } else{
+                    response.sendError(500);
                 }
-                snn.setAttribute("carrello", carrello);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request, response);
             }
             else{
                 response.sendError(500);
