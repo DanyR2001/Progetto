@@ -6,10 +6,10 @@
     HttpSession snn = request.getSession();
     Ordine carrello = (Ordine) snn.getAttribute("carrello");
     Utente u = (Utente) snn.getAttribute("utente");
-    if(u != null)
-        if(u.isAdmin_bool()) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-            dispatcher.forward(request, response);
+    Boolean admin=false;
+    if(u!=null)
+        if(u.isAdmin_bool()){
+            admin=true;
         }
 %>
 
@@ -26,7 +26,9 @@
 
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
-
+        <%if(admin){%>
+            window.location.href = "./Admin";
+        <% }%>
         $(document).ready(function(){
             $("#search-box").keyup(function(){
                 $.ajax({

@@ -49,8 +49,7 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
 
-        <%
-        if(admin||not_found||error){
+        <%if(admin||not_found||error){
             if(error&&not_found){%>
                 window.location.href = "./error.jsp";
         <%}else if(not_found&&!error){%>
@@ -59,8 +58,7 @@
             else if(admin){%>
                 window.location.href = "./Admin";
         <%}
-        }
-        %>
+        }%>
 
         $(document).ready(function(){
             $("#search-box").keyup(function(){

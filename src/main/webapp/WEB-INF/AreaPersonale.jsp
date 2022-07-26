@@ -14,10 +14,10 @@
   Ordine carrello = (Ordine) session.getAttribute("carrello");
   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   Date date = new Date();
+  Boolean admin=false;
   if(u!=null)
     if(u.isAdmin_bool()){
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-      dispatcher.forward(request, response);
+      admin=true;
     }
 %>
 <head>
@@ -34,6 +34,9 @@
   <script src="./lib/jquery-3.6.0.js"> </script>
 
   <script>
+    <%if(admin){%>
+      window.location.href = "./Admin";
+    <% }%>
     function myFunction() {
       var x = document.getElementById("snackbar");
       if(x!=null) {

@@ -9,16 +9,15 @@
         ListaVinili list1 = ((ListaVinili) snn.getAttribute("libreria"));
         ArrayList<Tag> tags = (ArrayList<Tag>) snn.getAttribute("tags");
         Ordine carrello = (Ordine) session.getAttribute("carrello");
+        Boolean error=false,admin=false;
         if(snn==null||carrello==null||list1==null||tags==null) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                dispatcher.forward(request, response);
+                error=true;
         }
         Utente u = (Utente) snn.getAttribute("utente");
         Integer num= (Integer) snn.getAttribute("numRemoved");
         if(u!=null)
             if(u.isAdmin_bool()){
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-                dispatcher.forward(request, response);
+                admin=true;
             }
 %>
 <head>
@@ -34,7 +33,14 @@
     <script src="./lib/jquery-3.6.0.js"> </script>
 
     <script>
-
+        <%if(admin||error){
+            if(error){%>
+                window.location.href = "./error.jsp";
+        <%}else if(admin){%>
+                window.location.href = "./Admin";
+            <%}
+        }
+        %>
         function next(id) {
             var container = document.getElementById(''+id);
             var width = container.offsetWidth;

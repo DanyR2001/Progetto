@@ -14,10 +14,10 @@
     String val= (String) session.getAttribute("String");
     List<Vinile> result= (List<Vinile>) session.getAttribute("listaResult");
     List<Tag> lista= (List<Tag>) session.getAttribute("tags");
+    Boolean admin=false;
     if(u!=null)
         if(u.isAdmin_bool()){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-            dispatcher.forward(request, response);
+            admin=true;
         }
 %>
 <head>
@@ -39,8 +39,9 @@
 
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
-
-
+        <%if(admin){%>
+            window.location.href = "./Admin";
+        <% }%>
         $(document).ready(function(){
             $("#search-box").keyup(function(){
                 $.ajax({

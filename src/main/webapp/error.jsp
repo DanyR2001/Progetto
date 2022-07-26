@@ -9,11 +9,6 @@
         carrello=new Ordine();
     }
     Utente u = (Utente) snn.getAttribute("utente");
-    if(u != null)
-        if(u.isAdmin_bool()) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-            dispatcher.forward(request, response);
-        }
 %>
 
 <head>
