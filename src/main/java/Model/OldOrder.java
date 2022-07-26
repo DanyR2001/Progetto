@@ -18,6 +18,10 @@ public class OldOrder {
         return list;
     }
 
+    /**
+     * setta la lista degli ordini
+     * @param list lista ordini
+     */
     public void setList(ArrayList<Ordine> list) {
         this.list = list;
     }

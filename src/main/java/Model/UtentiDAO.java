@@ -5,6 +5,10 @@ import java.sql.*;
 
 public class UtentiDAO {
 
+    /**
+     * questo metodo aggiorna i dati di un utente nel DB
+     * @param u è l'utente da inserire nel DB
+     */
     public static void doUpdate(Utente u){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -26,6 +30,12 @@ public class UtentiDAO {
         }
     }
 
+    /**
+     * questo metodo inserisce un nuovo utente nel DB
+     * @param u è l'utente da inserire
+     * @return true se l'utente è stato inserito con successo, false altrimenti
+     * @throws IOException
+     */
     public static boolean doSave(Utente u) throws IOException {
         boolean status=true;
         try (Connection con = ConPool.getConnection()) {
@@ -56,6 +66,13 @@ public class UtentiDAO {
         }
         return status;
     }
+
+    /**
+     * prendere un utente dal DB data la mail e la password
+     * @param mail è la mail dell'utente
+     * @param passw è la password dell'utente
+     * @return l'utente se esiste, null altrimenti
+     */
     public static Utente doRetrieveByUsernamePassword(String mail, String passw){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =

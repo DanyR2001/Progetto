@@ -64,7 +64,6 @@
                 $("#suggestion-box").show();
         })
 
-        //To suggest vinil name
         function selectSuggest(val) {
             var id="#"+val;
             var value=$(id).attr("value");
@@ -72,6 +71,7 @@
             $("#suggestion-box").hide();
             window.location.href = "./item.jsp?id="+val;
         }
+
         function search(){
             var val= document.getElementById("search-box").value;
             if (event.keyCode == 13)

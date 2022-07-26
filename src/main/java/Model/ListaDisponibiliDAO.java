@@ -4,6 +4,10 @@ import java.sql.*;
 
 public class ListaDisponibiliDAO {
 
+    /**
+     * Questo metodo restiruisce tutti i vinili presenti nel DB
+     * @return lista dei vinili disponibili
+     */
      public ListaVinili getAll(){
          System.out.println("---(inizio lista vinili da db)---");
          boolean flag=false;
@@ -38,6 +42,12 @@ public class ListaDisponibiliDAO {
 
      }
 
+    /**
+     * Questo metodo cambia nel DB la quantità di un vinile, andando a sottrarre la quantità passata come parametro
+     * a quella totale del vinile presente nel DB
+     * @param quantita quantità da rimuovere
+     * @param id_vinile id del vinile in questione
+     */
      public void changeQuantiti(int quantita,int id_vinile){
          //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
          try (Connection con = ConPool.getConnection()) {
@@ -54,6 +64,11 @@ public class ListaDisponibiliDAO {
 
      }
 
+    /**
+     * questo metodo inserisce un nuovo vinile nel DB
+     * @param v il vinile da aggiungere
+     * @param quantita quanti vinili aggiungere nel DB
+     */
     public void insertVinil(Vinile v, Integer quantita) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -73,12 +88,17 @@ public class ListaDisponibiliDAO {
             v.setPK(id);
             if(v.getTags()!=null)
                 for(int i=0;i<v.getTags().size();i++)
-                    TagsDAO.insertTagForVinil(v.getPK(),v.getTags().get(i).getId_tag());
+                    TagsDAO.insertTagForVinil(v.getPK(),v.getTags().get(i).getId_tag()); //per ogni tag associato a quel vinile, lo aggiungo al DB
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * cambia i dati del vinile. il vinile passato come parametro è già modificato, lo si va a salvare nel database
+     * @param v modificato che va salvato nel DB
+     * @param quantita quantità del vinile
+     */
     public void changeById(Vinile v, int quantita){
         //update vinilidisp set Quantita = Quantita - 2  where ID = 1;
         try (Connection con = ConPool.getConnection()) {

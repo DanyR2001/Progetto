@@ -104,6 +104,11 @@ public class OrdineDAO {
 
     }
 
+    /**
+     * questo metodo inserisce un ordine nella tabella ordini del DB, associato all'utente u
+     * @param u è l'utente che ha effettuato l'ordine
+     * @param temp è l'ordine effettuato da u
+     */
     public static void insertOrdine(Utente u, Ordine temp) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -113,7 +118,7 @@ public class OrdineDAO {
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("Update error.");
             }
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys(); //prendo il codice dell'ordine
             rs.next();
             int codice = rs.getInt(1);
             temp.setCodice(codice);
@@ -125,7 +130,13 @@ public class OrdineDAO {
         }
     }
 
-//ok
+
+    /**
+     * questo metodo restituisce i prodotti di un oridine in comporre
+     * @param o è l'ordine da cui prendere i prodotti
+     * @param service è la lista dei vinili disponibili (ne ho bisogno perché in prodotto non ho il vinile, ma l'id di esso)
+     * @return
+     */
     public static List<Prodotto> listaTupleDB(Ordine o, ListaVinili service){
         System.out.println("---(inizio lettura dei componenti del carrello da db)---");
         try (Connection con = ConPool.getConnection()) {
@@ -158,7 +169,7 @@ public class OrdineDAO {
     /**
      * Questo metodo prende il carrello di un utente dal DB
      * @param u è l'id dell'utente
-     * @param service è la lista dei vinili disponibili
+     * @param service è la lista dei vinili disponibili, serve per prendere i prodotti
      * @return il carrello dell'utente se esiste nel Db, altrimenti null
      */
     public static Ordine getCarrelloFromDb(Utente u, ListaVinili service){
@@ -184,6 +195,11 @@ public class OrdineDAO {
         }
     }
 
+    /**
+     * questo metodo inserisce completa un ordine nel DB, settando la data di evasione e l'indirizzo di spedizione,
+     * e modificando la quantità dei vinili disponibili nel DB
+     * @param carrello è l'ordine da completare
+     */
     public static void completeOrdine(Ordine carrello){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -201,7 +217,7 @@ public class OrdineDAO {
             ListaDisponibiliDAO service=new ListaDisponibiliDAO();
             if(carrello.getCarrello()!=null)
                 for(Prodotto p: carrello.getCarrello())
-                    service.changeQuantiti(p.getQuantita(),p.getArticolo().getPK());
+                    service.changeQuantiti(p.getQuantita(),p.getArticolo().getPK()); //cambio quantità dei vinili disponibili
             if (ps.executeUpdate() < 1) {
                 throw new RuntimeException("2 Update error.");
             }

@@ -3,7 +3,7 @@
 <html>
 
 <%
-    Boolean error=false,not_found=false,admin=false;
+    Boolean error=false, not_found=false, admin=false;
     Integer Id = null;
     try {
         Id = Integer.parseInt(request.getParameter("id"));
