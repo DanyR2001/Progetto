@@ -3,31 +3,28 @@
 <html>
 
 <%
+    Boolean error=false,not_found=false,admin=false;
     Integer Id = null;
     try {
         Id = Integer.parseInt(request.getParameter("id"));
     }catch (NumberFormatException e){
-        RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-        dispatcher.forward(request, response);
+        error=true;
     }
     HttpSession snn = request.getSession();
     Ordine carrello = (Ordine) snn.getAttribute("carrello");
     ListaVinili service = (ListaVinili) snn.getAttribute("libreria");
     if(snn==null||carrello==null||service==null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-        dispatcher.forward(request, response);
+        error=true;
     }
     Vinile v = service.findViniliFromId(Id);
     if(v==null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-        dispatcher.forward(request, response);
+        not_found=true;
     }
     Prodotto eq = null;
     Utente u = (Utente) snn.getAttribute("utente");
     if(u != null)
         if(u.isAdmin_bool()) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin");
-            dispatcher.forward(request, response);
+            admin=true;
         }
     if(carrello != null)
         if(carrello.getCarrello() != null)
@@ -35,7 +32,11 @@
 %>
 
 <head>
-    <title><%=v.getArtista()%> - <%=v.getTitolo()%> </title>
+    <%
+        if(v!=null){%>
+        <title><%=v.getArtista()%> - <%=v.getTitolo()%> </title>
+    <%}
+    %>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +48,19 @@
 
     <script src="./lib/jquery-3.6.0.js"> </script>
     <script>
+
+        <%
+        if(admin||not_found||error){
+            if(error&&not_found){%>
+                window.location.href = "./error.jsp";
+        <%}else if(not_found&&!error){%>
+                window.location.href = "./not-found.jsp";
+        <%}
+            else if(admin){%>
+                window.location.href = "./Admin";
+        <%}
+        }
+        %>
 
         $(document).ready(function(){
             $("#search-box").keyup(function(){
@@ -123,12 +137,17 @@
         <div class="inner-box">
 
                 <div class="item-image">
-                    <img src="<%=application.getContextPath()+ v.getUrl()%>">
+                    <%
+                        if(v!=null){%>
+                        <img src="<%=application.getContextPath()+ v.getUrl()%>">
+                    <%}
+                    %>
                 </div>
                 <div class="item-info">
 
                     <form action="AddItem" class="item-info-form">
-
+                            <%
+                     if(v!=null){%>
                         <h1><%=v.getTitolo()%></h1>
                         <sub><%=v.getArtista()%></sub>
 
@@ -184,7 +203,8 @@
                                 <%}
                             }%>
                     </div>
-                </div>
+            <%}%>
+            </div>
         </div>
     </div>
 </main>

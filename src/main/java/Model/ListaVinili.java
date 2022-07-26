@@ -12,7 +12,9 @@ public class ListaVinili {
         size= new ArrayList<>();
     }
 
-    public Vinile findViniliFromId(int id){
+    public Vinile findViniliFromId(Integer id){
+        if(id==null)
+            return null;
         if(list.size()>0)
             for(Vinile v: list)
                 if(v.getPK()==id)
