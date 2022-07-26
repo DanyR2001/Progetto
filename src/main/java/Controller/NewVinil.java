@@ -70,7 +70,6 @@ public class NewVinil extends HttpServlet {
                     if (list != null)
                         for (int i = 0; i < list.size(); i++) {
                             if (request.getParameter(list.get(i).getNome()) != null) {
-                                System.out.println("prova " + request.getParameter(list.get(i).getNome()));
                                 list_tag.add(list.get(i));
                             }
                         }

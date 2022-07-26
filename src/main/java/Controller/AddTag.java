@@ -18,17 +18,16 @@ public class AddTag extends HttpServlet {
         HttpSession snn=request.getSession();
         ArrayList<Tag> tags= (ArrayList<Tag>) snn.getAttribute("tags");
         Utente u= (Utente) snn.getAttribute("utente");
-        System.out.println("p1");
         if(!snn.isNew()&&nome!=null&&tags!=null&&u!=null) {
             if(u.isAdmin_bool()) {
                 String[] cheackbox = request.getParameterValues("tag");
-                System.out.println("p2");
-                System.out.println("p3");
+                System.out.println("--(Tag aggiunto)--");
                 Tag t = TagsDAO.insertTag(nome);
                 if (cheackbox != null)
                     if (cheackbox.length >= 1) {
                         System.out.println("p4");
                         for (String s : cheackbox) {
+                            System.out.println("--(Tag aggiunto per il vinili)--");
                             int x = Integer.parseInt(s);
                             TagsDAO.insertTagForVinil(x, t.getId_tag());
                         }

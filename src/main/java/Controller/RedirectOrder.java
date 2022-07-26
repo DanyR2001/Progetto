@@ -18,7 +18,7 @@ public class RedirectOrder extends HttpServlet {
         if(session!=null&&carrello!=null) {
             if(!session.isNew()) {
                 if (user == null) {
-                    System.out.println("complete 1");
+                    System.out.println("--(Utente non loggato)--");
                     session.setAttribute("noLogOrder", false);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
                     dispatcher.forward(request, response);
@@ -27,14 +27,14 @@ public class RedirectOrder extends HttpServlet {
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestione.jsp");
                         dispatcher.forward(request, response);
                     }else {
-                        System.out.println("complete 2");
+                        System.out.println("--(Utente loggato)--");
                         if (carrello.getCarrello() == null) {
-                            System.out.println("complete 2.1");
+                            System.out.println("--(lista prodotti vuota)--");
                             //non si fa nulla
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
                             dispatcher.forward(request, response);
                         } else if (carrello.getCarrello().size() > 0) {
-                            System.out.println("complete 2.2");
+                            System.out.println("--(lista prodotti presente, redirect)--");
                             //allora si conclude l'ordine
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/ConfirmOrder.jsp");
                             dispatcher.forward(request, response);

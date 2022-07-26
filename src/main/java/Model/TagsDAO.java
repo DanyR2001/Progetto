@@ -79,9 +79,9 @@ public class TagsDAO {
             ps.setInt(1,id);
             int rs = ps.executeUpdate();
             if(rs>=1)
-                System.out.println("bene");
+                System.out.println("--(Rimozione Tag-Vinile andata a buon fine)--");
             else
-                System.out.println("no bene");
+                System.out.println("--(Rimozione Tag-Vinile non andata a buon fine)--");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -94,9 +94,9 @@ public class TagsDAO {
             ps.setInt(1,id);
             int rs = ps.executeUpdate();
             if(rs>=1)
-                System.out.println("bene");
+                System.out.println("--(Rimozione Tag andata a buon fine)--");
             else
-                System.out.println("no bene");
+                System.out.println("--(Rimozione Tag non andata a buon fine)--");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

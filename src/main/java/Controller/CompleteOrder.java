@@ -19,19 +19,19 @@ public class CompleteOrder extends HttpServlet {
         if(session!=null&&carrello!=null) {
             if(!session.isNew()) {
                 if (user == null) {
-                    System.out.println("complete 1");
+                    System.out.println("--(Utente non loggato)--");
                     session.setAttribute("login", false);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/access.jsp");
                     dispatcher.forward(request, response);
                 } else {
-                    System.out.println("complete 2");
+                    System.out.println("--(Utente loggato)--");
                     if (carrello.getCarrello() == null) {
-                        System.out.println("complete 2.1");
+                        System.out.println("--(Lista prodotti vuota)--");
                         //non si fa nulla
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
                         dispatcher.forward(request, response);
                     } else if (carrello.getCarrello().size() > 0) {
-                        System.out.println("complete 2.2");
+                        System.out.println("--(Lista prodotti presente)--");
                         //allora si conclude l'ordine
                         String via = request.getParameter("via");
                         String cap_s = request.getParameter("cap");
@@ -47,9 +47,8 @@ public class CompleteOrder extends HttpServlet {
                             carrello.setCitta(citta);
                             OrdineDAO.completeOrdine(carrello);
                             session.removeAttribute("carrello");
+                            System.out.println("--(Ordine completato)--");
                         }
-                        //devo scalare la quantita dei presi dai vinili
-                        //session.setAttribute("carrello",carrello);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("InitServlet");
                         dispatcher.forward(request, response);
                     }
